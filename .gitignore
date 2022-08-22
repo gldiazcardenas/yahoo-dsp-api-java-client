@@ -4,7 +4,9 @@
 # Log file
 *.log
 
-# BlueJ files
+# IDE files
+.idea/
+target/
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
