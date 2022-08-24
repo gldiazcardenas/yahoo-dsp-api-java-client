@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DspToken {
+public class Authentication {
 
     @JsonProperty("access_token")
     private String accessToken;
@@ -53,4 +53,15 @@ public class DspToken {
     public void setExpirationSecs(int expirationSecs) {
         this.expirationSecs = expirationSecs;
     }
+
+    @Override
+    public String toString() {
+        return "DspAccessToken{" +
+                "accessToken='" + accessToken + '\'' +
+                ", scope='" + scope + '\'' +
+                ", tokenType='" + tokenType + '\'' +
+                ", expirationSecs=" + expirationSecs +
+                '}';
+    }
+
 }

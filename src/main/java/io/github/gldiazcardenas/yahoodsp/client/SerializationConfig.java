@@ -1,6 +1,6 @@
 package io.github.gldiazcardenas.yahoodsp.client;
 
-public class SerializationConfig {
+public final class SerializationConfig {
 
     private final boolean ignoreNullProperties;
     private final boolean failOnUnknownProperties;
@@ -29,7 +29,7 @@ public class SerializationConfig {
         private boolean failOnUnknownProperties;
 
         Builder() {
-            super();
+            this.ignoreNullProperties = true;
         }
 
         public Builder setFailOnUnknownProperties(boolean failOnUnknownProperties) {

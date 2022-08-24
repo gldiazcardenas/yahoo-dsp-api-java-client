@@ -1,19 +1,31 @@
 package io.github.gldiazcardenas.yahoodsp.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationError;
+import io.github.gldiazcardenas.yahoodsp.client.model.DspError;
+import io.github.gldiazcardenas.yahoodsp.client.model.DspErrorResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.DspErrorValidation;
+import io.github.gldiazcardenas.yahoodsp.client.service.DspApiError;
+import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import okhttp3.ConnectionPool;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.CallAdapter;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 final class CommunicationFactory {
@@ -21,39 +33,16 @@ final class CommunicationFactory {
     private final Retrofit trafficRetrofit;
     private final Retrofit authRetrofit;
     private final Retrofit reportRetrofit;
+    private final CommunicationConfig communication;
+    private final ObjectMapper objectMapper;
 
-    CommunicationFactory(CommunicationConfig config, SerializationFactory serializationFactory) {
-        Retrofit.Builder retrofitBuilder = createRetrofitBuilder(config, serializationFactory);
-        this.authRetrofit = retrofitBuilder.baseUrl(config.getAuthApiUrl()).build();
-        this.trafficRetrofit = retrofitBuilder.baseUrl(config.getTrafficApiUrl()).build();
-        this.reportRetrofit = retrofitBuilder.baseUrl(config.getReportApiUrl()).build();
-    }
+    CommunicationFactory(CommunicationConfig communication, ObjectMapper objectMapper) {
+        this.communication = communication;
+        this.objectMapper = objectMapper;
 
-    private Retrofit.Builder createRetrofitBuilder(CommunicationConfig config, SerializationFactory serializationFactory) {
-        return new Retrofit.Builder()
-                .addConverterFactory(JacksonConverterFactory.create(serializationFactory.getObjectMapper()))
-                .addCallAdapterFactory(SynchronousCallAdapter.create())
-                .client(createOkHttpClient(config));
-    }
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(communication.getHttpLogger());
 
-    private OkHttpClient createOkHttpClient(CommunicationConfig config) {
-        return new OkHttpClient.Builder()
-                .addInterceptor(createLoggingInterceptor(config))
-                .addInterceptor(new UserAgentInterceptor(config))
-                .readTimeout(config.getReadTimeout())
-                .writeTimeout(config.getWriteTimeout())
-                .connectTimeout(config.getConnectTimeout())
-                .connectionPool(new ConnectionPool(
-                        config.getMaxIdleConnections(),
-                        config.getConnectionsTimeAlive().toMillis(),
-                        TimeUnit.MILLISECONDS))
-                .build();
-    }
-
-    private HttpLoggingInterceptor createLoggingInterceptor(CommunicationConfig config) {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(config.getHttpLogger());
-
-        if (config.isDebug()) {
+        if (communication.isDebug()) {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             loggingInterceptor.redactHeader("X-Auth-Method");
             loggingInterceptor.redactHeader("X-Auth-Token");
@@ -62,7 +51,38 @@ final class CommunicationFactory {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         }
 
-        return loggingInterceptor;
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(new UserAgentInterceptor())
+                .readTimeout(communication.getReadTimeout())
+                .writeTimeout(communication.getWriteTimeout())
+                .connectTimeout(communication.getConnectTimeout())
+                .connectionPool(new ConnectionPool(
+                        communication.getMaxIdleConnections(),
+                        communication.getConnectionsTimeAlive().toMillis(),
+                        TimeUnit.MILLISECONDS))
+                .build();
+
+        this.authRetrofit = new Retrofit.Builder()
+                .baseUrl(communication.getAuthApiUrl())
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+                .addCallAdapterFactory(new AuthenticationCallAdapterFactory())
+                .client(okHttpClient)
+                .build();
+
+        this.trafficRetrofit = new Retrofit.Builder()
+                .baseUrl(communication.getTrafficApiUrl())
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+                .addCallAdapterFactory(new DefaultCallAdapterFactory())
+                .client(okHttpClient)
+                .build();
+
+        this.reportRetrofit = new Retrofit.Builder()
+                .baseUrl(communication.getReportApiUrl())
+                .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+                .addCallAdapterFactory(new DefaultCallAdapterFactory())
+                .client(okHttpClient)
+                .build();
     }
 
     public <E> E createAuthEndpoint(Class<E> clazz) {
@@ -77,35 +97,22 @@ final class CommunicationFactory {
         return reportRetrofit.create(clazz);
     }
 
-    private static final class UserAgentInterceptor implements Interceptor {
-
-        private final CommunicationConfig config;
-
-        private UserAgentInterceptor(CommunicationConfig config) {
-            this.config = config;
-        }
-
+    private final class UserAgentInterceptor implements Interceptor {
         @NotNull
         @Override
-        public Response intercept(Chain chain) throws IOException {
-            return chain.proceed(chain.request().newBuilder().header("User-Agent", config.getUserAgent()).build());
+        public okhttp3.Response intercept(Chain chain) throws IOException {
+            return chain.proceed(chain.request().newBuilder().header("User-Agent", communication.getUserAgent()).build());
         }
-
     }
 
-    private static class SynchronousCallAdapter extends CallAdapter.Factory {
-
-        public static SynchronousCallAdapter create() {
-            return new SynchronousCallAdapter();
-        }
-
+    private final class AuthenticationCallAdapterFactory extends CallAdapter.Factory {
         @Override
         public CallAdapter<Object, Object> get(@NotNull final Type returnType,
                                                @NotNull Annotation[] annotations,
                                                @NotNull Retrofit retrofit) {
 
             if (returnType instanceof Call || returnType.toString().contains("retrofit2.Call")) {
-                return null;
+                throw new UnsupportedOperationException("Async calls not supported yet!");
             }
 
             return new CallAdapter<Object, Object>() {
@@ -115,14 +122,124 @@ final class CommunicationFactory {
                     return returnType;
                 }
 
-                @NotNull
                 @Override
                 public Object adapt(@NotNull Call<Object> call) {
-                    return new Object();
+                    try {
+                        Response<Object> response = call.execute();
+
+                        if (response.isSuccessful()) {
+                            return response.body();
+                        }
+
+                        AuthenticationError authError;
+
+                        try (ResponseBody errorResponse = response.errorBody()) {
+                            if (errorResponse == null) {
+                                authError = new AuthenticationError();
+                                authError.setError(response.message());
+                                authError.setDescription(response.toString());
+                            }
+                            else {
+                                authError = objectMapper.readValue(errorResponse.bytes(), AuthenticationError.class);
+                            }
+                        }
+
+                        DspApiError apiError = new DspApiError();
+                        apiError.setStatusCode(response.code());
+                        apiError.setPath(call.request().url().toString());
+                        apiError.setMethod(call.request().method());
+                        apiError.setMessage(authError.getError());
+                        apiError.addValidation(authError.getDescription());
+                        apiError.setTimestamp(LocalDateTime.now());
+
+                        throw new DspApiException(apiError);
+                    }
+                    catch (Throwable e) {
+                        communication.getHttpLogger().log(e.getLocalizedMessage());
+                        if (e instanceof DspApiException) {
+                            throw  (DspApiException) e;
+                        }
+                        throw new DspApiException(e);
+                    }
                 }
             };
         }
+    }
 
+    private final class DefaultCallAdapterFactory extends CallAdapter.Factory {
+        @Override
+        public CallAdapter<Object, Object> get(@NotNull final Type returnType,
+                                               @NotNull Annotation[] annotations,
+                                               @NotNull Retrofit retrofit) {
+
+            if (returnType instanceof Call || returnType.toString().contains("retrofit2.Call")) {
+                throw new UnsupportedOperationException("Async calls not supported yet!");
+            }
+
+            return new CallAdapter<Object, Object>() {
+                @NotNull
+                @Override
+                public Type responseType() {
+                    return returnType;
+                }
+
+                @Override
+                public Object adapt(@NotNull Call<Object> call) {
+                    try {
+                        Response<Object> response = call.execute();
+
+                        if (response.isSuccessful()) {
+                            return response.body();
+                        }
+
+                        DspErrorResponse dspError;
+
+                        try (ResponseBody errorResponse = response.errorBody()) {
+                            if (errorResponse == null) {
+                                dspError = new DspErrorResponse();
+                                dspError.setError(new DspError());
+                                dspError.getError().setMessage(response.message());
+                                dspError.setTimestamp(LocalDateTime.now());
+                            }
+                            else {
+                                dspError = objectMapper.readValue(errorResponse.bytes(), DspErrorResponse.class);
+                            }
+                        }
+
+                        List<DspErrorValidation> validations = null;
+
+                        if (dspError.getValidations() != null && !dspError.getValidations().isEmpty()) {
+                            validations = new ArrayList<>(dspError.getValidations());
+                        }
+
+                        if (dspError.getError() != null && dspError.getError().getValidations() != null &&
+                                !dspError.getError().getValidations().isEmpty()) {
+                            if (validations == null) {
+                                validations = new ArrayList<>();
+                            }
+                            validations.addAll(dspError.getError().getValidations());
+                        }
+
+                        DspApiError apiError = new DspApiError();
+                        apiError.setStatusCode(response.code());
+                        apiError.setPath(call.request().url().toString());
+                        apiError.setMethod(call.request().method());
+                        apiError.setMessage(Optional.ofNullable(dspError.getError()).map(DspError::getMessage).orElse(null));
+                        apiError.setTimestamp(Optional.ofNullable(dspError.getTimestamp()).orElse(LocalDateTime.now()));
+                        apiError.setValidations(validations);
+
+                        throw new DspApiException(apiError);
+                    }
+                    catch (Throwable e) {
+                        communication.getHttpLogger().log(e.getLocalizedMessage());
+                        if (e instanceof DspApiException) {
+                            throw  (DspApiException) e;
+                        }
+                        throw new DspApiException(e);
+                    }
+                }
+            };
+        }
     }
 
 }

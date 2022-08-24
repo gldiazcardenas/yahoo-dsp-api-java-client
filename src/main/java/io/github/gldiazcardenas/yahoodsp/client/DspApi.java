@@ -28,7 +28,6 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SeatService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.TargetingService;
 
 import java.time.Duration;
-import java.util.Objects;
 
 /**
  * Entry point to the Yahoo DSP API Client which allows to get access to the services.
@@ -38,19 +37,19 @@ import java.util.Objects;
 public final class DspApi {
 
     /**
-     * Default API host: '<a href="https://dspapi.admanagerplus.yahoo.com/">https://dspapi.admanagerplus.yahoo.com/traffic</a>'.
+     * Default API host: '<a href="https://dspapi.admanagerplus.yahoo.com/traffic/">https://dspapi.admanagerplus.yahoo.com/traffic/</a>'.
      */
-    public static final String DEFAULT_TRAFFIC_API_URL = "https://dspapi.admanagerplus.yahoo.com/traffic";
+    public static final String DEFAULT_TRAFFIC_API_URL = "https://dspapi.admanagerplus.yahoo.com/traffic/";
 
     /**
-     * Default API host: '<a href="http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport">http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport</a>'.
+     * Default API host: '<a href="http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/">http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/</a>'.
      */
-    public static final String DEFAULT_REPORTING_API_URL = "http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport";
+    public static final String DEFAULT_REPORTING_API_URL = "http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/";
 
     /**
      * Default authentication host: '<a href="https://id.b2b.yahooinc.com/identity/oauth2/">https://id.b2b.yahooinc.com/identity/oauth2/</a>'.
      */
-    public static final String DEFAULT_AUTH_API_URL = "https://id.b2b.yahooinc.com/identity/oauth2";
+    public static final String DEFAULT_AUTH_API_URL = "https://id.b2b.yahooinc.com/identity/oauth2/";
 
     /**
      * Default user agent: 'Yahoo DSP API Java Client'.
@@ -82,6 +81,7 @@ public final class DspApi {
      */
     public static final Duration DEFAULT_CONNECTIONS_TIME_ALIVE = Duration.ofMinutes(5);
 
+    private final CommunicationFactory factory;
     private final AuthenticationService authenticationService;
     private final AccountGroupService accountGroupService;
     private final AdService adService;
@@ -97,6 +97,7 @@ public final class DspApi {
     private final ExtReportService reportService;
 
     private DspApi(CommunicationFactory factory) {
+        this.factory = factory;
         this.authenticationService = new AuthenticationServiceImpl(factory.createAuthEndpoint(AuthenticationResource.class));
         this.accountGroupService = new AccountGroupServiceImpl(factory.createTrafficEndpoint(AccountGroupResource.class));
         this.adService = new AdServiceImpl(factory.createTrafficEndpoint(AdResource.class));
@@ -164,6 +165,14 @@ public final class DspApi {
         return reportService;
     }
 
+    public <T> T createTrafficEndpoint(Class<T> clazz) {
+        return factory.createTrafficEndpoint(clazz);
+    }
+
+    public <T> T createReportEndpoint(Class<T> clazz) {
+        return factory.createReportEndpoint(clazz);
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -174,36 +183,34 @@ public final class DspApi {
         private SerializationConfig serializationConfig;
 
         private Builder() {
-            super();
+            this.serializationConfig = SerializationConfig.builder().build();
+            this.communicationConfig = CommunicationConfig.builder().build();
         }
 
         public Builder setCommunicationConfig(CommunicationConfig communicationConfig) {
-            this.communicationConfig = communicationConfig;
+            this.communicationConfig = Preconditions.requireNonNull(communicationConfig);
             return this;
         }
 
         public Builder withCommunicationConfig(CommunicationConfig.Builder communicationBuilder) {
-            this.communicationConfig = communicationBuilder.build();
+            this.communicationConfig = Preconditions.requireNonNull(communicationBuilder).build();
             return this;
         }
 
         public Builder setSerializationConfig(SerializationConfig serializationConfig) {
-            this.serializationConfig = serializationConfig;
+            this.serializationConfig = Preconditions.requireNonNull(serializationConfig);
             return this;
         }
 
         public Builder withSerializationConfig(SerializationConfig.Builder serializationBuilder) {
-            this.serializationConfig = serializationBuilder.build();
+            this.serializationConfig = Preconditions.requireNonNull(serializationBuilder).build();
             return this;
         }
 
         public DspApi build() {
-            Objects.requireNonNull(communicationConfig);
-            Objects.requireNonNull(serializationConfig);
-
             SerializationFactory serializationFactory = new SerializationFactory(serializationConfig);
-            CommunicationFactory communicationFactory  = new CommunicationFactory(communicationConfig, serializationFactory);
-
+            CommunicationFactory communicationFactory  = new CommunicationFactory(communicationConfig,
+                    serializationFactory.getObjectMapper());
             return new DspApi(communicationFactory);
         }
 

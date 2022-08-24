@@ -1,9 +1,5 @@
 package io.github.gldiazcardenas.yahoodsp.client.service;
 
-import io.github.gldiazcardenas.yahoodsp.client.model.DspError;
-
-import java.time.LocalDateTime;
-
 /**
  * Common exception class throws by all API service methods.
  *
@@ -11,25 +7,20 @@ import java.time.LocalDateTime;
  */
 public final class DspApiException extends RuntimeException {
 
-    private final DspError error;
-    private final LocalDateTime timestamp;
+    private final DspApiError error;
 
-    public DspApiException(DspError error) {
-        this.error = error;
-        this.timestamp = LocalDateTime.now();
+    public DspApiException(Throwable cause) {
+        super(cause);
+        this.error = new DspApiError(cause.getLocalizedMessage());
     }
 
-    public DspApiException(DspError error, LocalDateTime timestamp) {
+    public DspApiException(DspApiError error) {
+        super(error.toString());
         this.error = error;
-        this.timestamp = timestamp;
     }
 
-    public DspError getError() {
+    public DspApiError getError() {
         return error;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
     }
 
 }

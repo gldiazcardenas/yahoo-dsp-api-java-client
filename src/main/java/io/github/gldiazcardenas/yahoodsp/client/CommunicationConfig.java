@@ -3,9 +3,8 @@ package io.github.gldiazcardenas.yahoodsp.client;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.time.Duration;
-import java.util.Objects;
 
-final class CommunicationConfig {
+public final class CommunicationConfig {
 
     private static final HttpLoggingInterceptor.Logger DEFAULT_HTTP_LOGGER = s -> {
        // do nothing.
@@ -94,6 +93,10 @@ final class CommunicationConfig {
         return debug;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private String trafficApiUrl;
@@ -122,52 +125,52 @@ final class CommunicationConfig {
         }
 
         public Builder setTrafficApiUrl(String trafficApiUrl) {
-            this.trafficApiUrl = trafficApiUrl;
+            this.trafficApiUrl = Preconditions.requireNotEmpty(trafficApiUrl);
             return this;
         }
 
         public Builder setAuthApiUrl(String authApiUrl) {
-            this.authApiUrl = authApiUrl;
+            this.authApiUrl = Preconditions.requireNotEmpty(authApiUrl);
             return this;
         }
 
         public Builder setReportingApiUrl(String reportingApiUrl) {
-            this.reportingApiUrl = reportingApiUrl;
+            this.reportingApiUrl = Preconditions.requireNotEmpty(reportingApiUrl);
             return this;
         }
 
         public Builder setUserAgent(String userAgent) {
-            this.userAgent = userAgent;
+            this.userAgent = Preconditions.requireNotEmpty(userAgent);
             return this;
         }
 
         public Builder setWriteTimeout(Duration writeTimeout) {
-            this.writeTimeout = Objects.requireNonNull(writeTimeout);
+            this.writeTimeout = Preconditions.requirePositive(writeTimeout);
             return this;
         }
 
         public Builder setReadTimeout(Duration readTimeout) {
-            this.readTimeout = Objects.requireNonNull(readTimeout);
+            this.readTimeout = Preconditions.requirePositive(readTimeout);
             return this;
         }
 
         public Builder setConnectTimeout(Duration connectTimeout) {
-            this.connectTimeout = Objects.requireNonNull(connectTimeout);
+            this.connectTimeout = Preconditions.requirePositive(connectTimeout);
             return this;
         }
 
         public Builder setMaxIdleConnections(int maxIdleConnections) {
-            this.maxIdleConnections = maxIdleConnections;
+            this.maxIdleConnections = Preconditions.requireGreaterThanZero(maxIdleConnections);
             return this;
         }
 
         public Builder setConnectionsTimeAlive(Duration connectionsTimeAlive) {
-            this.connectionsTimeAlive = Objects.requireNonNull(connectionsTimeAlive);
+            this.connectionsTimeAlive = Preconditions.requirePositive(connectionsTimeAlive);
             return this;
         }
 
         public Builder setHttpLogger(HttpLoggingInterceptor.Logger httpLogger) {
-            this.httpLogger = Objects.requireNonNull(httpLogger);
+            this.httpLogger = Preconditions.requireNonNull(httpLogger);
             return this;
         }
 
@@ -177,8 +180,18 @@ final class CommunicationConfig {
         }
 
         public CommunicationConfig build() {
-            return new CommunicationConfig(trafficApiUrl, authApiUrl, reportingApiUrl, userAgent, writeTimeout,
-                    readTimeout, connectTimeout, maxIdleConnections, connectionsTimeAlive, httpLogger, debug);
+            return new CommunicationConfig(
+                    trafficApiUrl,
+                    authApiUrl,
+                    reportingApiUrl,
+                    userAgent,
+                    writeTimeout,
+                    readTimeout,
+                    connectTimeout,
+                    maxIdleConnections,
+                    connectionsTimeAlive,
+                    httpLogger,
+                    debug);
         }
     }
 }

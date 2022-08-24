@@ -23,14 +23,29 @@
         <maven.compiler.boostTarget>1.8</maven.compiler.boostTarget>
 
         <retrofit.version>2.9.0</retrofit.version>
-        <okhttp3.logging-interceptor.version>4.10.0</okhttp3.logging-interceptor.version>
+        <okhttp3.version>4.10.0</okhttp3.version>
         <jackson.version>2.13.3</jackson.version>
+        <jwt.version>4.0.0</jwt.version>
+        <junit.version>5.9.0</junit.version>
     </properties>
 
     <dependencies>
+        <!-- Retrofit -->
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>
+            <exclusions>
+                <!-- This is 3.14.9 which is older than the one used here -->
+                <exclusion>
+                    <groupId>com.squareup.okhttp3</groupId>
+                    <artifactId>okhttp</artifactId>
+                </exclusion>
+                <!-- This is 3.14.9 which is older than the one used here -->
+                <exclusion>
+                    <groupId>com.squareup.okhttp3</groupId>
+                    <artifactId>mockwebserver</artifactId>
+                </exclusion>
+            </exclusions>
             <version>${retrofit.version}</version>
         </dependency>
 
@@ -38,6 +53,7 @@
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-jackson</artifactId>
             <exclusions>
+                <!-- This is 2.10.1 which is older than the one used here -->
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
                     <artifactId>jackson-databind</artifactId>
@@ -46,12 +62,27 @@
             <version>${retrofit.version}</version>
         </dependency>
 
+        <!-- okhttp3 -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp3.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>logging-interceptor</artifactId>
-            <version>${okhttp3.logging-interceptor.version}</version>
+            <version>${okhttp3.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <version>${okhttp3.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -62,7 +93,21 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
-            <scope>compile</scope>
+        </dependency>
+
+        <!-- JWT -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+
+        <!-- JUnit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
