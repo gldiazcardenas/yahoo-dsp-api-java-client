@@ -66,7 +66,7 @@ final class CommunicationFactory {
         this.authRetrofit = new Retrofit.Builder()
                 .baseUrl(communication.getAuthApiUrl())
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-                .addCallAdapterFactory(new AuthenticationCallAdapterFactory())
+                .addCallAdapterFactory(new AuthCallAdapterFactory())
                 .client(okHttpClient)
                 .build();
 
@@ -105,7 +105,7 @@ final class CommunicationFactory {
         }
     }
 
-    private final class AuthenticationCallAdapterFactory extends CallAdapter.Factory {
+    private final class AuthCallAdapterFactory extends CallAdapter.Factory {
         @Override
         public CallAdapter<Object, Object> get(@NotNull final Type returnType,
                                                @NotNull Annotation[] annotations,

@@ -1,71 +1,62 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.Duration;
 
+/**
+ * Credentials for the authentication process.
+ *
+ * @author Gabriel Diaz, Aug 24th 2022.
+ */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class AuthenticationCredentials {
 
-    private final String clientId;
-    private final String clientSecret;
-    private final Duration expiresIn;
-    private final String tokenId;
-
-    AuthenticationCredentials(String clientId, String clientSecret, Duration expiresIn, String tokenId) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-        this.expiresIn = expiresIn;
-        this.tokenId = tokenId;
-    }
+    @JsonProperty("clientId")
+    private String clientId;
+    @JsonProperty("clientSecret")
+    private String clientSecret;
+    @JsonProperty("expiresIn")
+    private Duration expiresIn;
+    @JsonProperty("tokenId")
+    private String tokenId;
 
     public String getClientId() {
         return clientId;
+    }
+
+    public AuthenticationCredentials setClientId(String clientId) {
+        this.clientId = clientId;
+        return this;
     }
 
     public String getClientSecret() {
         return clientSecret;
     }
 
+    public AuthenticationCredentials setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+        return this;
+    }
+
     public Duration getExpiresIn() {
         return expiresIn;
+    }
+
+    public AuthenticationCredentials setExpiresIn(Duration expiresIn) {
+        this.expiresIn = expiresIn;
+        return this;
     }
 
     public String getTokenId() {
         return tokenId;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public AuthenticationCredentials setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+        return this;
     }
-
-    public static class Builder {
-
-        private String clientId;
-        private String clientSecret;
-        private Duration expiresIn;
-        private String tokenId;
-
-        public Builder setClientId(String clientId) {
-            this.clientId = clientId;
-            return this;
-        }
-
-        public Builder setClientSecret(String clientSecret) {
-            this.clientSecret = clientSecret;
-            return this;
-        }
-
-        public Builder setExpiresIn(Duration expiresIn) {
-            this.expiresIn = expiresIn;
-            return this;
-        }
-
-        public Builder setTokenId(String tokenId) {
-            this.tokenId = tokenId;
-            return this;
-        }
-
-        public AuthenticationCredentials build() {
-            return new AuthenticationCredentials(clientId, clientSecret, expiresIn, tokenId);
-        }
-    }
-
 }

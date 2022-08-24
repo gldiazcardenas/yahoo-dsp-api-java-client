@@ -26,32 +26,36 @@ public class Authentication {
         return accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
+    public Authentication setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+        return this;
     }
 
     public String getScope() {
         return scope;
     }
 
-    public void setScope(String scope) {
+    public Authentication setScope(String scope) {
         this.scope = scope;
+        return this;
     }
 
     public String getTokenType() {
         return tokenType;
     }
 
-    public void setTokenType(String tokenType) {
+    public Authentication setTokenType(String tokenType) {
         this.tokenType = tokenType;
+        return this;
     }
 
     public int getExpirationSecs() {
         return expirationSecs;
     }
 
-    public void setExpirationSecs(int expirationSecs) {
+    public Authentication setExpirationSecs(int expirationSecs) {
         this.expirationSecs = expirationSecs;
+        return this;
     }
 
     @Override

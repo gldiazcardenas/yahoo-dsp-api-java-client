@@ -23,16 +23,18 @@ public class AuthenticationError {
         return error;
     }
 
-    public void setError(String error) {
+    public AuthenticationError setError(String error) {
         this.error = error;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public AuthenticationError setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     @Override
