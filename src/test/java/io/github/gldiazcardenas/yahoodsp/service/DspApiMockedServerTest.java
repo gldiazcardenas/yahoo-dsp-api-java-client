@@ -36,6 +36,8 @@ public interface DspApiMockedServerTest {
     class Mocking {
         static void runOnServer(DspApiMockedServerTest test) throws Exception {
             try (MockWebServer server = new MockWebServer()) {
+                server.start();
+
                 DspApi api = DspApi.builder()
                         .withCommunicationConfig(CommunicationConfig.builder()
                                 .setUserAgent(USER_AGENT)
@@ -45,7 +47,6 @@ public interface DspApiMockedServerTest {
                         )
                         .build();
 
-                server.start();
                 test.onServerStarted(server, api);
             }
         }
