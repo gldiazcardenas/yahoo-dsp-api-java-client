@@ -1,10 +1,15 @@
 package io.github.gldiazcardenas.yahoodsp.client.service;
 
-import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationCredentials;
 import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
+import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationCredentials;
 
 import java.time.Duration;
 
+/**
+ * Authentication related service.
+ *
+ * @author Gabriel Diaz, Aug 24th 2022.
+ */
 public interface AuthenticationService {
 
     /**
@@ -46,6 +51,16 @@ public interface AuthenticationService {
      * Fixed value: 'dsp-api-token'.
      */
     String DEFAULT_TOKEN_ID = "dsp-api-token";
+
+    /**
+     * Fixed value: 'Bearer'.
+     */
+    String DEFAULT_TOKEN_TYPE = "Bearer";
+
+    /**
+     * Fixed value: 'Oauth2'.
+     */
+    String DEFAULT_AUTH_METHOD = "Oauth2";
 
     /**
      * Generates a new Access Token using the given client credentials.  This method encapsulates the generation of the JWT

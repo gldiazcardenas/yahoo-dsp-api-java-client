@@ -35,17 +35,18 @@ final class Preconditions {
         return duration;
     }
 
-    static Duration requirePositiveLowerThan(Duration duration, Duration maximum) {
+    static Duration requirePositiveLowerThan(Duration duration, Duration max) {
         requirePositive(duration);
-        requireNonNull(maximum);
-        if (duration.compareTo(maximum) > 0) {
+        requireNonNull(max);
+        if (duration.compareTo(max) > 0) {
             throw new IllegalArgumentException("duration must be lower than the maximum");
         }
         return duration;
     }
 
     static String requireNotEmpty(String value) {
-        if (value == null || value.trim().isEmpty()) {
+        requireNonNull(value);
+        if (value.trim().isEmpty()) {
             throw new IllegalArgumentException("string must not be empty");
         }
         return value;

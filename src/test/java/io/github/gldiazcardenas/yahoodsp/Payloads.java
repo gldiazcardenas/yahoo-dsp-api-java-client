@@ -4,9 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
+import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationCredentials;
 import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationError;
+import io.github.gldiazcardenas.yahoodsp.client.service.AuthenticationService;
 
 public final class Payloads {
+
+    public static final String CLIENT_ID = "fake-client-id";
+    public static final String CLIENT_SECRET = "fake-client-secret";
+    public static final String ACCESS_TOKEN = "fake-access-token";
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -18,12 +24,20 @@ public final class Payloads {
         super();
     }
 
+    public static AuthenticationCredentials authenticationCredentials() {
+        return new AuthenticationCredentials()
+                .setClientId(CLIENT_ID)
+                .setClientSecret(CLIENT_SECRET)
+                .setExpiresIn(AuthenticationService.DEFAULT_ACCESS_TOKEN_TTL)
+                .setTokenId(AuthenticationService.DEFAULT_TOKEN_ID);
+    }
+
     public static Authentication authentication() {
         return new Authentication()
-                .setAccessToken("fake-access-token")
-                .setScope("dsp-api-access")
-                .setTokenType("Bearer")
-                .setExpirationSecs(3600);
+                .setAccessToken(ACCESS_TOKEN)
+                .setScope(AuthenticationService.DEFAULT_SCOPE)
+                .setTokenType(AuthenticationService.DEFAULT_TOKEN_TYPE)
+                .setExpirationSecs((int) AuthenticationService.DEFAULT_ACCESS_TOKEN_TTL.getSeconds());
     }
 
     public static AuthenticationError authenticationError() {
@@ -32,9 +46,22 @@ public final class Payloads {
                 .setDescription("JWT is expired or is not valid");
     }
 
+    public static String emptyJson() {
+        return "{}";
+    }
+
     public static String toJson(Object object) {
         try {
             return OBJECT_MAPPER.writeValueAsString(object);
+        }
+        catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T fromJson(String json, Class<T> type) {
+        try {
+            return OBJECT_MAPPER.readValue(json, type);
         }
         catch (JsonProcessingException e) {
             throw new RuntimeException(e);

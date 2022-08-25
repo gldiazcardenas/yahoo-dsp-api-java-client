@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 /**
  * Yahoo DSP Response object, this is used as parent class for all API result objects.
@@ -18,7 +18,7 @@ abstract class DspResponse<T> {
     @JsonProperty("response")
     private T response;
     @JsonProperty("timeStamp")
-    private LocalDateTime timestamp;
+    private Instant timestamp;
 
     public T getResponse() {
         return response;
@@ -26,6 +26,14 @@ abstract class DspResponse<T> {
 
     public void setResponse(T response) {
         this.response = response;
+    }
+
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
     }
 
 }

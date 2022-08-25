@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ public class DspErrorResponse {
     @JsonProperty("validationMessages")
     private List<DspErrorValidation> validations;
     @JsonProperty("timeStamp")
-    private LocalDateTime timestamp;
+    private Instant timestamp;
 
     public DspError getError() {
         return error;
@@ -39,11 +39,11 @@ public class DspErrorResponse {
         this.validations = validations;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

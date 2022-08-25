@@ -2,7 +2,7 @@ package io.github.gldiazcardenas.yahoodsp.client.service;
 
 import io.github.gldiazcardenas.yahoodsp.client.model.DspErrorValidation;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class DspApiError {
     private String method;
     private String path;
     private Object payload;
-    private LocalDateTime timestamp;
+    private Instant timestamp;
     private List<DspErrorValidation> validations;
 
     public DspApiError() {
@@ -69,11 +69,11 @@ public class DspApiError {
         this.payload = payload;
     }
 
-    public LocalDateTime getTimestamp() {
+    public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
 

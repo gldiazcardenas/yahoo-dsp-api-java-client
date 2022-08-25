@@ -22,7 +22,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +32,7 @@ final class CommunicationFactory {
 
     private final Retrofit trafficRetrofit;
     private final Retrofit authRetrofit;
-    private final Retrofit reportRetrofit;
+    private final Retrofit reportingRetrofit;
     private final CommunicationConfig communication;
     private final ObjectMapper objectMapper;
 
@@ -77,7 +77,7 @@ final class CommunicationFactory {
                 .client(okHttpClient)
                 .build();
 
-        this.reportRetrofit = new Retrofit.Builder()
+        this.reportingRetrofit = new Retrofit.Builder()
                 .baseUrl(communication.getReportApiUrl())
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .addCallAdapterFactory(new DefaultCallAdapterFactory())
@@ -93,8 +93,8 @@ final class CommunicationFactory {
         return trafficRetrofit.create(clazz);
     }
 
-    public <E> E createReportEndpoint(Class<E> clazz) {
-        return reportRetrofit.create(clazz);
+    public <E> E createReportingEndpoint(Class<E> clazz) {
+        return reportingRetrofit.create(clazz);
     }
 
     private final class UserAgentInterceptor implements Interceptor {
@@ -150,7 +150,7 @@ final class CommunicationFactory {
                         apiError.setMethod(call.request().method());
                         apiError.setMessage(authError.getError());
                         apiError.addValidation(authError.getDescription());
-                        apiError.setTimestamp(LocalDateTime.now());
+                        apiError.setTimestamp(Instant.now());
 
                         throw new DspApiException(apiError);
                     }
@@ -199,7 +199,7 @@ final class CommunicationFactory {
                                 dspError = new DspErrorResponse();
                                 dspError.setError(new DspError());
                                 dspError.getError().setMessage(response.message());
-                                dspError.setTimestamp(LocalDateTime.now());
+                                dspError.setTimestamp(Instant.now());
                             }
                             else {
                                 dspError = objectMapper.readValue(errorResponse.bytes(), DspErrorResponse.class);
@@ -225,7 +225,7 @@ final class CommunicationFactory {
                         apiError.setPath(call.request().url().toString());
                         apiError.setMethod(call.request().method());
                         apiError.setMessage(Optional.ofNullable(dspError.getError()).map(DspError::getMessage).orElse(null));
-                        apiError.setTimestamp(Optional.ofNullable(dspError.getTimestamp()).orElse(LocalDateTime.now()));
+                        apiError.setTimestamp(Optional.ofNullable(dspError.getTimestamp()).orElse(Instant.now()));
                         apiError.setValidations(validations);
 
                         throw new DspApiException(apiError);

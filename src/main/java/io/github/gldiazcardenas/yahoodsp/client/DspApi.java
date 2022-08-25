@@ -1,7 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.client;
 
 import io.github.gldiazcardenas.yahoodsp.client.resource.AuthenticationResource;
-import io.github.gldiazcardenas.yahoodsp.client.resource.reporting.ExtReportResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.reporting.ExtReportingResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AccountGroupResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AdResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AdvertiserResource;
@@ -14,7 +14,7 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SeatResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.TargetingResource;
 import io.github.gldiazcardenas.yahoodsp.client.service.AuthenticationService;
-import io.github.gldiazcardenas.yahoodsp.client.service.reporting.ExtReportService;
+import io.github.gldiazcardenas.yahoodsp.client.service.reporting.ExtReportingService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AccountGroupService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertiserService;
@@ -94,23 +94,23 @@ public final class DspApi {
     private final LineService lineService;
     private final SeatService seatService;
     private final TargetingService targetingService;
-    private final ExtReportService reportService;
+    private final ExtReportingService reportService;
 
     private DspApi(CommunicationFactory factory) {
         this.factory = factory;
-        this.authenticationService = new AuthenticationServiceImpl(factory.createAuthEndpoint(AuthenticationResource.class));
-        this.accountGroupService = new AccountGroupServiceImpl(factory.createTrafficEndpoint(AccountGroupResource.class));
-        this.adService = new AdServiceImpl(factory.createTrafficEndpoint(AdResource.class));
-        this.advertiserService = new AdvertiserServiceImpl(factory.createTrafficEndpoint(AdvertiserResource.class));
-        this.audienceService = new AudienceServiceImpl(factory.createTrafficEndpoint(AudienceResource.class));
-        this.campaignService = new CampaignServiceImpl(factory.createTrafficEndpoint(CampaignResource.class));
-        this.contextualService = new ContextualServiceImpl(factory.createTrafficEndpoint(ContextualResource.class));
-        this.creativeService = new CreativeServiceImpl(factory.createTrafficEndpoint(CreativeResource.class));
-        this.dataDictionaryService = new DataDictionaryServiceImpl(factory.createTrafficEndpoint(DataDictionaryResource.class));
-        this.lineService = new LineServiceImpl(factory.createTrafficEndpoint(LineResource.class));
-        this.seatService = new SeatServiceImpl(factory.createTrafficEndpoint(SeatResource.class));
-        this.targetingService = new TargetingServiceImpl(factory.createTrafficEndpoint(TargetingResource.class));
-        this.reportService = new ExtReportServiceImpl(factory.createReportEndpoint(ExtReportResource.class));
+        this.authenticationService = new AuthenticationServiceImpl(createAuthEndpoint(AuthenticationResource.class));
+        this.accountGroupService = new AccountGroupServiceImpl(createTrafficEndpoint(AccountGroupResource.class));
+        this.adService = new AdServiceImpl(createTrafficEndpoint(AdResource.class));
+        this.advertiserService = new AdvertiserServiceImpl(createTrafficEndpoint(AdvertiserResource.class));
+        this.audienceService = new AudienceServiceImpl(createTrafficEndpoint(AudienceResource.class));
+        this.campaignService = new CampaignServiceImpl(createTrafficEndpoint(CampaignResource.class));
+        this.contextualService = new ContextualServiceImpl(createTrafficEndpoint(ContextualResource.class));
+        this.creativeService = new CreativeServiceImpl(createTrafficEndpoint(CreativeResource.class));
+        this.dataDictionaryService = new DataDictionaryServiceImpl(createTrafficEndpoint(DataDictionaryResource.class));
+        this.lineService = new LineServiceImpl(createTrafficEndpoint(LineResource.class));
+        this.seatService = new SeatServiceImpl(createTrafficEndpoint(SeatResource.class));
+        this.targetingService = new TargetingServiceImpl(createTrafficEndpoint(TargetingResource.class));
+        this.reportService = new ExtReportingServiceImpl(createReportingEndpoint(ExtReportingResource.class));
     }
 
     public AuthenticationService getAuthenticationService() {
@@ -161,16 +161,20 @@ public final class DspApi {
         return targetingService;
     }
 
-    public ExtReportService getReportService() {
+    public ExtReportingService getReportService() {
         return reportService;
+    }
+
+    public <T> T createAuthEndpoint(Class<T> clazz) {
+        return factory.createAuthEndpoint(clazz);
     }
 
     public <T> T createTrafficEndpoint(Class<T> clazz) {
         return factory.createTrafficEndpoint(clazz);
     }
 
-    public <T> T createReportEndpoint(Class<T> clazz) {
-        return factory.createReportEndpoint(clazz);
+    public <T> T createReportingEndpoint(Class<T> clazz) {
+        return factory.createReportingEndpoint(clazz);
     }
 
     public static Builder builder() {
@@ -209,8 +213,7 @@ public final class DspApi {
 
         public DspApi build() {
             SerializationFactory serializationFactory = new SerializationFactory(serializationConfig);
-            CommunicationFactory communicationFactory  = new CommunicationFactory(communicationConfig,
-                    serializationFactory.getObjectMapper());
+            CommunicationFactory communicationFactory  = new CommunicationFactory(communicationConfig, serializationFactory.getObjectMapper());
             return new DspApi(communicationFactory);
         }
 
