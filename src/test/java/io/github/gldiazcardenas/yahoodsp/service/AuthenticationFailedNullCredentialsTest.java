@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Gabriel Diaz, Aug 25th 2022.
  */
-public class AuthenticationFailedNullCredentialsTest implements ServiceTest {
+public class AuthenticationFailedNullCredentialsTest implements DspApiMockedServerTest {
 
     @Override
-    public void started(MockWebServer server, DspApi api) throws Exception {
+    public void onServerStarted(MockWebServer server, DspApi api) throws Exception {
         AuthenticationService service = api.getAuthenticationService();
 
         // Null parameter

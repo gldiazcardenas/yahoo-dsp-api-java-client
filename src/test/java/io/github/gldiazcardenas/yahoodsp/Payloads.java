@@ -6,6 +6,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
 import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationCredentials;
 import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationError;
+import io.github.gldiazcardenas.yahoodsp.client.model.Seat;
+import io.github.gldiazcardenas.yahoodsp.client.model.SeatLookup;
 import io.github.gldiazcardenas.yahoodsp.client.service.AuthenticationService;
 
 public final class Payloads {
@@ -22,6 +24,15 @@ public final class Payloads {
 
     private Payloads() {
         super();
+    }
+
+    public static String toJson(Object object) {
+        try {
+            return OBJECT_MAPPER.writeValueAsString(object);
+        }
+        catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static AuthenticationCredentials authenticationCredentials() {
@@ -46,26 +57,19 @@ public final class Payloads {
                 .setDescription("JWT is expired or is not valid");
     }
 
-    public static String emptyJson() {
-        return "{}";
+    public static Seat seat() {
+        return new Seat()
+                .setId("1")
+                .setName("seat")
+                .setCurrency("USD")
+                .setTimezone("America/New_York");
     }
 
-    public static String toJson(Object object) {
-        try {
-            return OBJECT_MAPPER.writeValueAsString(object);
-        }
-        catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    public static <T> T fromJson(String json, Class<T> type) {
-        try {
-            return OBJECT_MAPPER.readValue(json, type);
-        }
-        catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    public static SeatLookup seatLookup() {
+        return new SeatLookup()
+                .setId("1")
+                .setName("seat");
     }
 
 }

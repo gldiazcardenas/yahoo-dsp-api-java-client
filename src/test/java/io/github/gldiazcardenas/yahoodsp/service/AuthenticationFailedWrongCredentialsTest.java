@@ -18,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Gabriel Diaz, Aug 25th 2022.
  */
-public class AuthenticationFailedWrongCredentialsTest implements ServiceTest {
+public class AuthenticationFailedWrongCredentialsTest implements DspApiMockedServerTest {
 
     @Override
-    public void started(MockWebServer server, DspApi api) throws Exception {
+    public void onServerStarted(MockWebServer server, DspApi api) throws Exception {
         // Given
         int statusCode = 401;
         AuthenticationError authError = Payloads.authenticationError();
@@ -41,7 +41,7 @@ public class AuthenticationFailedWrongCredentialsTest implements ServiceTest {
         assertEquals("POST", error.getMethod());
 
         RecordedRequest request = server.takeRequest();
-        assertNotNull(request);
+        Assertions.assertRequestDefaults(request, null);
         assertEquals(AUTH_PATH + "access_token", request.getPath());
         assertEquals("POST", request.getMethod());
         assertEquals("application/x-www-form-urlencoded", request.getHeader("Content-Type"));

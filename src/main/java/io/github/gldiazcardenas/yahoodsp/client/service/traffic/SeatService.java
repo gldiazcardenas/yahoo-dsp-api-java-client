@@ -1,7 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.client.service.traffic;
 
 import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
-import io.github.gldiazcardenas.yahoodsp.client.model.Seats;
+import io.github.gldiazcardenas.yahoodsp.client.model.SeatsResponse;
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 
 /**
@@ -16,6 +16,6 @@ public interface SeatService {
      * @return The seats the authenticated user has access to.
      * @throws DspApiException In case any problem with the API.
      */
-    Seats getAll(Authentication auth) throws DspApiException;
+    SeatsResponse getAll(Authentication auth) throws DspApiException;
 
 }
