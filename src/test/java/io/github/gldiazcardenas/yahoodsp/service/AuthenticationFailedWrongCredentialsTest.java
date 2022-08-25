@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Gabriel Diaz, Aug 25th 2022.
  */
-public class AuthenticationFailedWrongCredentialsTest implements DspApiTest {
+public class AuthenticationFailedWrongCredentialsTest implements ServiceTest {
 
     @Override
     public void started(MockWebServer server, DspApi api) throws Exception {

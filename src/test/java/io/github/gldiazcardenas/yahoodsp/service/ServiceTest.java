@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Gabriel Diaz, Aug 25th 2022.
  */
-public interface DspApiTest {
+public interface ServiceTest {
 
     String USER_AGENT = "Mocked-Server-Test";
     String AUTH_PATH = "/auth/";
@@ -20,7 +20,7 @@ public interface DspApiTest {
         runOnServer(this);
     }
 
-    default void runOnServer(DspApiTest test) throws Exception {
+    default void runOnServer(ServiceTest test) throws Exception {
         try (MockWebServer server = new MockWebServer()) {
             server.start();
 

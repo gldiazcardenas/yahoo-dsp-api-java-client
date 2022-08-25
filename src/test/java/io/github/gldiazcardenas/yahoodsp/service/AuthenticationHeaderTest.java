@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Gabriel Diaz, Aug 25th 2022.
  */
-public class AuthenticationHeaderTest implements DspApiTest {
+public class AuthenticationHeaderTest implements ServiceTest {
 
     @Override
     public void started(MockWebServer server, DspApi api) throws Exception {

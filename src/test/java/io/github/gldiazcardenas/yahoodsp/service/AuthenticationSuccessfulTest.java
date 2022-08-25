@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * @author Gabriel Diaz, Aug 25th 2022.
  */
-public class AuthenticationSuccessfulTest implements DspApiTest {
+public class AuthenticationSuccessfulTest implements ServiceTest {
 
     @Override
     public void started(MockWebServer server, DspApi api) throws Exception {

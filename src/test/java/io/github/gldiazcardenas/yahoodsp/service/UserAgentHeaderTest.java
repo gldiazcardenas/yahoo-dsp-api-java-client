@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Gabriel Diaz, Aug 25th 2022.
  */
-public class UserAgentHeaderTest implements DspApiTest {
+public class UserAgentHeaderTest implements ServiceTest {
 
     @Override
     public void started(MockWebServer server, DspApi api) throws Exception {
