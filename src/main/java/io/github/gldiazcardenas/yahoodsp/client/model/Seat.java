@@ -24,32 +24,36 @@ public class Seat {
         return id;
     }
 
-    public void setId(String id) {
+    public Seat setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Seat setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getTimezone() {
         return timezone;
     }
 
-    public void setTimezone(String timezone) {
+    public Seat setTimezone(String timezone) {
         this.timezone = timezone;
+        return this;
     }
 
     public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public Seat setCurrency(String currency) {
         this.currency = currency;
+        return this;
     }
 
     @Override

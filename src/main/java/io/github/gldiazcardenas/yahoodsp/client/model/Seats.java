@@ -22,15 +22,18 @@ public class Seats {
         return currentSeat;
     }
 
-    public void setCurrentSeat(List<Seat> currentSeat) {
+    public Seats setCurrentSeat(List<Seat> currentSeat) {
         this.currentSeat = currentSeat;
+        return this;
     }
 
     public List<SeatLookup> getSeatLookups() {
         return seatLookups;
     }
 
-    public void setSeatLookups(List<SeatLookup> seatLookups) {
+    public Seats setSeatLookups(List<SeatLookup> seatLookups) {
         this.seatLookups = seatLookups;
+        return this;
     }
+
 }

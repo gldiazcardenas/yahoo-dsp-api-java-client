@@ -26,24 +26,27 @@ public class DspError {
         return statusCode;
     }
 
-    public void setStatusCode(int statusCode) {
+    public DspError setStatusCode(int statusCode) {
         this.statusCode = statusCode;
+        return this;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public DspError setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     public List<DspErrorValidation> getValidations() {
         return validations;
     }
 
-    public void setValidations(List<DspErrorValidation> validations) {
+    public DspError setValidations(List<DspErrorValidation> validations) {
         this.validations = validations;
+        return this;
     }
 
     @Override

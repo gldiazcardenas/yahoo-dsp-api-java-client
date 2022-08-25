@@ -28,39 +28,44 @@ public class DspErrorValidation {
         return id;
     }
 
-    public void setId(Long id) {
+    public DspErrorValidation setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public DspErrorValidation setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     public String getPropertyName() {
         return propertyName;
     }
 
-    public void setPropertyName(String propertyName) {
+    public DspErrorValidation setPropertyName(String propertyName) {
         this.propertyName = propertyName;
+        return this;
     }
 
     public String getKey() {
         return key;
     }
 
-    public void setKey(String key) {
+    public DspErrorValidation setKey(String key) {
         this.key = key;
+        return this;
     }
 
     public String getObjectName() {
         return objectName;
     }
 
-    public void setObjectName(String objectName) {
+    public DspErrorValidation setObjectName(String objectName) {
         this.objectName = objectName;
+        return this;
     }
 }

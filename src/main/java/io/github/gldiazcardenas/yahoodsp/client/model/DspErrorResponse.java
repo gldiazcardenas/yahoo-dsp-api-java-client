@@ -27,24 +27,27 @@ public class DspErrorResponse {
         return error;
     }
 
-    public void setError(DspError error) {
+    public DspErrorResponse setError(DspError error) {
         this.error = error;
+        return this;
     }
 
     public List<DspErrorValidation> getValidations() {
         return validations;
     }
 
-    public void setValidations(List<DspErrorValidation> validations) {
+    public DspErrorResponse setValidations(List<DspErrorValidation> validations) {
         this.validations = validations;
+        return this;
     }
 
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public DspErrorResponse setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
     @Override

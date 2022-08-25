@@ -24,16 +24,18 @@ abstract class DspResponse<T> {
         return response;
     }
 
-    public void setResponse(T response) {
+    public DspResponse<T> setResponse(T response) {
         this.response = response;
+        return this;
     }
 
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public DspResponse<T> setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
 }
