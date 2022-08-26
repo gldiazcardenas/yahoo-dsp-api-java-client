@@ -35,10 +35,10 @@ final class Preconditions {
         return duration;
     }
 
-    static Duration requirePositiveLowerThan(Duration duration, Duration max) {
+    static Duration requirePositiveLowerThan(Duration duration, Duration maximum) {
         requirePositive(duration);
-        requireNonNull(max);
-        if (duration.compareTo(max) > 0) {
+        requireNonNull(maximum);
+        if (duration.compareTo(maximum) > 0) {
             throw new IllegalArgumentException("duration must be lower than the maximum");
         }
         return duration;
