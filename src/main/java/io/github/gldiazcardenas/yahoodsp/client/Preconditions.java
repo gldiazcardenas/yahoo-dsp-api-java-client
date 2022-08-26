@@ -10,7 +10,7 @@ final class Preconditions {
     }
 
     static <T> T requireNonNull(T object) {
-    return Objects.requireNonNull(object);
+        return Objects.requireNonNull(object);
     }
 
     static int requireGreaterThanZero(int number) {
