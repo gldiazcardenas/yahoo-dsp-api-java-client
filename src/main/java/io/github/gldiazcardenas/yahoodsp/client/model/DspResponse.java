@@ -38,4 +38,12 @@ abstract class DspResponse<T> {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "response=" + response +
+                ", timestamp=" + timestamp +
+                '}';
+    }
+
 }

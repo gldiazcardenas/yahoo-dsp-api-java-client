@@ -37,6 +37,11 @@ import java.time.Duration;
 public final class DspApi {
 
     /**
+     * Default authentication host: '<a href="https://id.b2b.yahooinc.com/identity/oauth2/">https://id.b2b.yahooinc.com/identity/oauth2/</a>'.
+     */
+    public static final String DEFAULT_AUTH_API_URL = "https://id.b2b.yahooinc.com/identity/oauth2/";
+
+    /**
      * Default API host: '<a href="https://dspapi.admanagerplus.yahoo.com/traffic/">https://dspapi.admanagerplus.yahoo.com/traffic/</a>'.
      */
     public static final String DEFAULT_TRAFFIC_API_URL = "https://dspapi.admanagerplus.yahoo.com/traffic/";
@@ -45,11 +50,6 @@ public final class DspApi {
      * Default API host: '<a href="http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/">http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/</a>'.
      */
     public static final String DEFAULT_REPORTING_API_URL = "http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/";
-
-    /**
-     * Default authentication host: '<a href="https://id.b2b.yahooinc.com/identity/oauth2/">https://id.b2b.yahooinc.com/identity/oauth2/</a>'.
-     */
-    public static final String DEFAULT_AUTH_API_URL = "https://id.b2b.yahooinc.com/identity/oauth2/";
 
     /**
      * Default user agent: 'Yahoo DSP API Java Client'.
