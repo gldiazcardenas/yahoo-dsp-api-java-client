@@ -13,6 +13,17 @@ final class Preconditions {
         return Objects.requireNonNull(object);
     }
 
+    static <T> T requireOneNonNull(String message, T... object) {
+        if (object != null) {
+            for (T t : object) {
+                if (t != null) {
+                    return t;
+                }
+            }
+        }
+        throw new IllegalArgumentException(message);
+    }
+
     static int requireGreaterThanZero(int number) {
         if (number <= 0) {
             throw new IllegalArgumentException("number must be greater than zero");

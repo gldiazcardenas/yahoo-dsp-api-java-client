@@ -63,6 +63,16 @@ public interface AuthenticationService {
     String DEFAULT_AUTH_METHOD = "Oauth2";
 
     /**
+     * Header for authentication method.
+     */
+    String HEADER_AUTH_METHOD = "X-Auth-Method";
+
+    /**
+     * Header for authentication token.
+     */
+    String HEADER_AUTH_TOKEN = "X-Auth-Token";
+
+    /**
      * Generates a new Access Token using the given client credentials.  This method encapsulates the generation of the JWT
      * needed to be able to generate the Access Token, so it is required only the {@code clientId} and {@code clientSecret}.
      *

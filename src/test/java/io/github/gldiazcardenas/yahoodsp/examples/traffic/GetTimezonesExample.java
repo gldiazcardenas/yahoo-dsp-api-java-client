@@ -1,7 +1,5 @@
 package io.github.gldiazcardenas.yahoodsp.examples.traffic;
 
-import io.github.gldiazcardenas.yahoodsp.Payloads;
-import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
 import io.github.gldiazcardenas.yahoodsp.client.model.TimezonesResponse;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
@@ -11,8 +9,7 @@ import io.github.gldiazcardenas.yahoodsp.examples.Example;
 public class GetTimezonesExample implements Example {
 
     public static void main(String[] arg) {
-        Authentication auth = Payloads.authentication().setAccessToken(ACCESS_TOKEN);
-        TimezonesResponse response = API.getDataDictionaryService().getTimezones(auth);
+        TimezonesResponse response = API.getDataDictionaryService().getTimezones(AUTH);
         System.out.println(response);
     }
 

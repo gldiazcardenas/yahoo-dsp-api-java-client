@@ -11,53 +11,55 @@ import io.github.gldiazcardenas.yahoodsp.client.model.PremiumNativeLanguagesResp
 import io.github.gldiazcardenas.yahoodsp.client.model.PremiumNativePredefinedCtaLabelsResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.TargetingTypesResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.TimezonesResponse;
+import io.github.gldiazcardenas.yahoodsp.client.resource.SecuredResource;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 
-public interface DataDictionaryResource {
+public interface DataDictionaryResource extends SecuredResource {
 
     @GET("dictionary")
-    DictionaryTypesResponse getTypes(@Header("X-Auth-Method") String xAuthMethod,
-                                     @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    DictionaryTypesResponse getTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/layouts")
-    LayoutsResponse getLayouts(@Header("X-Auth-Method") String xAuthMethod,
-                               @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    LayoutsResponse getLayouts(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/mimeTypes")
-    CreativeMimeTypesResponse getCreativeMimeTypes(@Header("X-Auth-Method") String xAuthMethod,
-                                                   @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    CreativeMimeTypesResponse getCreativeMimeTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/currencyTypes")
-    CurrencyTypesResponse getCurrencyTypes(@Header("X-Auth-Method") String xAuthMethod,
-                                           @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    CurrencyTypesResponse getCurrencyTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/languages")
-    LanguagesResponse getLanguages(@Header("X-Auth-Method") String xAuthMethod,
-                                   @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    LanguagesResponse getLanguages(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/targetingTypes")
-    TargetingTypesResponse getTargetingTypes(@Header("X-Auth-Method") String xAuthMethod,
-                                             @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    TargetingTypesResponse getTargetingTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/timezones")
-    TimezonesResponse getTimezones(@Header("X-Auth-Method") String xAuthMethod,
-                                   @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    TimezonesResponse getTimezones(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/adBehaviorTypes")
-    AdBehaviorTypesResponse getAdBehaviorTypes(@Header("X-Auth-Method") String xAuthMethod,
-                                               @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    AdBehaviorTypesResponse getAdBehaviorTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/premiumnative/languages")
-    PremiumNativeLanguagesResponse getPremiumNativeLanguages(@Header("X-Auth-Method") String xAuthMethod,
-                                                             @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    PremiumNativeLanguagesResponse getPremiumNativeLanguages(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/premiumnative/predefinedctalabels")
-    PremiumNativePredefinedCtaLabelsResponse getPremiumNativePredefinedCtaLabels(@Header("X-Auth-Method") String xAuthMethod,
-                                                                                 @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    PremiumNativePredefinedCtaLabelsResponse getPremiumNativePredefinedCtaLabels(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
     @GET("dictionary/premiumnative/countdownprefixes")
-    PremiumNativeCountdownPrefixesResponse getPremiumNativeCountdownPrefixes(@Header("X-Auth-Method") String xAuthMethod,
-                                                                             @Header("X-Auth-Token") String xAuthToken);
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    PremiumNativeCountdownPrefixesResponse getPremiumNativeCountdownPrefixes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
 }

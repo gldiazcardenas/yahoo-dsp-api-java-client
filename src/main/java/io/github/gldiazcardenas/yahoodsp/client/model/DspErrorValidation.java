@@ -68,4 +68,15 @@ public class DspErrorValidation {
         this.objectName = objectName;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "DspErrorValidation{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                ", propertyName='" + propertyName + '\'' +
+                ", key='" + key + '\'' +
+                ", objectName='" + objectName + '\'' +
+                '}';
+    }
 }

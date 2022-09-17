@@ -12,7 +12,7 @@ public class GetLanguagesExample implements Example {
 
     public static void main(String[] arg) {
         Authentication auth = Payloads.authentication().setAccessToken(ACCESS_TOKEN);
-        LanguagesResponse response = API.getDataDictionaryService().getLanguages(auth);
+        LanguagesResponse response = API.getDataDictionaryService().getLanguages(AUTH);
         System.out.println(response);
     }
 

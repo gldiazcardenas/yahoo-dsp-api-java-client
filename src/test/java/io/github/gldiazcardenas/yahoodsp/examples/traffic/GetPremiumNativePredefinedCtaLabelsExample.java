@@ -1,7 +1,5 @@
 package io.github.gldiazcardenas.yahoodsp.examples.traffic;
 
-import io.github.gldiazcardenas.yahoodsp.Payloads;
-import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
 import io.github.gldiazcardenas.yahoodsp.client.model.PremiumNativePredefinedCtaLabelsResponse;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
@@ -11,8 +9,8 @@ import io.github.gldiazcardenas.yahoodsp.examples.Example;
 public class GetPremiumNativePredefinedCtaLabelsExample implements Example {
 
     public static void main(String[] arg) {
-        Authentication auth = Payloads.authentication().setAccessToken(ACCESS_TOKEN);
-        PremiumNativePredefinedCtaLabelsResponse response = API.getDataDictionaryService().getPremiumNativePredefinedCtaLabels(auth);
+        PremiumNativePredefinedCtaLabelsResponse response = API.getDataDictionaryService()
+                .getPremiumNativePredefinedCtaLabels(AUTH);
         System.out.println(response);
     }
 
