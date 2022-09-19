@@ -1,11 +1,14 @@
 package io.github.gldiazcardenas.yahoodsp.client.service.traffic;
 
-import io.github.gldiazcardenas.yahoodsp.client.model.Dir;
-
 /**
  * @author Gabriel Diaz, Sep 16th 2022.
  */
 public class ContextualsFilter {
+
+    public enum Dir {
+        ASC,
+        DESC
+    }
 
     private Long seatId;
     private Long accountId;
