@@ -21,6 +21,7 @@ public class Segment {
     private AudienceType audienceType;
     private String createdBy;
     private String createdAt;
+    private Long reachCount;
     private List<SegmentHierarchy> hierarchy;
 
     public Long getId() {
@@ -63,6 +64,14 @@ public class Segment {
         this.audienceType = audienceType;
     }
 
+    public Long getReachCount() {
+        return reachCount;
+    }
+
+    public void setReachCount(Long reachCount) {
+        this.reachCount = reachCount;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -95,6 +104,7 @@ public class Segment {
                 ", status=" + status +
                 ", type=" + type +
                 ", audienceType=" + audienceType +
+                ", reachCount=" + reachCount +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdAt='" + createdAt + '\'' +
                 ", hierarchy=" + hierarchy +
