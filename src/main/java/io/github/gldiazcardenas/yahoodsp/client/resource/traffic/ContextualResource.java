@@ -4,6 +4,7 @@ import io.github.gldiazcardenas.yahoodsp.client.model.Contextual;
 import io.github.gldiazcardenas.yahoodsp.client.model.ContextualCategoriesResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.ContextualResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.ContextualsResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.Dir;
 import io.github.gldiazcardenas.yahoodsp.client.model.TaxonomyType;
 import io.github.gldiazcardenas.yahoodsp.client.resource.SecuredResource;
 import retrofit2.http.Body;
@@ -36,7 +37,7 @@ public interface ContextualResource extends SecuredResource {
                                        @Query("page") Integer page,
                                        @Query("limit") Integer limit,
                                        @Query("sort") String sort,
-                                       @Query("dir") String dir);
+                                       @Query("dir") Dir dir);
 
     @POST("contextuals")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)

@@ -13,10 +13,52 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Campaign {
 
+    public enum Status {
+        ACTIVE,
+        PAUSED,
+        INACTIVE,
+        STOP_TOTAL_BUDGET,
+        STOP_DAILY_BUDGET,
+        NOT_STARTED,
+        ENDED,
+        NO_ADS_ADDED,
+        ERROR
+    }
+
+    public enum FrequencyCapPeriodType {
+        UNLIMITED,
+        MINUTES,
+        HOURLY,
+        DAILY,
+        WEEKLY,
+        MONTHLY
+    }
+
+    public enum BudgetType {
+        CURRENCY,
+        IMPRESSION
+    }
+
+    public enum GoalType {
+        CTR,
+        CPC,
+        CPA,
+        CPCV,
+        VCPM,
+        ROAS,
+        CPI
+    }
+
+    public enum DemoVendor {
+        YAHOO,
+        COMSCORE,
+        NIELSEN
+    }
+
     private Long id;
     private String name;
-    private CampaignStatus status;
-    private CampaignGoalType goalType;
+    private Status status;
+    private GoalType goalType;
     private BigDecimal goalValue;
     private FrequencyCapPeriodType frequencyCapPeriodType;
     private BigDecimal frequencyCapValue;
@@ -44,19 +86,19 @@ public class Campaign {
         this.name = name;
     }
 
-    public CampaignStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(CampaignStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public CampaignGoalType getGoalType() {
+    public GoalType getGoalType() {
         return goalType;
     }
 
-    public void setGoalType(CampaignGoalType goalType) {
+    public void setGoalType(GoalType goalType) {
         this.goalType = goalType;
     }
 

@@ -1,11 +1,8 @@
 package io.github.gldiazcardenas.yahoodsp.examples.traffic;
 
 import io.github.gldiazcardenas.yahoodsp.client.model.BudgetSchedule;
-import io.github.gldiazcardenas.yahoodsp.client.model.BudgetScheduleType;
 import io.github.gldiazcardenas.yahoodsp.client.model.Campaign;
-import io.github.gldiazcardenas.yahoodsp.client.model.CampaignGoalType;
 import io.github.gldiazcardenas.yahoodsp.client.model.CampaignResponse;
-import io.github.gldiazcardenas.yahoodsp.client.model.CampaignStatus;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
 import java.math.BigDecimal;
@@ -21,15 +18,16 @@ public class CreateCampaignExample implements Example {
         BudgetSchedule budgetSchedule = new BudgetSchedule();
         budgetSchedule.setScheduleName("test-campaign-api-budget-unlimited");
         budgetSchedule.setStartDate(LocalDate.now());
-        budgetSchedule.setScheduleBudgetType(BudgetScheduleType.TOTAL_BUDGET);
+        budgetSchedule.setScheduleBudgetType(BudgetSchedule.Type.TOTAL_BUDGET);
 
         Campaign campaign = new Campaign();
         campaign.setAccountId(ADVERTISER_ID);
         campaign.setName("test-campaign-api-fixed-goal");
         campaign.setCurrency("USD");
-        campaign.setStatus(CampaignStatus.INACTIVE);
+        campaign.setDemoVendor(Campaign.DemoVendor.YAHOO);
+        campaign.setStatus(Campaign.Status.INACTIVE);
         campaign.setTimezone("America/New_York");
-        campaign.setGoalType(CampaignGoalType.CTR);
+        campaign.setGoalType(Campaign.GoalType.CTR);
         campaign.setGoalValue(BigDecimal.ZERO);
         campaign.setBudgetSchedules(new ArrayList<>());
         campaign.getBudgetSchedules().add(budgetSchedule);

@@ -1,14 +1,11 @@
 package io.github.gldiazcardenas.yahoodsp.client.service.traffic;
 
+import io.github.gldiazcardenas.yahoodsp.client.model.Dir;
+
 /**
  * @author Gabriel Diaz, Sep 19th 2022.
  */
 public class GeosFilter {
-
-    public enum Dir {
-        asc,
-        desc
-    }
 
     private String query;
     private String countryCode;

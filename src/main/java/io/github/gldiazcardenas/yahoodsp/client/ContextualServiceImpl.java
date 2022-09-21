@@ -41,7 +41,7 @@ class ContextualServiceImpl implements ContextualService {
                 filter.getPage(),
                 filter.getLimit(),
                 filter.getSort(),
-                filter.getDir().name());
+                filter.getDir());
     }
 
     @Override

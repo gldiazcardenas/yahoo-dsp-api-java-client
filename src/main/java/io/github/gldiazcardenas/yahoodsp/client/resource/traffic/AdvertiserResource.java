@@ -4,6 +4,7 @@ import io.github.gldiazcardenas.yahoodsp.client.model.Advertiser;
 import io.github.gldiazcardenas.yahoodsp.client.model.AdvertiserBeaconLookupsResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.AdvertiserResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.AdvertisersResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.Dir;
 import io.github.gldiazcardenas.yahoodsp.client.resource.SecuredResource;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -23,7 +24,7 @@ public interface AdvertiserResource extends SecuredResource {
                                        @Query("page") Integer page,
                                        @Query("limit") Integer limit,
                                        @Query("sort") String sort,
-                                       @Query("dir") String dir);
+                                       @Query("dir") Dir dir);
 
     @GET("advertisers/{advertiserId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)

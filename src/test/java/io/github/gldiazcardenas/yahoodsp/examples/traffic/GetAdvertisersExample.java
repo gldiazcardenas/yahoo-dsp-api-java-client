@@ -1,6 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.examples.traffic;
 
 import io.github.gldiazcardenas.yahoodsp.client.model.AdvertisersResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.Dir;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertisersFilter;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
@@ -10,8 +11,9 @@ import io.github.gldiazcardenas.yahoodsp.examples.Example;
 public class GetAdvertisersExample implements Example {
 
     public static void main(String[] arg) {
-        AdvertisersResponse response = API.getAdvertiserService().getAdvertisers(AUTH,
-                new AdvertisersFilter().setLimit(50));
+        AdvertisersResponse response = API.getAdvertiserService().getAdvertisers(AUTH, new AdvertisersFilter()
+                .setLimit(50)
+                .setDir(Dir.asc));
         System.out.println(response);
     }
 

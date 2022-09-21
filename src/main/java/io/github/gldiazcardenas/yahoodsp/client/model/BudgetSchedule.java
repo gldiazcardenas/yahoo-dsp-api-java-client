@@ -14,13 +14,19 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BudgetSchedule {
 
+    public enum Type {
+        TOTAL_BUDGET,
+        SPECIFIED_AMOUNT,
+        AUTO_ALLOCATED
+    }
+
     private Long id;
     private String scheduleName;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate endDate;
-    private BudgetScheduleType scheduleBudgetType;
+    private Type scheduleBudgetType;
     private BigDecimal scheduleBudget;
     private BigDecimal scheduleDailyBudget;
     private Integer impBudget;
@@ -58,11 +64,11 @@ public class BudgetSchedule {
         this.endDate = endDate;
     }
 
-    public BudgetScheduleType getScheduleBudgetType() {
+    public Type getScheduleBudgetType() {
         return scheduleBudgetType;
     }
 
-    public void setScheduleBudgetType(BudgetScheduleType scheduleBudgetType) {
+    public void setScheduleBudgetType(Type scheduleBudgetType) {
         this.scheduleBudgetType = scheduleBudgetType;
     }
 

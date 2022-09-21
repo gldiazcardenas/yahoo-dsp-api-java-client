@@ -10,8 +10,6 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertiserService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertisersFilter;
 
-import java.util.Optional;
-
 class AdvertiserServiceImpl implements AdvertiserService {
 
     private final AdvertiserResource resource;
@@ -29,7 +27,7 @@ class AdvertiserServiceImpl implements AdvertiserService {
                 filter.getPage(),
                 filter.getLimit(),
                 filter.getSort(),
-                Optional.ofNullable(filter.getDir()).map(Enum::name).orElse(null));
+                filter.getDir());
     }
 
     @Override

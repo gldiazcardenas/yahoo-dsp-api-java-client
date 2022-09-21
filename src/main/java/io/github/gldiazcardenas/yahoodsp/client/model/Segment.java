@@ -13,6 +13,12 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Segment {
 
+    public enum AudienceType {
+        YAHOO,
+        DMP,
+        ADVERTISER
+    }
+
     private Long id;
     private String name;
     private Status status;
