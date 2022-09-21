@@ -12,6 +12,7 @@ public interface Example {
     Long ADVERTISER_ID = 0L;
     Long SEAT_ID = 0L;
     Long CAMPAIGN_ID = 0L;
+    Long LINE_ID = 0L;
     Long CATEGORY_ID = 0L;
     String CLIENT_ID = "<<CLIENT_ID>>";
     String CLIENT_SECRET = "<<CLIENT_SECRET>>";
