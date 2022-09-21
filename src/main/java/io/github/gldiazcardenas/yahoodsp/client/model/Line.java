@@ -14,12 +14,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Line {
 
-    public enum MediaType {
-        DISPLAY,
-        VIDEO,
-        AUDIO
-    }
-
     public enum Status {
         ACTIVE,
         PAUSED,

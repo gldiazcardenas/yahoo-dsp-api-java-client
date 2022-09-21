@@ -4,6 +4,7 @@ import io.github.gldiazcardenas.yahoodsp.client.model.BudgetScheduleType;
 import io.github.gldiazcardenas.yahoodsp.client.model.Line;
 import io.github.gldiazcardenas.yahoodsp.client.model.LineBudgetSchedule;
 import io.github.gldiazcardenas.yahoodsp.client.model.LineResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.MediaType;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
 import java.math.BigDecimal;
@@ -31,7 +32,7 @@ public class CreateLineExample implements Example {
         line.setGoalAmount(BigDecimal.valueOf(0.2));
         line.setSchedules(new ArrayList<>());
         line.getSchedules().add(budgetSchedule);
-        line.setMediaType(Line.MediaType.DISPLAY);
+        line.setMediaType(MediaType.DISPLAY);
         line.setBillingMethodType(Line.BillingMethodType.CPC);
         line.setBillingPrice(BigDecimal.ZERO);
         line.setMarginType(Line.MarginType.TOTAL_BUDGET);
