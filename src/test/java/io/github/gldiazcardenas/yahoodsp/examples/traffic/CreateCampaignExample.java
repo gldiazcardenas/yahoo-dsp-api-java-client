@@ -1,7 +1,8 @@
 package io.github.gldiazcardenas.yahoodsp.examples.traffic;
 
-import io.github.gldiazcardenas.yahoodsp.client.model.BudgetSchedule;
+import io.github.gldiazcardenas.yahoodsp.client.model.BudgetScheduleType;
 import io.github.gldiazcardenas.yahoodsp.client.model.Campaign;
+import io.github.gldiazcardenas.yahoodsp.client.model.CampaignBudgetSchedule;
 import io.github.gldiazcardenas.yahoodsp.client.model.CampaignResponse;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
@@ -15,10 +16,9 @@ import java.util.ArrayList;
 public class CreateCampaignExample implements Example {
 
     public static void main(String[] arg) {
-        BudgetSchedule budgetSchedule = new BudgetSchedule();
-        budgetSchedule.setScheduleName("test-campaign-api-budget-unlimited");
+        CampaignBudgetSchedule budgetSchedule = new CampaignBudgetSchedule();
         budgetSchedule.setStartDate(LocalDate.now());
-        budgetSchedule.setScheduleBudgetType(BudgetSchedule.Type.TOTAL_BUDGET);
+        budgetSchedule.setScheduleBudgetType(BudgetScheduleType.TOTAL_BUDGET);
 
         Campaign campaign = new Campaign();
         campaign.setAccountId(ADVERTISER_ID);

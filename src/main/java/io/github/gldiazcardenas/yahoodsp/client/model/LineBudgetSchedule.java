@@ -3,6 +3,7 @@ package io.github.gldiazcardenas.yahoodsp.client.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,23 +13,18 @@ import java.time.LocalDate;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BudgetSchedule {
-
-    public enum Type {
-        TOTAL_BUDGET,
-        SPECIFIED_AMOUNT,
-        AUTO_ALLOCATED
-    }
+public class LineBudgetSchedule {
 
     private Long id;
-    private String scheduleName;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("startDateStr")
     private LocalDate startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonProperty("endDateStr")
     private LocalDate endDate;
-    private Type scheduleBudgetType;
-    private BigDecimal scheduleBudget;
-    private BigDecimal scheduleDailyBudget;
+    private BudgetScheduleType dailyBudgetType;
+    private BigDecimal budget;
+    private BigDecimal dailyBudget;
     private Integer impBudget;
     private Integer impDailyBudget;
 
@@ -38,14 +34,6 @@ public class BudgetSchedule {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getScheduleName() {
-        return scheduleName;
-    }
-
-    public void setScheduleName(String scheduleName) {
-        this.scheduleName = scheduleName;
     }
 
     public LocalDate getStartDate() {
@@ -64,28 +52,28 @@ public class BudgetSchedule {
         this.endDate = endDate;
     }
 
-    public Type getScheduleBudgetType() {
-        return scheduleBudgetType;
+    public BudgetScheduleType getDailyBudgetType() {
+        return dailyBudgetType;
     }
 
-    public void setScheduleBudgetType(Type scheduleBudgetType) {
-        this.scheduleBudgetType = scheduleBudgetType;
+    public void setDailyBudgetType(BudgetScheduleType dailyBudgetType) {
+        this.dailyBudgetType = dailyBudgetType;
     }
 
-    public BigDecimal getScheduleBudget() {
-        return scheduleBudget;
+    public BigDecimal getBudget() {
+        return budget;
     }
 
-    public void setScheduleBudget(BigDecimal scheduleBudget) {
-        this.scheduleBudget = scheduleBudget;
+    public void setBudget(BigDecimal budget) {
+        this.budget = budget;
     }
 
-    public BigDecimal getScheduleDailyBudget() {
-        return scheduleDailyBudget;
+    public BigDecimal getDailyBudget() {
+        return dailyBudget;
     }
 
-    public void setScheduleDailyBudget(BigDecimal scheduleDailyBudget) {
-        this.scheduleDailyBudget = scheduleDailyBudget;
+    public void setDailyBudget(BigDecimal dailyBudget) {
+        this.dailyBudget = dailyBudget;
     }
 
     public Integer getImpBudget() {
@@ -106,14 +94,13 @@ public class BudgetSchedule {
 
     @Override
     public String toString() {
-        return "BudgetSchedule{" +
+        return "LineBudgetSchedule{" +
                 "id=" + id +
-                ", scheduleName='" + scheduleName + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", scheduleBudgetType=" + scheduleBudgetType +
-                ", scheduleBudget=" + scheduleBudget +
-                ", scheduleDailyBudget=" + scheduleDailyBudget +
+                ", dailyBudgetType=" + dailyBudgetType +
+                ", budget=" + budget +
+                ", dailyBudget=" + dailyBudget +
                 ", impBudget=" + impBudget +
                 ", impDailyBudget=" + impDailyBudget +
                 '}';

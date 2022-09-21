@@ -34,11 +34,6 @@ public class Campaign {
         MONTHLY
     }
 
-    public enum BudgetType {
-        CURRENCY,
-        IMPRESSION
-    }
-
     public enum GoalType {
         CTR,
         CPC,
@@ -67,7 +62,7 @@ public class Campaign {
     private String currency;
     private Long accountId;
     private BudgetType budgetType;
-    private List<BudgetSchedule> budgetSchedules;
+    private List<CampaignBudgetSchedule> budgetSchedules;
     private OrderFrequencyCap orderFrequencyCap;
 
     public Long getId() {
@@ -166,11 +161,11 @@ public class Campaign {
         this.budgetType = budgetType;
     }
 
-    public List<BudgetSchedule> getBudgetSchedules() {
+    public List<CampaignBudgetSchedule> getBudgetSchedules() {
         return budgetSchedules;
     }
 
-    public void setBudgetSchedules(List<BudgetSchedule> budgetSchedules) {
+    public void setBudgetSchedules(List<CampaignBudgetSchedule> budgetSchedules) {
         this.budgetSchedules = budgetSchedules;
     }
 
