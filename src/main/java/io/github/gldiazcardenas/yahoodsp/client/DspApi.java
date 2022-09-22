@@ -6,11 +6,16 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AccountGroupRes
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AdResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AdvertiserResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AudienceResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.BeaconResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.CampaignResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.ContextualResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.CreativeResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.DataDictionaryResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.DealResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PackageResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PixelResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PublisherListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SeatResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.TargetingResource;
 import io.github.gldiazcardenas.yahoodsp.client.service.AuthenticationService;
@@ -19,11 +24,16 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AccountGroupServ
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertiserService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AudienceService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.BeaconService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.CampaignService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.ContextualService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.CreativeService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.DataDictionaryService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.DealService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.LineService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PackageService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PixelService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PublisherListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SeatService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.TargetingService;
 
@@ -95,6 +105,11 @@ public final class DspApi {
     private final SeatService seatService;
     private final TargetingService targetingService;
     private final ExtReportingService reportService;
+    private final BeaconService beaconService;
+    private final DealService dealService;
+    private final PackageService packageService;
+    private final PixelService pixelService;
+    private final PublisherListService publisherListService;
 
     private DspApi(CommunicationFactory factory) {
         this.factory = factory;
@@ -111,6 +126,11 @@ public final class DspApi {
         this.seatService = new SeatServiceImpl(createTrafficEndpoint(SeatResource.class));
         this.targetingService = new TargetingServiceImpl(createTrafficEndpoint(TargetingResource.class));
         this.reportService = new ExtReportingServiceImpl(createReportingEndpoint(ExtReportingResource.class));
+        this.beaconService = new BeaconServiceImpl(createTrafficEndpoint(BeaconResource.class));
+        this.dealService = new DealServiceImpl(createTrafficEndpoint(DealResource.class));
+        this.packageService = new PackageServiceImpl(createTrafficEndpoint(PackageResource.class));
+        this.pixelService = new PixelServiceImpl(createTrafficEndpoint(PixelResource.class));
+        this.publisherListService = new PublisherListServiceImpl(createTrafficEndpoint(PublisherListResource.class));
     }
 
     public AuthenticationService getAuthenticationService() {
@@ -163,6 +183,26 @@ public final class DspApi {
 
     public ExtReportingService getReportService() {
         return reportService;
+    }
+
+    public BeaconService getBeaconService() {
+        return beaconService;
+    }
+
+    public DealService getDealService() {
+        return dealService;
+    }
+
+    public PackageService getPackageService() {
+        return packageService;
+    }
+
+    public PixelService getPixelService() {
+        return pixelService;
+    }
+
+    public PublisherListService getPublisherListService() {
+        return publisherListService;
     }
 
     public <T> T createAuthEndpoint(Class<T> clazz) {
