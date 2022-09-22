@@ -1,6 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.client;
 
 import java.time.Duration;
+import java.util.Collection;
 import java.util.Objects;
 
 final class Preconditions {
@@ -61,6 +62,14 @@ final class Preconditions {
             throw new IllegalArgumentException("string must not be empty");
         }
         return value;
+    }
+
+    static <T extends Collection<?>> T requireNotEmpty(T collection) {
+        requireNonNull(collection);
+        if (collection.isEmpty()) {
+            throw new IllegalArgumentException("collection must not be empty");
+        }
+        return collection;
     }
 
 }
