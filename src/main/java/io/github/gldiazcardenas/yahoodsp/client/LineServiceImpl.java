@@ -3,6 +3,8 @@ package io.github.gldiazcardenas.yahoodsp.client;
 import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
 import io.github.gldiazcardenas.yahoodsp.client.model.Line;
 import io.github.gldiazcardenas.yahoodsp.client.model.LineResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.LineTargetingRequest;
+import io.github.gldiazcardenas.yahoodsp.client.model.LineTargetingResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.LinesResponse;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
@@ -48,4 +50,16 @@ class LineServiceImpl implements LineService {
         Preconditions.requireNonNull(line.getId());
         return resource.updateLine(auth.getAccessToken(), line.getId(), line);
     }
+
+    @Override
+    public LineTargetingResponse getTargeting(Authentication auth, long lineId) throws DspApiException {
+        return resource.getTargeting(auth.getAccessToken(), lineId);
+    }
+
+    @Override
+    public LineTargetingResponse updateTargeting(Authentication auth, long lineId,
+                                                 LineTargetingRequest targeting) throws DspApiException {
+        return resource.updateTargeting(auth.getAccessToken(), lineId, targeting);
+    }
+
 }

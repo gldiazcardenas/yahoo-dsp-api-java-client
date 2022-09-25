@@ -25,15 +25,6 @@ public class Campaign {
         ERROR
     }
 
-    public enum FrequencyCapPeriodType {
-        UNLIMITED,
-        MINUTES,
-        HOURLY,
-        DAILY,
-        WEEKLY,
-        MONTHLY
-    }
-
     public enum GoalType {
         CTR,
         CPC,

@@ -3,6 +3,8 @@ package io.github.gldiazcardenas.yahoodsp.client.resource.traffic;
 import io.github.gldiazcardenas.yahoodsp.client.model.Dir;
 import io.github.gldiazcardenas.yahoodsp.client.model.Line;
 import io.github.gldiazcardenas.yahoodsp.client.model.LineResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.LineTargetingRequest;
+import io.github.gldiazcardenas.yahoodsp.client.model.LineTargetingResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.LinesResponse;
 import io.github.gldiazcardenas.yahoodsp.client.resource.SecuredResource;
 import retrofit2.http.Body;
@@ -41,5 +43,16 @@ public interface LineResource extends SecuredResource {
     LineResponse updateLine(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                             @Path("lineId") long lineId,
                             @Body Line line);
+
+    @GET("lines/{lineId}/targeting")
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    LineTargetingResponse getTargeting(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
+                                       @Path("lineId") long lineId);
+
+    @POST("lines/{lineId}/targeting")
+    @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
+    LineTargetingResponse updateTargeting(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
+                                          @Path("lineId") long lineId,
+                                          @Body LineTargetingRequest targeting);
 
 }
