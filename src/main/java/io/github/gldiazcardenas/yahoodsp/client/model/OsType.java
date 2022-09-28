@@ -8,5 +8,7 @@ public enum OsType {
     WINDOWS,
     LINUX,
     OTHER,
+    ANDROID,
+    IOS,
     ALL
 }
