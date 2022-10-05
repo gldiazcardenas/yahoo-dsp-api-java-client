@@ -1,5 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * @author Gabriel Diaz, Sep 25th 2022.
  */
@@ -28,5 +30,17 @@ public enum TargetType {
     DOOH_SCREEN_OWNERS,
     DOOH_VENUE_TYPES,
     PRIORITIZED_INVENTORY,
-    AUCTION_TYPE
+    AUCTION_TYPE,
+    MOBILE_MEASUREMENT,
+    UNKNOWN;
+
+    @JsonCreator
+    public static TargetType fromName(String name) {
+        for (TargetType type : values()) {
+            if (type.name().equals(name)) {
+                return type;
+            }
+        }
+        return UNKNOWN;
+    }
 }
