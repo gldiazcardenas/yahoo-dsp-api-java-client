@@ -19,7 +19,7 @@ public class LineTargetingRequest {
     private FrequencyCapPeriodType frequencyCapValue;
     private Boolean serveUnknownUser;
     private DayPartingTargeting dayParting;
-    private List<String> languages;
+    private List<LanguageType> languages;
     private List<InventoryType> inventoryTypes;
     private List<BotType> bots;
     private List<DeviceType> deviceTypes;
@@ -94,11 +94,11 @@ public class LineTargetingRequest {
         this.dayParting = dayParting;
     }
 
-    public List<String> getLanguages() {
+    public List<LanguageType> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(List<String> languages) {
+    public void setLanguages(List<LanguageType> languages) {
         this.languages = languages;
     }
 
