@@ -2,6 +2,7 @@ package io.github.gldiazcardenas.yahoodsp.client.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Gabriel Diaz, Sep 25th 2022.
@@ -11,7 +12,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class LineTargetingType {
 
     private TargetType name;
-    private Boolean isTargeted;
+    @JsonProperty("isTargeted")
+    private Boolean targeted;
 
     public TargetType getName() {
         return name;
@@ -22,18 +24,18 @@ public class LineTargetingType {
     }
 
     public Boolean getTargeted() {
-        return isTargeted;
+        return targeted;
     }
 
     public void setTargeted(Boolean targeted) {
-        isTargeted = targeted;
+        this.targeted = targeted;
     }
 
     @Override
     public String toString() {
         return "LineTargetingType{" +
                 "name=" + name +
-                ", isTargeted=" + isTargeted +
+                ", targeted=" + targeted +
                 '}';
     }
 
