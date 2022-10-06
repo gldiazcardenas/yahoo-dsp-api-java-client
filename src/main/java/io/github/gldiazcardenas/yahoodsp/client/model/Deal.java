@@ -3,6 +3,8 @@ package io.github.gldiazcardenas.yahoodsp.client.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
+
 /**
  * @author Gabriel Diaz, Sep 28th 2022.
  */
@@ -12,13 +14,16 @@ public class Deal {
 
     private Long id;
     private String name;
+    private Status status;
     private Integer exchangeId;
     private Long exchangeDealId;
     private String description;
     private Integer reservePrice;
-    private Boolean spotbuy;
+    private Long accountGroupId;
     private Boolean accountIsExcluded;
-    private Status status;
+    private List<Long> accounts;
+    private List<Long> accountGroups;
+    private Boolean spotbuy;
 
     public Long getId() {
         return id;
@@ -34,6 +39,14 @@ public class Deal {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Integer getExchangeId() {
@@ -68,12 +81,12 @@ public class Deal {
         this.reservePrice = reservePrice;
     }
 
-    public Boolean getSpotbuy() {
-        return spotbuy;
+    public Long getAccountGroupId() {
+        return accountGroupId;
     }
 
-    public void setSpotbuy(Boolean spotbuy) {
-        this.spotbuy = spotbuy;
+    public void setAccountGroupId(Long accountGroupId) {
+        this.accountGroupId = accountGroupId;
     }
 
     public Boolean getAccountIsExcluded() {
@@ -84,12 +97,28 @@ public class Deal {
         this.accountIsExcluded = accountIsExcluded;
     }
 
-    public Status getStatus() {
-        return status;
+    public List<Long> getAccounts() {
+        return accounts;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setAccounts(List<Long> accounts) {
+        this.accounts = accounts;
+    }
+
+    public List<Long> getAccountGroups() {
+        return accountGroups;
+    }
+
+    public void setAccountGroups(List<Long> accountGroups) {
+        this.accountGroups = accountGroups;
+    }
+
+    public Boolean getSpotbuy() {
+        return spotbuy;
+    }
+
+    public void setSpotbuy(Boolean spotbuy) {
+        this.spotbuy = spotbuy;
     }
 
     @Override
@@ -97,13 +126,16 @@ public class Deal {
         return "Deal{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", status=" + status +
                 ", exchangeId=" + exchangeId +
                 ", exchangeDealId=" + exchangeDealId +
                 ", description='" + description + '\'' +
                 ", reservePrice=" + reservePrice +
-                ", spotbuy=" + spotbuy +
+                ", accountGroupId=" + accountGroupId +
                 ", accountIsExcluded=" + accountIsExcluded +
-                ", status=" + status +
+                ", accounts=" + accounts +
+                ", accountGroups=" + accountGroups +
+                ", spotbuy=" + spotbuy +
                 '}';
     }
 }
