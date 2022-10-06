@@ -1,4 +1,6 @@
 package io.github.gldiazcardenas.yahoodsp.client.resource.traffic;
 
-public interface AccountGroupResource {
+import io.github.gldiazcardenas.yahoodsp.client.resource.SecuredResource;
+
+public interface AccountGroupResource extends SecuredResource {
 }
