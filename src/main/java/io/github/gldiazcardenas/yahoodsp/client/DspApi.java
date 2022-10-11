@@ -18,7 +18,7 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.ExchangeResourc
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PackageResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PixelResource;
-import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SiteAppListResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SiteListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SeatResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.TargetingResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.UserGroupResource;
@@ -40,7 +40,7 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.ExchangeService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.LineService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PackageService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PixelService;
-import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SiteAppListService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SiteListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SeatService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.TargetingService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.UserGroupService;
@@ -117,7 +117,7 @@ public final class DspApi {
     private final LineService lineService;
     private final PackageService packageService;
     private final PixelService pixelService;
-    private final SiteAppListService siteAppListService;
+    private final SiteListService siteListService;
     private final SeatService seatService;
     private final TargetingService targetingService;
     private final UserGroupService userGroupService;
@@ -142,7 +142,7 @@ public final class DspApi {
         this.lineService = new LineServiceImpl(createTrafficEndpoint(LineResource.class));
         this.packageService = new PackageServiceImpl(createTrafficEndpoint(PackageResource.class));
         this.pixelService = new PixelServiceImpl(createTrafficEndpoint(PixelResource.class));
-        this.siteAppListService = new SiteAppListServiceImpl(createTrafficEndpoint(SiteAppListResource.class));
+        this.siteListService = new SiteListServiceImpl(createTrafficEndpoint(SiteListResource.class));
         this.seatService = new SeatServiceImpl(createTrafficEndpoint(SeatResource.class));
         this.targetingService = new TargetingServiceImpl(createTrafficEndpoint(TargetingResource.class));
         this.userGroupService = new UserGroupServiceImpl(createTrafficEndpoint(UserGroupResource.class));
@@ -217,8 +217,8 @@ public final class DspApi {
         return pixelService;
     }
 
-    public SiteAppListService getSiteAppListService() {
-        return siteAppListService;
+    public SiteListService getSiteAppListService() {
+        return siteListService;
     }
 
     public ExchangeService getExchangeService() {

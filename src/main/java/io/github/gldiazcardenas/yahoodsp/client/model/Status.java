@@ -6,5 +6,6 @@ package io.github.gldiazcardenas.yahoodsp.client.model;
 public enum Status {
     ACTIVE,
     INACTIVE,
+    ARCHIVED,
     UNKNOWN
 }
