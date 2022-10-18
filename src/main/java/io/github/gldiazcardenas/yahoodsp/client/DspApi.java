@@ -217,7 +217,7 @@ public final class DspApi {
         return pixelService;
     }
 
-    public SiteListService getSiteAppListService() {
+    public SiteListService getSiteListService() {
         return siteListService;
     }
 
