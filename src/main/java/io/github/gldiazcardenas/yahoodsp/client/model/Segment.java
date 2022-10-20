@@ -1,5 +1,6 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,15 +17,27 @@ public class Segment {
     public enum AudienceType {
         YAHOO,
         DMP,
-        ADVERTISER
+        ADVERTISER;
+
+        public static AudienceType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (AudienceType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     private Long id;
     private String name;
     private Status status;
     @JsonProperty("segmentType")
-    private SegmentType type;
-    private AudienceType audienceType;
+    private String typeValue;
+    @JsonProperty("audienceType")
+    private String audienceTypeValue;
     private String createdBy;
     private String createdAt;
     private Long reachCount;
@@ -54,20 +67,48 @@ public class Segment {
         this.status = status;
     }
 
+    @JsonIgnore
     public SegmentType getType() {
-        return type;
+        return SegmentType.fromValue(typeValue);
     }
 
+    @JsonIgnore
     public void setType(SegmentType type) {
-        this.type = type;
+        this.typeValue = type.name();
     }
 
+    public String getTypeValue() {
+        return typeValue;
+    }
+
+    public void setTypeValue(String typeValue) {
+        this.typeValue = typeValue;
+    }
+
+    @JsonIgnore
     public AudienceType getAudienceType() {
-        return audienceType;
+        if ("Yahoo".equals(audienceTypeValue)) {
+            return AudienceType.YAHOO;
+        }
+
+        if ("3rd Party".equals(audienceTypeValue)) {
+            return AudienceType.DMP;
+        }
+
+        return AudienceType.fromValue(audienceTypeValue);
     }
 
+    @JsonIgnore
     public void setAudienceType(AudienceType audienceType) {
-        this.audienceType = audienceType;
+        this.audienceTypeValue = audienceType.name();
+    }
+
+    public String getAudienceTypeValue() {
+        return audienceTypeValue;
+    }
+
+    public void setAudienceTypeValue(String audienceTypeValue) {
+        this.audienceTypeValue = audienceTypeValue;
     }
 
     public Long getReachCount() {
@@ -108,8 +149,8 @@ public class Segment {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", status=" + status +
-                ", type=" + type +
-                ", audienceType=" + audienceType +
+                ", type='" + typeValue + '\'' +
+                ", audienceType='" + audienceTypeValue + '\'' +
                 ", reachCount=" + reachCount +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdAt='" + createdAt + '\'' +

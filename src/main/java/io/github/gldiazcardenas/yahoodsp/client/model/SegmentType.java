@@ -15,5 +15,16 @@ public enum SegmentType {
     INTEREST,
     LOOKALIKE,
     MRT,
-    SRT
+    SRT;
+
+    public static SegmentType fromValue(String value) {
+        if (value != null && !value.isEmpty()) {
+            for (SegmentType type : values()) {
+                if (type.name().equals(value)) {
+                    return type;
+                }
+            }
+        }
+        return null;
+    }
 }
