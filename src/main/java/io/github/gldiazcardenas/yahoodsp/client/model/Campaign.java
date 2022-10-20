@@ -1,7 +1,9 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,7 +24,18 @@ public class Campaign {
         NOT_STARTED,
         ENDED,
         NO_ADS_ADDED,
-        ERROR
+        ERROR;
+
+        public static Status fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (Status type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum GoalType {
@@ -32,27 +45,55 @@ public class Campaign {
         CPCV,
         VCPM,
         ROAS,
-        CPI
+        CPI,
+        ENHANCED_CPC;
+
+        public static GoalType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (GoalType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum DemoVendor {
         YAHOO,
         COMSCORE,
-        NIELSEN
+        NIELSEN;
+
+        public static DemoVendor fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (DemoVendor type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     private Long id;
     private String name;
-    private Status status;
-    private GoalType goalType;
+    @JsonProperty("status")
+    private String statusValue;
+    @JsonProperty("goalType")
+    private String goalTypeValue;
     private BigDecimal goalValue;
-    private FrequencyCapPeriodType frequencyCapPeriodType;
+    @JsonProperty("frequencyCapPeriodType")
+    private String frequencyCapPeriodTypeValue;
     private BigDecimal frequencyCapValue;
-    private DemoVendor demoVendor;
+    @JsonProperty("demoVendor")
+    private String demoVendorValue;
     private String timezone;
     private String currency;
     private Long accountId;
-    private BudgetType budgetType;
+    @JsonProperty("budgetType")
+    private String budgetTypeValue;
     private List<CampaignBudgetSchedule> budgetSchedules;
     private OrderFrequencyCap orderFrequencyCap;
 
@@ -72,20 +113,40 @@ public class Campaign {
         this.name = name;
     }
 
+    @JsonIgnore
     public Status getStatus() {
-        return status;
+        return Status.fromValue(statusValue);
     }
 
+    @JsonIgnore
     public void setStatus(Status status) {
-        this.status = status;
+        this.statusValue = status.name();
     }
 
+    public String getStatusValue() {
+        return statusValue;
+    }
+
+    public void setStatusValue(String statusValue) {
+        this.statusValue = statusValue;
+    }
+
+    @JsonIgnore
     public GoalType getGoalType() {
-        return goalType;
+        return GoalType.fromValue(goalTypeValue);
     }
 
+    @JsonIgnore
     public void setGoalType(GoalType goalType) {
-        this.goalType = goalType;
+        this.goalTypeValue = goalType.name();
+    }
+
+    public String getGoalTypeValue() {
+        return goalTypeValue;
+    }
+
+    public void setGoalTypeValue(String goalTypeValue) {
+        this.goalTypeValue = goalTypeValue;
     }
 
     public BigDecimal getGoalValue() {
@@ -96,12 +157,22 @@ public class Campaign {
         this.goalValue = goalValue;
     }
 
+    @JsonIgnore
     public FrequencyCapPeriodType getFrequencyCapPeriodType() {
-        return frequencyCapPeriodType;
+        return FrequencyCapPeriodType.fromValue(frequencyCapPeriodTypeValue);
     }
 
+    @JsonIgnore
     public void setFrequencyCapPeriodType(FrequencyCapPeriodType frequencyCapPeriodType) {
-        this.frequencyCapPeriodType = frequencyCapPeriodType;
+        this.frequencyCapPeriodTypeValue = frequencyCapPeriodType.name();
+    }
+
+    public String getFrequencyCapPeriodTypeValue() {
+        return frequencyCapPeriodTypeValue;
+    }
+
+    public void setFrequencyCapPeriodTypeValue(String frequencyCapPeriodTypeValue) {
+        this.frequencyCapPeriodTypeValue = frequencyCapPeriodTypeValue;
     }
 
     public BigDecimal getFrequencyCapValue() {
@@ -112,12 +183,22 @@ public class Campaign {
         this.frequencyCapValue = frequencyCapValue;
     }
 
+    @JsonIgnore
     public DemoVendor getDemoVendor() {
-        return demoVendor;
+        return DemoVendor.fromValue(demoVendorValue);
     }
 
+    @JsonIgnore
     public void setDemoVendor(DemoVendor demoVendor) {
-        this.demoVendor = demoVendor;
+        this.demoVendorValue = demoVendor.name();
+    }
+
+    public String getDemoVendorValue() {
+        return demoVendorValue;
+    }
+
+    public void setDemoVendorValue(String demoVendorValue) {
+        this.demoVendorValue = demoVendorValue;
     }
 
     public String getTimezone() {
@@ -144,12 +225,22 @@ public class Campaign {
         this.accountId = accountId;
     }
 
+    @JsonIgnore
     public BudgetType getBudgetType() {
-        return budgetType;
+        return BudgetType.fromValue(budgetTypeValue);
     }
 
+    @JsonIgnore
     public void setBudgetType(BudgetType budgetType) {
-        this.budgetType = budgetType;
+        this.budgetTypeValue = budgetType.name();
+    }
+
+    public String getBudgetTypeValue() {
+        return budgetTypeValue;
+    }
+
+    public void setBudgetTypeValue(String budgetTypeValue) {
+        this.budgetTypeValue = budgetTypeValue;
     }
 
     public List<CampaignBudgetSchedule> getBudgetSchedules() {
@@ -173,16 +264,16 @@ public class Campaign {
         return "Campaign{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", status=" + status +
-                ", goalType=" + goalType +
+                ", status='" + statusValue + '\'' +
+                ", goalType='" + goalTypeValue + '\'' +
                 ", goalValue=" + goalValue +
-                ", frequencyCapPeriodType=" + frequencyCapPeriodType +
+                ", frequencyCapPeriodType='" + frequencyCapPeriodTypeValue + '\'' +
                 ", frequencyCapValue=" + frequencyCapValue +
-                ", demoVendor=" + demoVendor +
+                ", demoVendor='" + demoVendorValue + '\'' +
                 ", timezone='" + timezone + '\'' +
                 ", currency='" + currency + '\'' +
                 ", accountId=" + accountId +
-                ", budgetType=" + budgetType +
+                ", budgetType='" + budgetTypeValue + '\'' +
                 ", budgetSchedules=" + budgetSchedules +
                 ", orderFrequencyCap=" + orderFrequencyCap +
                 '}';

@@ -9,5 +9,16 @@ public enum FrequencyCapPeriodType {
     HOURLY,
     DAILY,
     WEEKLY,
-    MONTHLY
+    MONTHLY;
+
+    public static FrequencyCapPeriodType fromValue(String value) {
+        if (value != null && !value.isEmpty()) {
+            for (FrequencyCapPeriodType type : values()) {
+                if (type.name().equals(value)) {
+                    return type;
+                }
+            }
+        }
+        return null;
+    }
 }

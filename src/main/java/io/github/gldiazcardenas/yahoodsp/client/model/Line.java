@@ -1,5 +1,6 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +23,17 @@ public class Line {
         STOP_DAILY_BUDGET,
         NOT_STARTED,
         ENDED,
-        ERROR
+        ERROR;
+        public static Status fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (Status type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum GoalType {
@@ -38,72 +49,152 @@ public class Line {
         MAXCOMPLETIONRATE,
         MAXCTR,
         COMPLETION_HARD_THRESHOLD,
-        ECPM
+        ECPM;
+        public static GoalType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (GoalType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum GoalModeType {
         SOFT,
-        HARD
+        HARD;
+        public static GoalModeType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (GoalModeType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum PacingModeType {
         EVEN,
         ASAP,
-        PACE_AHEAD
+        PACE_AHEAD;
+        public static PacingModeType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (PacingModeType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum AppMarketingObjective {
         APP_INSTALL,
         POST_INSTALL,
-        RE_ENGAGEMENT
+        RE_ENGAGEMENT;
+        public static AppMarketingObjective fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (AppMarketingObjective type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum BillingMethodType {
         CPM_PRICE,
         CPC,
         MARGIN,
-        CPCV
+        CPCV;
+        public static BillingMethodType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (BillingMethodType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum MarginType {
         TOTAL_BUDGET,
-        BUYER_COST
+        BUYER_COST;
+        public static MarginType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (MarginType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public enum ChannelType {
         DOOH,
-        DEFAULT
+        DEFAULT;
+        public static ChannelType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (ChannelType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     private Long id;
     private String name;
     private Long orderId;
-    private MediaType mediaType;
-    private Status status;
-    private GoalType goalType;
-    private GoalModeType goalModeType;
+    @JsonProperty("mediaType")
+    private String mediaTypeValue;
+    @JsonProperty("status")
+    private String statusValue;
+    @JsonProperty("goalType")
+    private String goalTypeValue;
+    @JsonProperty("goalModeType")
+    private String goalModeTypeValue;
     private BigDecimal goalAmount;
     private BigDecimal bidPrice;
     private BigDecimal maxGoal;
     private BigDecimal marginGoal;
     @JsonProperty("isNativeEnabled")
     private Boolean nativeEnabled;
-    private PacingModeType pacingModeType;
+    @JsonProperty("pacingModeType")
+    private String pacingModeTypeValue;
     private Integer pacingAcceleration;
-    private AppMarketingObjective appMarketingObjective;
+    @JsonProperty("appMarketingObjective")
+    private String appMarketingObjectiveValue;
     private String appUrl;
     private String appLocale;
     private String appId;
-    private BudgetType budgetType;
-    private BillingMethodType billingMethodType;
+    @JsonProperty("budgetType")
+    private String budgetTypeValue;
+    @JsonProperty("billingMethodType")
+    private String billingMethodTypeValue;
     private BigDecimal billingPrice;
-    private MarginType marginType;
+    @JsonProperty("marginType")
+    private String marginTypeValue;
     private Integer completionThreshold;
     private List<LineBudgetSchedule> schedules;
     private List<Fee> feeList;
     private List<Conversion> conversionList;
     private BidMultiplierCap bidMultiplierCap;
-    private ChannelType channelType;
+    @JsonProperty("channelType")
+    private String channelTypeValue;
 
     public Long getId() {
         return id;
@@ -129,36 +220,76 @@ public class Line {
         this.orderId = orderId;
     }
 
+    @JsonIgnore
     public MediaType getMediaType() {
-        return mediaType;
+        return MediaType.fromValue(mediaTypeValue);
     }
 
+    @JsonIgnore
     public void setMediaType(MediaType mediaType) {
-        this.mediaType = mediaType;
+        this.mediaTypeValue = mediaType.name();
     }
 
+    public String getMediaTypeValue() {
+        return mediaTypeValue;
+    }
+
+    public void setMediaTypeValue(String mediaTypeValue) {
+        this.mediaTypeValue = mediaTypeValue;
+    }
+
+    @JsonIgnore
     public Status getStatus() {
-        return status;
+        return Status.fromValue(statusValue);
     }
 
+    @JsonIgnore
     public void setStatus(Status status) {
-        this.status = status;
+        this.statusValue = status.name();
     }
 
+    public String getStatusValue() {
+        return statusValue;
+    }
+
+    public void setStatusValue(String statusValue) {
+        this.statusValue = statusValue;
+    }
+
+    @JsonIgnore
     public GoalType getGoalType() {
-        return goalType;
+        return GoalType.fromValue(goalTypeValue);
     }
 
+    @JsonIgnore
     public void setGoalType(GoalType goalType) {
-        this.goalType = goalType;
+        this.goalTypeValue = goalType.name();
     }
 
+    public String getGoalTypeValue() {
+        return goalTypeValue;
+    }
+
+    public void setGoalTypeValue(String goalTypeValue) {
+        this.goalTypeValue = goalTypeValue;
+    }
+
+    @JsonIgnore
     public GoalModeType getGoalModeType() {
-        return goalModeType;
+        return GoalModeType.fromValue(goalModeTypeValue);
     }
 
+    @JsonIgnore
     public void setGoalModeType(GoalModeType goalModeType) {
-        this.goalModeType = goalModeType;
+        this.goalModeTypeValue = goalModeType.name();
+    }
+
+    public String getGoalModeTypeValue() {
+        return goalModeTypeValue;
+    }
+
+    public void setGoalModeTypeValue(String goalModeTypeValue) {
+        this.goalModeTypeValue = goalModeTypeValue;
     }
 
     public BigDecimal getGoalAmount() {
@@ -201,12 +332,22 @@ public class Line {
         this.nativeEnabled = nativeEnabled;
     }
 
+    @JsonIgnore
     public PacingModeType getPacingModeType() {
-        return pacingModeType;
+        return PacingModeType.fromValue(pacingModeTypeValue);
     }
 
+    @JsonIgnore
     public void setPacingModeType(PacingModeType pacingModeType) {
-        this.pacingModeType = pacingModeType;
+        this.pacingModeTypeValue = pacingModeType.name();
+    }
+
+    public String getPacingModeTypeValue() {
+        return pacingModeTypeValue;
+    }
+
+    public void setPacingModeTypeValue(String pacingModeTypeValue) {
+        this.pacingModeTypeValue = pacingModeTypeValue;
     }
 
     public Integer getPacingAcceleration() {
@@ -217,12 +358,22 @@ public class Line {
         this.pacingAcceleration = pacingAcceleration;
     }
 
+    @JsonIgnore
     public AppMarketingObjective getAppMarketingObjective() {
-        return appMarketingObjective;
+        return AppMarketingObjective.fromValue(appMarketingObjectiveValue);
     }
 
+    @JsonIgnore
     public void setAppMarketingObjective(AppMarketingObjective appMarketingObjective) {
-        this.appMarketingObjective = appMarketingObjective;
+        this.appMarketingObjectiveValue = appMarketingObjective.name();
+    }
+
+    public String getAppMarketingObjectiveValue() {
+        return appMarketingObjectiveValue;
+    }
+
+    public void setAppMarketingObjectiveValue(String appMarketingObjectiveValue) {
+        this.appMarketingObjectiveValue = appMarketingObjectiveValue;
     }
 
     public String getAppUrl() {
@@ -249,20 +400,40 @@ public class Line {
         this.appId = appId;
     }
 
+    @JsonIgnore
     public BudgetType getBudgetType() {
-        return budgetType;
+        return BudgetType.fromValue(budgetTypeValue);
     }
 
+    @JsonIgnore
     public void setBudgetType(BudgetType budgetType) {
-        this.budgetType = budgetType;
+        this.budgetTypeValue = budgetType.name();
     }
 
+    public String getBudgetTypeValue() {
+        return budgetTypeValue;
+    }
+
+    public void setBudgetTypeValue(String budgetTypeValue) {
+        this.budgetTypeValue = budgetTypeValue;
+    }
+
+    @JsonIgnore
     public BillingMethodType getBillingMethodType() {
-        return billingMethodType;
+        return BillingMethodType.fromValue(billingMethodTypeValue);
     }
 
+    @JsonIgnore
     public void setBillingMethodType(BillingMethodType billingMethodType) {
-        this.billingMethodType = billingMethodType;
+        this.billingMethodTypeValue = billingMethodType.name();
+    }
+
+    public String getBillingMethodTypeValue() {
+        return billingMethodTypeValue;
+    }
+
+    public void setBillingMethodTypeValue(String billingMethodTypeValue) {
+        this.billingMethodTypeValue = billingMethodTypeValue;
     }
 
     public BigDecimal getBillingPrice() {
@@ -273,12 +444,14 @@ public class Line {
         this.billingPrice = billingPrice;
     }
 
+    @JsonIgnore
     public MarginType getMarginType() {
-        return marginType;
+        return MarginType.fromValue(marginTypeValue);
     }
 
+    @JsonIgnore
     public void setMarginType(MarginType marginType) {
-        this.marginType = marginType;
+        this.marginTypeValue = marginType.name();
     }
 
     public Integer getCompletionThreshold() {
@@ -321,12 +494,22 @@ public class Line {
         this.bidMultiplierCap = bidMultiplierCap;
     }
 
+    @JsonIgnore
     public ChannelType getChannelType() {
-        return channelType;
+        return ChannelType.fromValue(channelTypeValue);
     }
 
+    @JsonIgnore
     public void setChannelType(ChannelType channelType) {
-        this.channelType = channelType;
+        this.channelTypeValue = channelType.name();
+    }
+
+    public String getChannelTypeValue() {
+        return channelTypeValue;
+    }
+
+    public void setChannelTypeValue(String channelTypeValue) {
+        this.channelTypeValue = channelTypeValue;
     }
 
     @Override
@@ -335,31 +518,31 @@ public class Line {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", orderId=" + orderId +
-                ", mediaType=" + mediaType +
-                ", status=" + status +
-                ", goalType=" + goalType +
-                ", goalModeType=" + goalModeType +
+                ", mediaType='" + mediaTypeValue + '\'' +
+                ", status='" + statusValue + '\'' +
+                ", goalType='" + goalTypeValue + '\'' +
+                ", goalModeType='" + goalModeTypeValue + '\'' +
                 ", goalAmount=" + goalAmount +
                 ", bidPrice=" + bidPrice +
                 ", maxGoal=" + maxGoal +
                 ", marginGoal=" + marginGoal +
                 ", nativeEnabled=" + nativeEnabled +
-                ", pacingModeType=" + pacingModeType +
+                ", pacingModeType='" + pacingModeTypeValue + '\'' +
                 ", pacingAcceleration=" + pacingAcceleration +
-                ", appMarketingObjective=" + appMarketingObjective +
+                ", appMarketingObjective='" + appMarketingObjectiveValue + '\'' +
                 ", appUrl='" + appUrl + '\'' +
                 ", appLocale='" + appLocale + '\'' +
                 ", appId='" + appId + '\'' +
-                ", budgetType=" + budgetType +
-                ", billingMethodType=" + billingMethodType +
+                ", budgetType='" + budgetTypeValue + '\'' +
+                ", billingMethodType='" + billingMethodTypeValue + '\'' +
                 ", billingPrice=" + billingPrice +
-                ", marginType=" + marginType +
+                ", marginType='" + marginTypeValue + '\'' +
                 ", completionThreshold=" + completionThreshold +
                 ", schedules=" + schedules +
                 ", feeList=" + feeList +
                 ", conversionList=" + conversionList +
                 ", bidMultiplierCap=" + bidMultiplierCap +
-                ", channelType=" + channelType +
+                ", channelType='" + channelTypeValue + '\'' +
                 '}';
     }
 }

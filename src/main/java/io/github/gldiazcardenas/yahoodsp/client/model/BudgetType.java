@@ -5,5 +5,15 @@ package io.github.gldiazcardenas.yahoodsp.client.model;
  */
 public enum BudgetType {
     CURRENCY,
-    IMPRESSION
+    IMPRESSION;
+    public static BudgetType fromValue(String value) {
+        if (value != null && !value.isEmpty()) {
+            for (BudgetType type : values()) {
+                if (type.name().equals(value)) {
+                    return type;
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -1,7 +1,5 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 /**
  * @author Gabriel Diaz, Sep 21th 2022.
  */
@@ -9,16 +7,13 @@ public enum MediaType {
     DISPLAY,
     VIDEO,
     AUDIO,
-    NATIVE,
-    UNKNOWN;
-
-    @JsonCreator
-    public static MediaType fromName(String name) {
+    NATIVE;
+    public static MediaType fromValue(String value) {
         for (MediaType type : values()) {
-            if (type.name().equals(name)) {
+            if (type.name().equals(value)) {
                 return type;
             }
         }
-        return UNKNOWN;
+        return null;
     }
 }
