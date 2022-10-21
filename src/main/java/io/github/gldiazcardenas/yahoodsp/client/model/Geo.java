@@ -3,6 +3,7 @@ package io.github.gldiazcardenas.yahoodsp.client.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * @author Gabriel Diaz, Sep 17th 2022.
@@ -28,6 +29,7 @@ public class Geo {
             this.id = id;
         }
 
+        @JsonValue
         public String getId() {
             return id;
         }
