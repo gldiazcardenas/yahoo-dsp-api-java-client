@@ -10,8 +10,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SegmentTarget {
 
+    public static final int GROUP_A = 0;
+    public static final int GROUP_B = 0;
+
     private Boolean exclude;
     private Long entityId;
+    private Integer groupId;
 
     public Boolean getExclude() {
         return exclude;
@@ -29,11 +33,21 @@ public class SegmentTarget {
         this.entityId = entityId;
     }
 
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
     @Override
     public String toString() {
         return "SegmentTarget{" +
                 "exclude=" + exclude +
                 ", entityId=" + entityId +
+                ", groupId=" + groupId +
                 '}';
     }
+
 }

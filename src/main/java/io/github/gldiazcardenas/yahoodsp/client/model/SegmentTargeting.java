@@ -14,6 +14,7 @@ public class SegmentTargeting {
 
     private Boolean clearAll;
     private List<SegmentTarget> added;
+    private List<SegmentTarget> edited;
     private List<Long> removed;
 
     public Boolean getClearAll() {
@@ -32,6 +33,14 @@ public class SegmentTargeting {
         this.added = added;
     }
 
+    public List<SegmentTarget> getEdited() {
+        return edited;
+    }
+
+    public void setEdited(List<SegmentTarget> edited) {
+        this.edited = edited;
+    }
+
     public List<Long> getRemoved() {
         return removed;
     }
@@ -45,6 +54,7 @@ public class SegmentTargeting {
         return "SegmentTargeting{" +
                 "clearAll=" + clearAll +
                 ", added=" + added +
+                ", edited=" + edited +
                 ", removed=" + removed +
                 '}';
     }
