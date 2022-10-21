@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class SegmentTarget {
 
     public static final int GROUP_A = 0;
-    public static final int GROUP_B = 0;
+    public static final int GROUP_B = 1;
 
     private Boolean exclude;
     private Long entityId;
