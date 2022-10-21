@@ -13,16 +13,16 @@ public class SegmentTarget {
     public static final int GROUP_A = 0;
     public static final int GROUP_B = 1;
 
-    private Boolean exclude;
+    private Boolean excluded;
     private Long entityId;
     private Integer groupId;
 
-    public Boolean getExclude() {
-        return exclude;
+    public Boolean getExcluded() {
+        return excluded;
     }
 
-    public void setExclude(Boolean exclude) {
-        this.exclude = exclude;
+    public void setExcluded(Boolean excluded) {
+        this.excluded = excluded;
     }
 
     public Long getEntityId() {
@@ -44,7 +44,7 @@ public class SegmentTarget {
     @Override
     public String toString() {
         return "SegmentTarget{" +
-                "exclude=" + exclude +
+                "excluded=" + excluded +
                 ", entityId=" + entityId +
                 ", groupId=" + groupId +
                 '}';
