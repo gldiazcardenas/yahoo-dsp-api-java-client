@@ -23,13 +23,13 @@ public class CreateCampaignExample implements Example {
 
         Campaign campaign = new Campaign();
         campaign.setAccountId(ADVERTISER_ID);
-        campaign.setName("test-campaign-api-20221021");
+        campaign.setName("test-campaign-api-20221110");
         campaign.setCurrency("USD");
         campaign.setDemoVendor(Campaign.DemoVendor.YAHOO);
         campaign.setStatus(Campaign.Status.INACTIVE);
         campaign.setTimezone("America/New_York");
-        campaign.setGoalType(Campaign.GoalType.ENHANCED_CPC);
-        campaign.setGoalValue(BigDecimal.valueOf(0.2));
+        campaign.setGoalType(Campaign.GoalType.CTR);
+        campaign.setGoalValue(BigDecimal.ZERO);
         campaign.setFrequencyCapPeriodType(FrequencyCapPeriodType.UNLIMITED);
         campaign.setFrequencyCapValue(BigDecimal.ZERO);
         campaign.setBudgetSchedules(new ArrayList<>());
