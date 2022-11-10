@@ -1,9 +1,9 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Gabriel Diaz, Sep 17th 2022.
@@ -23,37 +23,33 @@ public class Geo {
         ZIP("Zip"),
         POST_CODE_PREFIX("PostCode Prefix");
 
-        private final String id;
+        private final String value;
 
-        Level(String id) {
-            this.id = id;
+        Level(String value) {
+            this.value = value;
         }
 
-        @JsonValue
-        public String getId() {
-            return id;
+        public String getValue() {
+            return value;
         }
 
-        @Override
-        public String toString() {
-            return id;
-        }
-
-        @JsonCreator
-        public static Level fromId(String id) {
-            for (Level level : values()) {
-                if (level.id.equals(id)) {
-                    return level;
+        public static Level fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (Level level : values()) {
+                    if (level.value.equals(value)) {
+                        return level;
+                    }
                 }
             }
-            throw new IllegalStateException("Level not mapped: " + id);
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
     private String id;
     private String name;
     private String description;
-    private Level level;
+    @JsonProperty("level")
+    private String levelValue;
     private String key;
     private String code;
     private String woeid;
@@ -84,12 +80,22 @@ public class Geo {
         this.description = description;
     }
 
+    @JsonIgnore
     public Level getLevel() {
-        return level;
+        return Level.fromValue(levelValue);
     }
 
+    @JsonIgnore
     public void setLevel(Level level) {
-        this.level = level;
+        this.levelValue = level.getValue();
+    }
+
+    public String getLevelValue() {
+        return levelValue;
+    }
+
+    public void setLevelValue(String levelValue) {
+        this.levelValue = levelValue;
     }
 
     public String getKey() {
@@ -138,7 +144,7 @@ public class Geo {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", level=" + level +
+                ", level='" + levelValue + '\'' +
                 ", key='" + key + '\'' +
                 ", code='" + code + '\'' +
                 ", woeid='" + woeid + '\'' +

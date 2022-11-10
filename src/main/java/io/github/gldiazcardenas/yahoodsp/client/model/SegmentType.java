@@ -25,6 +25,6 @@ public enum SegmentType {
                 }
             }
         }
-        return null;
+        throw new UnsupportedOperationException("Unmapped value: " + value);
     }
 }

@@ -34,7 +34,7 @@ public class Campaign {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -56,7 +56,7 @@ public class Campaign {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -73,7 +73,7 @@ public class Campaign {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -96,6 +96,7 @@ public class Campaign {
     private String budgetTypeValue;
     private List<CampaignBudgetSchedule> budgetSchedules;
     private OrderFrequencyCap orderFrequencyCap;
+    private Boolean packageEnabled;
 
     public Long getId() {
         return id;
@@ -259,6 +260,14 @@ public class Campaign {
         this.orderFrequencyCap = orderFrequencyCap;
     }
 
+    public Boolean getPackageEnabled() {
+        return packageEnabled;
+    }
+
+    public void setPackageEnabled(Boolean packageEnabled) {
+        this.packageEnabled = packageEnabled;
+    }
+
     @Override
     public String toString() {
         return "Campaign{" +
@@ -276,6 +285,7 @@ public class Campaign {
                 ", budgetType='" + budgetTypeValue + '\'' +
                 ", budgetSchedules=" + budgetSchedules +
                 ", orderFrequencyCap=" + orderFrequencyCap +
+                ", packageEnabled=" + packageEnabled +
                 '}';
     }
 

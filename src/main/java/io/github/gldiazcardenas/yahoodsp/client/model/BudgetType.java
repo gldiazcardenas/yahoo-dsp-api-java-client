@@ -14,6 +14,6 @@ public enum BudgetType {
                 }
             }
         }
-        return null;
+        throw new UnsupportedOperationException("Unmapped value: " + value);
     }
 }

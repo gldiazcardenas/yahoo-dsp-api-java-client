@@ -1,8 +1,5 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
  * @author Gabriel Diaz, Oct 06th 2022.
  */
@@ -26,19 +23,19 @@ public enum ReportDateType {
         this.id = id;
     }
 
-    @JsonValue
     public int getId() {
         return id;
     }
 
-    @JsonCreator
-    public static ReportDateType fromId(int id) {
-        for (ReportDateType type : values()) {
-            if (type.id == id) {
-                return type;
+    public static ReportDateType fromId(Integer id) {
+        if (id != null) {
+            for (ReportDateType type : values()) {
+                if (type.id == id) {
+                    return type;
+                }
             }
         }
-        throw new UnsupportedOperationException("dateTypeId not supported: " + id);
+        throw new UnsupportedOperationException("Unmapped value: " + id);
     }
 
 }

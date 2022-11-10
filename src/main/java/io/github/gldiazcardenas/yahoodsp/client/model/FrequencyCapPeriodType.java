@@ -19,6 +19,6 @@ public enum FrequencyCapPeriodType {
                 }
             }
         }
-        return null;
+        throw new UnsupportedOperationException("Unmapped value: " + value);
     }
 }

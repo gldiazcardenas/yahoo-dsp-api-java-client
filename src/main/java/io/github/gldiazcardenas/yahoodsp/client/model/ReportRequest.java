@@ -1,6 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,9 +18,11 @@ public class ReportRequest {
     private ReportOption reportOption;
     @JsonProperty("limit")
     private ReportLimit limit;
-    private ReportDateType dateTypeId;
+    @JsonProperty("dateTypeId")
+    private Integer dateTypeIdValue;
     private Integer dataSource;
-    private ReportIntervalType intervalTypeId;
+    @JsonProperty("intervalTypeId")
+    private Integer intervalTypeIdValue;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDateTime startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -41,12 +44,22 @@ public class ReportRequest {
         this.limit = limit;
     }
 
+    @JsonIgnore
     public ReportDateType getDateTypeId() {
-        return dateTypeId;
+        return ReportDateType.fromId(dateTypeIdValue);
     }
 
+    @JsonIgnore
     public void setDateTypeId(ReportDateType dateTypeId) {
-        this.dateTypeId = dateTypeId;
+        this.dateTypeIdValue = dateTypeId.getId();
+    }
+
+    public Integer getDateTypeIdValue() {
+        return dateTypeIdValue;
+    }
+
+    public void setDateTypeIdValue(Integer dateTypeIdValue) {
+        this.dateTypeIdValue = dateTypeIdValue;
     }
 
     public Integer getDataSource() {
@@ -57,12 +70,22 @@ public class ReportRequest {
         this.dataSource = dataSource;
     }
 
+    @JsonIgnore
     public ReportIntervalType getIntervalTypeId() {
-        return intervalTypeId;
+        return ReportIntervalType.fromId(intervalTypeIdValue);
     }
 
+    @JsonIgnore
     public void setIntervalTypeId(ReportIntervalType intervalTypeId) {
-        this.intervalTypeId = intervalTypeId;
+        this.intervalTypeIdValue = intervalTypeId.getId();
+    }
+
+    public Integer getIntervalTypeIdValue() {
+        return intervalTypeIdValue;
+    }
+
+    public void setIntervalTypeIdValue(Integer intervalTypeIdValue) {
+        this.intervalTypeIdValue = intervalTypeIdValue;
     }
 
     public LocalDateTime getStartDate() {
@@ -86,9 +109,9 @@ public class ReportRequest {
         return "ReportRequest{" +
                 "reportOption=" + reportOption +
                 ", limit=" + limit +
-                ", dateTypeId=" + dateTypeId +
+                ", dateTypeId=" + dateTypeIdValue +
                 ", dataSource=" + dataSource +
-                ", intervalTypeId=" + intervalTypeId +
+                ", intervalTypeId=" + intervalTypeIdValue +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';

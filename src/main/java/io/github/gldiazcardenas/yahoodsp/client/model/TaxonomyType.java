@@ -17,6 +17,15 @@ public enum TaxonomyType {
     PEER39_PAGE_QUALITY,
     GRAPESHOT_CONTEXTUAL,
     GRAPESHOT_LANGUAGE,
-    GRAPESHOT_CUSTOM
+    GRAPESHOT_CUSTOM;
+
+    public static TaxonomyType fromValue(String value) {
+        for (TaxonomyType type : values()) {
+            if (type.name().equals(value)) {
+                return type;
+            }
+        }
+        throw new UnsupportedOperationException("Unmapped value: " + value);
+    }
 
 }

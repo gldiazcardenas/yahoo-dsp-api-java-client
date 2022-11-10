@@ -1,5 +1,6 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +16,8 @@ public class Advertiser {
 
     private Long id;
     private String name;
-    private Status status;
+    @JsonProperty("status")
+    private String statusValue;
     private String landingPageUrl;
     private Long iabCategoryId;
     private Long iabSecondaryCategoryId;
@@ -43,12 +45,22 @@ public class Advertiser {
         this.name = name;
     }
 
+    @JsonIgnore
     public Status getStatus() {
-        return status;
+        return Status.fromValue(statusValue);
     }
 
+    @JsonIgnore
     public void setStatus(Status status) {
-        this.status = status;
+        this.statusValue = status.name();
+    }
+
+    public String getStatusValue() {
+        return statusValue;
+    }
+
+    public void setStatusValue(String statusValue) {
+        this.statusValue = statusValue;
     }
 
     public String getLandingPageUrl() {
@@ -128,7 +140,7 @@ public class Advertiser {
         return "Advertiser{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", status=" + status +
+                ", status=" + statusValue +
                 ", landingPageUrl='" + landingPageUrl + '\'' +
                 ", iabCategoryId=" + iabCategoryId +
                 ", iabSecondaryCategoryId=" + iabSecondaryCategoryId +

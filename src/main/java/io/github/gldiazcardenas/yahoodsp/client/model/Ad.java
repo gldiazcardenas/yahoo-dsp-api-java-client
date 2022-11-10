@@ -1,7 +1,9 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -14,10 +16,12 @@ public class Ad {
 
     private Long id;
     private String name;
-    private Status status;
+    @JsonProperty("status")
+    private String statusValue;
     private Long lineId;
     private Long creativeId;
-    private MediaType mediaType;
+    @JsonProperty("mediaType")
+    private String mediaTypeValue;
     private List<AdSchedule> schedules;
     private AdCountdown countdown;
     private String updatedAt;
@@ -38,12 +42,22 @@ public class Ad {
         this.name = name;
     }
 
+    @JsonIgnore
     public Status getStatus() {
-        return status;
+        return Status.fromValue(statusValue);
     }
 
+    @JsonIgnore
     public void setStatus(Status status) {
-        this.status = status;
+        this.statusValue = status.name();
+    }
+
+    public String getStatusValue() {
+        return statusValue;
+    }
+
+    public void setStatusValue(String statusValue) {
+        this.statusValue = statusValue;
     }
 
     public Long getLineId() {
@@ -62,12 +76,22 @@ public class Ad {
         this.creativeId = creativeId;
     }
 
+    @JsonIgnore
     public MediaType getMediaType() {
-        return mediaType;
+        return MediaType.fromValue(mediaTypeValue);
     }
 
+    @JsonIgnore
     public void setMediaType(MediaType mediaType) {
-        this.mediaType = mediaType;
+        this.mediaTypeValue = mediaType.name();
+    }
+
+    public String getMediaTypeValue() {
+        return mediaTypeValue;
+    }
+
+    public void setMediaTypeValue(String mediaTypeValue) {
+        this.mediaTypeValue = mediaTypeValue;
     }
 
     public List<AdSchedule> getSchedules() {
@@ -99,10 +123,10 @@ public class Ad {
         return "Ad{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", status=" + status +
+                ", status=" + statusValue +
                 ", lineId=" + lineId +
                 ", creativeId=" + creativeId +
-                ", mediaType=" + mediaType +
+                ", mediaType=" + mediaTypeValue +
                 ", schedules=" + schedules +
                 ", countdown=" + countdown +
                 ", updatedAt='" + updatedAt + '\'' +

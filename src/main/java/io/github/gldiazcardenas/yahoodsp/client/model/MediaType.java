@@ -14,6 +14,6 @@ public enum MediaType {
                 return type;
             }
         }
-        return null;
+        throw new UnsupportedOperationException("Unmapped value: " + value);
     }
 }

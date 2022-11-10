@@ -27,7 +27,7 @@ public class Segment {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 

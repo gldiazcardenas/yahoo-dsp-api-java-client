@@ -1,6 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,7 +23,8 @@ public class LineBudgetSchedule {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     @JsonProperty("endDateStr")
     private LocalDate endDate;
-    private BudgetScheduleType dailyBudgetType;
+    @JsonProperty("dailyBudgetType")
+    private String dailyBudgetTypeValue;
     private BigDecimal budget;
     private BigDecimal dailyBudget;
     private Integer impBudget;
@@ -52,12 +54,22 @@ public class LineBudgetSchedule {
         this.endDate = endDate;
     }
 
+    @JsonIgnore
     public BudgetScheduleType getDailyBudgetType() {
-        return dailyBudgetType;
+        return BudgetScheduleType.fromValue(dailyBudgetTypeValue);
     }
 
+    @JsonIgnore
     public void setDailyBudgetType(BudgetScheduleType dailyBudgetType) {
-        this.dailyBudgetType = dailyBudgetType;
+        this.dailyBudgetTypeValue = dailyBudgetType.name();
+    }
+
+    public String getDailyBudgetTypeValue() {
+        return dailyBudgetTypeValue;
+    }
+
+    public void setDailyBudgetTypeValue(String dailyBudgetTypeValue) {
+        this.dailyBudgetTypeValue = dailyBudgetTypeValue;
     }
 
     public BigDecimal getBudget() {
@@ -98,7 +110,7 @@ public class LineBudgetSchedule {
                 "id=" + id +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", dailyBudgetType=" + dailyBudgetType +
+                ", dailyBudgetType=" + dailyBudgetTypeValue +
                 ", budget=" + budget +
                 ", dailyBudget=" + dailyBudget +
                 ", impBudget=" + impBudget +

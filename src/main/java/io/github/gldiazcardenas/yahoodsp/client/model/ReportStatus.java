@@ -7,5 +7,14 @@ public enum ReportStatus {
     SUCCESS,
     FAILED,
     SUBMITTED,
-    PROCESSING
+    PROCESSING;
+
+    public static ReportStatus fromId(String value) {
+        for (ReportStatus type : values()) {
+            if (type.name().equals(value)) {
+                return type;
+            }
+        }
+        throw new UnsupportedOperationException("Unmapped value: " + value);
+    }
 }

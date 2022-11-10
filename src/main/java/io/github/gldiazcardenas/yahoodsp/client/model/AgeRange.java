@@ -1,7 +1,8 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Gabriel Diaz, Sep 25th 2022.
@@ -24,18 +25,22 @@ public enum AgeRange {
         this.value = value;
     }
 
-    @JsonValue
     public String getValue() {
         return value;
     }
 
-    @JsonCreator
     public static AgeRange fromValue(String value) {
         for (AgeRange ar : values()) {
             if (ar.value.equals(value)) {
                 return ar;
             }
         }
-        throw new IllegalStateException("Unmapped value: " + value);
+        throw new UnsupportedOperationException("Unmapped value: " + value);
+    }
+
+    public static List<AgeRange> fromValues(List<String> values) {
+        return Optional.ofNullable(values)
+                .map(l -> l.stream().map(AgeRange::fromValue).collect(Collectors.toList()))
+                .orElse(null);
     }
 }

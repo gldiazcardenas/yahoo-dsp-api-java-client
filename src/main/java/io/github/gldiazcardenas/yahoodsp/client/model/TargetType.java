@@ -1,7 +1,5 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 /**
  * @author Gabriel Diaz, Sep 25th 2022.
  */
@@ -34,13 +32,12 @@ public enum TargetType {
     MOBILE_MEASUREMENT,
     UNKNOWN;
 
-    @JsonCreator
-    public static TargetType fromName(String name) {
+    public static TargetType fromValue(String value) {
         for (TargetType type : values()) {
-            if (type.name().equals(name)) {
+            if (type.name().equals(value)) {
                 return type;
             }
         }
-        return UNKNOWN;
+        throw new UnsupportedOperationException("Unmapped value: " + value);
     }
 }

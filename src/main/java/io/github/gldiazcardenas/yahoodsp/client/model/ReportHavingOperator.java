@@ -9,5 +9,14 @@ public enum ReportHavingOperator {
     greaterThan,
     or,
     lessThan,
-    not
+    not;
+
+    public static ReportHavingOperator fromValue(String value) {
+        for (ReportHavingOperator type : values()) {
+            if (type.name().equals(value)) {
+                return type;
+            }
+        }
+        throw new UnsupportedOperationException("Unmapped value: " + value);
+    }
 }

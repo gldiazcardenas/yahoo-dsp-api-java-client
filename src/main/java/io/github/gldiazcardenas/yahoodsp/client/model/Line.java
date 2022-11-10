@@ -32,7 +32,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -58,7 +58,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -73,7 +73,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -89,7 +89,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -105,7 +105,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -122,7 +122,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -137,7 +137,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 
@@ -152,7 +152,7 @@ public class Line {
                     }
                 }
             }
-            return null;
+            throw new UnsupportedOperationException("Unmapped value: " + value);
         }
     }
 

@@ -7,5 +7,14 @@ public enum Status {
     ACTIVE,
     INACTIVE,
     ARCHIVED,
-    UNKNOWN
+    UNKNOWN;
+
+    public static Status fromValue(String value) {
+        for (Status type : values()) {
+            if (type.name().equals(value)) {
+                return type;
+            }
+        }
+        throw new UnsupportedOperationException("Unmapped value: " + value);
+    }
 }

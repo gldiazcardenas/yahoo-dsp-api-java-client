@@ -10,7 +10,8 @@ import io.github.gldiazcardenas.yahoodsp.examples.Example;
 public class GetAvailableSegmentsExample implements Example {
 
     public static void main(String[] arg) {
-        SegmentsResponse response = API.getTargetingService().getAvailableSegments(AUTH, new SegmentsFilter()
+        SegmentsResponse response = API.getTargetingService()
+                .getAvailableSegments(AUTH, new SegmentsFilter()
                 .setAccountId(ADVERTISER_ID)
                 .setQuery("car"));
         System.out.println(response);

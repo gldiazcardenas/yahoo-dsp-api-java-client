@@ -1,8 +1,5 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
  * @author Gabriel Diaz, Oct 06th 2022.
  */
@@ -157,19 +154,19 @@ public enum ReportDimensionType {
         this.id = id;
     }
 
-    @JsonValue
     public int getId() {
         return id;
     }
 
-    @JsonCreator
-    public static ReportDimensionType fromId(int id) {
-        for (ReportDimensionType type : values()) {
-            if (type.id == id) {
-                return type;
+    public static ReportDimensionType fromId(Integer id) {
+        if (id != null) {
+            for (ReportDimensionType type : values()) {
+                if (type.id == id) {
+                    return type;
+                }
             }
         }
-        throw new UnsupportedOperationException("dimensionTypeId not supported: " + id);
+        throw new UnsupportedOperationException("Unmapped value: " + id);
     }
 
 }
