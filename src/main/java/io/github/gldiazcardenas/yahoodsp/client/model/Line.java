@@ -195,6 +195,8 @@ public class Line {
     private BidMultiplierCap bidMultiplierCap;
     @JsonProperty("channelType")
     private String channelTypeValue;
+    private String supplyType;
+    private String language;
 
     public Long getId() {
         return id;
@@ -512,6 +514,22 @@ public class Line {
         this.channelTypeValue = channelTypeValue;
     }
 
+    public String getSupplyType() {
+        return supplyType;
+    }
+
+    public void setSupplyType(String supplyType) {
+        this.supplyType = supplyType;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     @Override
     public String toString() {
         return "Line{" +
@@ -543,6 +561,8 @@ public class Line {
                 ", conversionList=" + conversionList +
                 ", bidMultiplierCap=" + bidMultiplierCap +
                 ", channelType='" + channelTypeValue + '\'' +
+                ", supplyType='" + supplyType + '\'' +
+                ", language='" + language + '\'' +
                 '}';
     }
 }
