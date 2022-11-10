@@ -113,7 +113,8 @@ public class Line {
         CPM_PRICE,
         CPC,
         MARGIN,
-        CPCV;
+        CPCV,
+        CPC_WITH_MARGIN;
         public static BillingMethodType fromValue(String value) {
             if (value != null && !value.isEmpty()) {
                 for (BillingMethodType type : values()) {
