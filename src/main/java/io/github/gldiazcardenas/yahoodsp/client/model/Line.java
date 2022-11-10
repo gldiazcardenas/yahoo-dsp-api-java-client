@@ -156,6 +156,20 @@ public class Line {
         }
     }
 
+    public enum SupplyType {
+        YAHOO;
+        public static SupplyType fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (SupplyType type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            throw new UnsupportedOperationException("Unmapped value: " + value);
+        }
+    }
+
     private Long id;
     private String name;
     private Long orderId;
@@ -195,8 +209,10 @@ public class Line {
     private BidMultiplierCap bidMultiplierCap;
     @JsonProperty("channelType")
     private String channelTypeValue;
-    private String supplyType;
-    private String language;
+    @JsonProperty("supplyType")
+    private String supplyTypeValue;
+    @JsonProperty("language")
+    private String languageValue;
 
     public Long getId() {
         return id;
@@ -514,20 +530,40 @@ public class Line {
         this.channelTypeValue = channelTypeValue;
     }
 
-    public String getSupplyType() {
-        return supplyType;
+    @JsonIgnore
+    public SupplyType getSupplyType() {
+        return SupplyType.fromValue(supplyTypeValue);
     }
 
-    public void setSupplyType(String supplyType) {
-        this.supplyType = supplyType;
+    @JsonIgnore
+    public void setSupplyType(SupplyType supplyType) {
+        this.supplyTypeValue = supplyType.name();
     }
 
-    public String getLanguage() {
-        return language;
+    public String getSupplyTypeValue() {
+        return supplyTypeValue;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setSupplyTypeValue(String supplyTypeValue) {
+        this.supplyTypeValue = supplyTypeValue;
+    }
+
+    @JsonIgnore
+    public LanguageType getLanguage() {
+        return LanguageType.fromValue(languageValue);
+    }
+
+    @JsonIgnore
+    public void setLanguage(LanguageType language) {
+        this.languageValue = language.name();
+    }
+
+    public String getLanguageValue() {
+        return languageValue;
+    }
+
+    public void setLanguageValue(String languageValue) {
+        this.languageValue = languageValue;
     }
 
     @Override
@@ -561,8 +597,8 @@ public class Line {
                 ", conversionList=" + conversionList +
                 ", bidMultiplierCap=" + bidMultiplierCap +
                 ", channelType='" + channelTypeValue + '\'' +
-                ", supplyType='" + supplyType + '\'' +
-                ", language='" + language + '\'' +
+                ", supplyType='" + supplyTypeValue + '\'' +
+                ", language='" + languageValue + '\'' +
                 '}';
     }
 }
