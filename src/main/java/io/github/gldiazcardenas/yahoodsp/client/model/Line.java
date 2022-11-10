@@ -171,6 +171,24 @@ public class Line {
         }
     }
 
+    public enum Objective {
+        VISIT_WEB,
+        KNOW_BRAND,
+        PROMOTE_PRODUCT,
+        OPEN_MAIL,
+        MARKET_APP;
+        public static Objective fromValue(String value) {
+            if (value != null && !value.isEmpty()) {
+                for (Objective type : values()) {
+                    if (type.name().equals(value)) {
+                        return type;
+                    }
+                }
+            }
+            throw new UnsupportedOperationException("Unmapped value: " + value);
+        }
+    }
+
     private Long id;
     private String name;
     private Long orderId;
@@ -214,6 +232,8 @@ public class Line {
     private String supplyTypeValue;
     @JsonProperty("language")
     private String languageValue;
+    @JsonProperty("objective")
+    private String objectiveValue;
 
     public Long getId() {
         return id;
@@ -567,6 +587,24 @@ public class Line {
         this.languageValue = languageValue;
     }
 
+    @JsonIgnore
+    public Objective getObjective() {
+        return Objective.fromValue(objectiveValue);
+    }
+
+    @JsonIgnore
+    public void setObjective(Objective objective) {
+        this.objectiveValue = objective.name();
+    }
+
+    public String getObjectiveValue() {
+        return objectiveValue;
+    }
+
+    public void setObjectiveValue(String objectiveValue) {
+        this.objectiveValue = objectiveValue;
+    }
+
     @Override
     public String toString() {
         return "Line{" +
@@ -600,6 +638,7 @@ public class Line {
                 ", channelType='" + channelTypeValue + '\'' +
                 ", supplyType='" + supplyTypeValue + '\'' +
                 ", language='" + languageValue + '\'' +
+                ", objective='" + objectiveValue + '\'' +
                 '}';
     }
 }
