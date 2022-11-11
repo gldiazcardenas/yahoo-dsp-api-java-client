@@ -14,6 +14,18 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Ad {
 
+    public enum NativeStatus {
+        ON_HOLD;
+        public static NativeStatus fromValue(String value) {
+            for (NativeStatus type : values()) {
+                if (type.name().equals(value)) {
+                    return type;
+                }
+            }
+            throw new UnsupportedOperationException("Unmapped value: " + value);
+        }
+    }
+
     private Long id;
     private String name;
     @JsonProperty("status")
@@ -24,6 +36,9 @@ public class Ad {
     private String mediaTypeValue;
     private List<AdSchedule> schedules;
     private AdCountdown countdown;
+    @JsonProperty("nativeAdStatus")
+    private String nativeAdStatusValue;
+    private List<Object> nativeAdRestrictions;
     private String updatedAt;
 
     public Long getId() {
@@ -108,6 +123,32 @@ public class Ad {
 
     public void setCountdown(AdCountdown countdown) {
         this.countdown = countdown;
+    }
+
+    @JsonIgnore
+    public NativeStatus getNativeAdStatus() {
+        return NativeStatus.fromValue(nativeAdStatusValue);
+    }
+
+    @JsonIgnore
+    public void setNativeAdStatus(NativeStatus nativeAdStatus) {
+        this.nativeAdStatusValue = nativeAdStatus.name();
+    }
+
+    public String getNativeAdStatusValue() {
+        return nativeAdStatusValue;
+    }
+
+    public void setNativeAdStatusValue(String nativeAdStatusValue) {
+        this.nativeAdStatusValue = nativeAdStatusValue;
+    }
+
+    public List<Object> getNativeAdRestrictions() {
+        return nativeAdRestrictions;
+    }
+
+    public void setNativeAdRestrictions(List<Object> nativeAdRestrictions) {
+        this.nativeAdRestrictions = nativeAdRestrictions;
     }
 
     public String getUpdatedAt() {
