@@ -15,6 +15,7 @@ import java.util.List;
 public class Ad {
 
     public enum NativeStatus {
+        ACTIVE,
         ON_HOLD;
         public static NativeStatus fromValue(String value) {
             for (NativeStatus type : values()) {
