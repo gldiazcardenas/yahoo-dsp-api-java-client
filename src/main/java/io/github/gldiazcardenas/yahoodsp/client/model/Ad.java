@@ -171,6 +171,8 @@ public class Ad {
                 ", mediaType=" + mediaTypeValue +
                 ", schedules=" + schedules +
                 ", countdown=" + countdown +
+                ", nativeAdStatus='" + nativeAdStatusValue + '\'' +
+                ", nativeAdRestrictions='" + nativeAdRestrictions + '\'' +
                 ", updatedAt='" + updatedAt + '\'' +
                 '}';
     }
