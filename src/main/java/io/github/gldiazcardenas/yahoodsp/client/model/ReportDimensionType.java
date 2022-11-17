@@ -1,5 +1,9 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * @author Gabriel Diaz, Oct 06th 2022.
  */
@@ -168,5 +172,12 @@ public enum ReportDimensionType {
         }
         throw new UnsupportedOperationException("Unmapped value: " + id);
     }
+
+    public static List<ReportDimensionType> fromIds(List<Integer> dimensionTypeIdValues) {
+        return Optional.ofNullable(dimensionTypeIdValues)
+                .map(list -> list.stream().map(ReportDimensionType::fromId).collect(Collectors.toList()))
+                .orElse(null);
+    }
+
 
 }

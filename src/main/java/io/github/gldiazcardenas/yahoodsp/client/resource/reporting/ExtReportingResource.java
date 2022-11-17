@@ -14,18 +14,18 @@ import retrofit2.http.Query;
 
 public interface ExtReportingResource extends SecuredResource {
 
-    @POST
+    @POST("extreport")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ReportStatusResponse create(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                 @Body ReportRequest request);
 
-    @GET("/{customerReportId}")
+    @GET("extreport/{customerReportId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ReportStatusResponse getStatus(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                    @Path("customerReportId") String customerReportId);
 
 
-    @GET("/cob")
+    @GET("extreport/cob")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ReportCobStatusResponse getCobStatus(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                          @Query("advertiserId") long advertiserId,

@@ -1,7 +1,9 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Gabriel Diaz, Oct 06th 2022.
@@ -11,10 +13,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class ReportStatusResponse {
 
     private String customerReportId;
-    private ReportStatus status;
+    @JsonProperty("status")
+    private String statusValue;
     private String url;
     private String reportFormat;
-    private ReportRequest requestPayload;
+    private String requestPayload;
     private String jobStartDate;
     private String jobEndDate;
     private Long numRows;
@@ -27,12 +30,22 @@ public class ReportStatusResponse {
         this.customerReportId = customerReportId;
     }
 
+    @JsonIgnore
     public ReportStatus getStatus() {
-        return status;
+        return ReportStatus.fromValue(statusValue);
     }
 
+    @JsonIgnore
     public void setStatus(ReportStatus status) {
-        this.status = status;
+        this.statusValue = status.name();
+    }
+
+    public String getStatusValue() {
+        return statusValue;
+    }
+
+    public void setStatusValue(String statusValue) {
+        this.statusValue = statusValue;
     }
 
     public String getUrl() {
@@ -51,11 +64,11 @@ public class ReportStatusResponse {
         this.reportFormat = reportFormat;
     }
 
-    public ReportRequest getRequestPayload() {
+    public String getRequestPayload() {
         return requestPayload;
     }
 
-    public void setRequestPayload(ReportRequest requestPayload) {
+    public void setRequestPayload(String requestPayload) {
         this.requestPayload = requestPayload;
     }
 
@@ -87,7 +100,7 @@ public class ReportStatusResponse {
     public String toString() {
         return "ReportStatusResponse{" +
                 "customerReportId='" + customerReportId + '\'' +
-                ", status=" + status +
+                ", status=" + statusValue +
                 ", url='" + url + '\'' +
                 ", reportFormat='" + reportFormat + '\'' +
                 ", requestPayload=" + requestPayload +

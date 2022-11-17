@@ -65,9 +65,9 @@ public final class DspApi {
     public static final String DEFAULT_TRAFFIC_API_URL = "https://dspapi.admanagerplus.yahoo.com/traffic/";
 
     /**
-     * Default API host: '<a href="http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/">http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/</a>'.
+     * Default API host: '<a href="http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/">http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/</a>'.
      */
-    public static final String DEFAULT_REPORTING_API_URL = "http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/extreport/";
+    public static final String DEFAULT_REPORTING_API_URL = "http://api-sched-v3.admanagerplus.yahoo.com/yamplus_api/";
 
     /**
      * Default user agent: 'Yahoo DSP API Java Client'.

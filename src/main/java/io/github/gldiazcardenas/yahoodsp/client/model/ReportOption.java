@@ -1,9 +1,12 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Gabriel Diaz, Oct 06th 2022.
@@ -14,9 +17,11 @@ public class ReportOption {
 
     private String timezone;
     private Integer currency;
-    private List<ReportDimensionType> dimensionTypeIds;
+    @JsonProperty("dimensionTypeIds")
+    private List<Integer> dimensionTypeIdValues;
     private List<ReportFilterOption> filterOptions;
-    private List<ReportMetricType> metricTypeIds;
+    @JsonProperty("metricTypeIds")
+    private List<Integer> metricTypeIdValues;
     private List<Long> accountIds;
     private ReportHaving having;
 
@@ -36,12 +41,22 @@ public class ReportOption {
         this.currency = currency;
     }
 
+    @JsonIgnore
     public List<ReportDimensionType> getDimensionTypeIds() {
-        return dimensionTypeIds;
+        return ReportDimensionType.fromIds(dimensionTypeIdValues);
     }
 
+    @JsonIgnore
     public void setDimensionTypeIds(List<ReportDimensionType> dimensionTypeIds) {
-        this.dimensionTypeIds = dimensionTypeIds;
+        this.dimensionTypeIdValues = dimensionTypeIds.stream().map(ReportDimensionType::getId).collect(Collectors.toList());
+    }
+
+    public List<Integer> getDimensionTypeIdValues() {
+        return dimensionTypeIdValues;
+    }
+
+    public void setDimensionTypeIdValues(List<Integer> dimensionTypeIdValues) {
+        this.dimensionTypeIdValues = dimensionTypeIdValues;
     }
 
     public List<ReportFilterOption> getFilterOptions() {
@@ -52,12 +67,22 @@ public class ReportOption {
         this.filterOptions = filterOptions;
     }
 
+    @JsonIgnore
     public List<ReportMetricType> getMetricTypeIds() {
-        return metricTypeIds;
+        return ReportMetricType.fromIds(metricTypeIdValues);
     }
 
+    @JsonIgnore
     public void setMetricTypeIds(List<ReportMetricType> metricTypeIds) {
-        this.metricTypeIds = metricTypeIds;
+        this.metricTypeIdValues = metricTypeIds.stream().map(ReportMetricType::getId).collect(Collectors.toList());
+    }
+
+    public List<Integer> getMetricTypeIdValues() {
+        return metricTypeIdValues;
+    }
+
+    public void setMetricTypeIdValues(List<Integer> metricTypeIdValues) {
+        this.metricTypeIdValues = metricTypeIdValues;
     }
 
     public List<Long> getAccountIds() {
@@ -81,9 +106,9 @@ public class ReportOption {
         return "ReportOption{" +
                 "timezone='" + timezone + '\'' +
                 ", currency=" + currency +
-                ", dimensionTypeIds=" + dimensionTypeIds +
+                ", dimensionTypeIds=" + dimensionTypeIdValues +
                 ", filterOptions=" + filterOptions +
-                ", metricTypeIds=" + metricTypeIds +
+                ", metricTypeIds=" + metricTypeIdValues +
                 ", accountIds=" + accountIds +
                 ", having=" + having +
                 '}';
