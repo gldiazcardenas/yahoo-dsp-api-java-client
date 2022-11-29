@@ -16,6 +16,7 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.DataDictionaryR
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.DealResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.ExchangeResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.NativeListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PackageResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PixelResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SiteListResource;
@@ -38,6 +39,7 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.DataDictionarySe
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.DealService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.ExchangeService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.LineService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.NativeListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PackageService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PixelService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SiteListService;
@@ -118,6 +120,7 @@ public final class DspApi {
     private final PackageService packageService;
     private final PixelService pixelService;
     private final SiteListService siteListService;
+    private final NativeListService nativeListService;
     private final SeatService seatService;
     private final TargetingService targetingService;
     private final UserGroupService userGroupService;
@@ -143,6 +146,7 @@ public final class DspApi {
         this.packageService = new PackageServiceImpl(createTrafficEndpoint(PackageResource.class));
         this.pixelService = new PixelServiceImpl(createTrafficEndpoint(PixelResource.class));
         this.siteListService = new SiteListServiceImpl(createTrafficEndpoint(SiteListResource.class));
+        this.nativeListService = new NativeListServiceImpl(createTrafficEndpoint(NativeListResource.class));
         this.seatService = new SeatServiceImpl(createTrafficEndpoint(SeatResource.class));
         this.targetingService = new TargetingServiceImpl(createTrafficEndpoint(TargetingResource.class));
         this.userGroupService = new UserGroupServiceImpl(createTrafficEndpoint(UserGroupResource.class));
@@ -191,6 +195,10 @@ public final class DspApi {
 
     public SeatService getSeatService() {
         return seatService;
+    }
+
+    public NativeListService getNativeListService() {
+        return nativeListService;
     }
 
     public TargetingService getTargetingService() {
