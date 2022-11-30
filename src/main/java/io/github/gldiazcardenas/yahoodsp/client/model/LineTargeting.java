@@ -49,6 +49,9 @@ public class LineTargeting {
     private List<Geo> geosExcluded;
     private List<Segment> segmentsIncluded;
     private List<Segment> segmentsExcluded;
+    private List<NativeList> nativeListsExcluded;
+    private List<SiteList> siteListsIncluded;
+    private List<SiteList> siteListsExcluded;
     private Boolean enableSegmentExpansion;
     private Boolean isAllCountriesTargeted;
     private Boolean enableViewabilityFreqCap;
@@ -368,6 +371,30 @@ public class LineTargeting {
         this.enableSegmentExpansion = enableSegmentExpansion;
     }
 
+    public List<NativeList> getNativeListsExcluded() {
+        return nativeListsExcluded;
+    }
+
+    public void setNativeListsExcluded(List<NativeList> nativeListsExcluded) {
+        this.nativeListsExcluded = nativeListsExcluded;
+    }
+
+    public List<SiteList> getSiteListsIncluded() {
+        return siteListsIncluded;
+    }
+
+    public void setSiteListsIncluded(List<SiteList> siteListsIncluded) {
+        this.siteListsIncluded = siteListsIncluded;
+    }
+
+    public List<SiteList> getSiteListsExcluded() {
+        return siteListsExcluded;
+    }
+
+    public void setSiteListsExcluded(List<SiteList> siteListsExcluded) {
+        this.siteListsExcluded = siteListsExcluded;
+    }
+
     public Boolean getAllCountriesTargeted() {
         return isAllCountriesTargeted;
     }
@@ -420,6 +447,9 @@ public class LineTargeting {
                 ", enableSegmentExpansion=" + enableSegmentExpansion +
                 ", isAllCountriesTargeted=" + isAllCountriesTargeted +
                 ", enableViewabilityFreqCap=" + enableViewabilityFreqCap +
+                ", nativeListsExcluded=" + nativeListsExcluded +
+                ", siteListsIncluded=" + siteListsIncluded +
+                ", siteListsExcluded=" + siteListsExcluded +
                 ", types=" + types +
                 '}';
     }

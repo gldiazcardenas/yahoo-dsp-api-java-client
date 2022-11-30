@@ -55,6 +55,8 @@ public class LineTargetingRequest {
     private Boolean includePublishers;
     private GeoTargeting geos;
     private SegmentTargeting segments;
+    private NativeListTargeting nativeLists;
+    private SiteListTargeting siteLists;
     private List<LineTargetingType> types;
 
     @JsonIgnore
@@ -407,6 +409,22 @@ public class LineTargetingRequest {
 
     public void setSegments(SegmentTargeting segments) {
         this.segments = segments;
+    }
+
+    public NativeListTargeting getNativeLists() {
+        return nativeLists;
+    }
+
+    public void setNativeLists(NativeListTargeting nativeLists) {
+        this.nativeLists = nativeLists;
+    }
+
+    public SiteListTargeting getSiteLists() {
+        return siteLists;
+    }
+
+    public void setSiteLists(SiteListTargeting siteLists) {
+        this.siteLists = siteLists;
     }
 
     public List<LineTargetingType> getTypes() {
