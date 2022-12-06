@@ -51,7 +51,7 @@ final class CommunicationFactory {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         }
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(new UserAgentInterceptor())
                 .readTimeout(communication.getReadTimeout())
@@ -60,8 +60,11 @@ final class CommunicationFactory {
                 .connectionPool(new ConnectionPool(
                         communication.getMaxIdleConnections(),
                         communication.getConnectionsTimeAlive().toMillis(),
-                        TimeUnit.MILLISECONDS))
-                .build();
+                        TimeUnit.MILLISECONDS));
+
+        Optional.ofNullable(communication.getInterceptors()).ifPresent(iList -> iList.forEach(builder::addInterceptor));
+
+        OkHttpClient okHttpClient = builder.build();
 
         this.authRetrofit = new Retrofit.Builder()
                 .baseUrl(communication.getAuthApiUrl())

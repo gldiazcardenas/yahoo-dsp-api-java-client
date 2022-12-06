@@ -1,8 +1,11 @@
 package io.github.gldiazcardenas.yahoodsp.client;
 
+import okhttp3.Interceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
 public final class CommunicationConfig {
 
@@ -20,7 +23,9 @@ public final class CommunicationConfig {
     private final int maxIdleConnections;
     private final Duration connectionsTimeAlive;
     private final HttpLoggingInterceptor.Logger httpLogger;
+    private final List<Interceptor> interceptors;
     private final boolean debug;
+
 
     //CHECKSTYLE:OFF
     CommunicationConfig(String trafficApiUrl,
@@ -33,6 +38,7 @@ public final class CommunicationConfig {
                         int maxIdleConnections,
                         Duration connectionsTimeAlive,
                         HttpLoggingInterceptor.Logger httpLogger,
+                        List<Interceptor> interceptors,
                         boolean debug) {
         //CHECKSTYLE:ON
 
@@ -46,6 +52,7 @@ public final class CommunicationConfig {
         this.maxIdleConnections = maxIdleConnections;
         this.connectionsTimeAlive = connectionsTimeAlive;
         this.httpLogger = httpLogger;
+        this.interceptors = interceptors;
         this.debug = debug;
     }
 
@@ -89,6 +96,10 @@ public final class CommunicationConfig {
         return httpLogger;
     }
 
+    public List<Interceptor> getInterceptors() {
+        return interceptors;
+    }
+
     public boolean isDebug() {
         return debug;
     }
@@ -109,6 +120,7 @@ public final class CommunicationConfig {
         private int maxIdleConnections;
         private Duration connectionsTimeAlive;
         private HttpLoggingInterceptor.Logger httpLogger;
+        private List<Interceptor> interceptors;
         private boolean debug;
 
         Builder() {
@@ -174,6 +186,15 @@ public final class CommunicationConfig {
             return this;
         }
 
+        public Builder setInterceptors(List<Interceptor> interceptors) {
+            this.interceptors = interceptors;
+            return this;
+        }
+
+        public Builder setInterceptors(Interceptor... interceptors) {
+            return setInterceptors(Arrays.asList(interceptors));
+        }
+
         public Builder enableDebug() {
             this.debug = true;
             return this;
@@ -191,6 +212,7 @@ public final class CommunicationConfig {
                     maxIdleConnections,
                     connectionsTimeAlive,
                     httpLogger,
+                    interceptors,
                     debug);
         }
     }
