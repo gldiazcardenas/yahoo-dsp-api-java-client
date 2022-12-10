@@ -103,11 +103,11 @@ public class DspApiError {
         return "DspApiError{" +
                 "statusCode=" + statusCode +
                 ", message='" + message + '\'' +
+                ", method='" + method + '\'' +
                 ", path='" + path + '\'' +
                 ", payload=" + payload +
                 ", timestamp=" + timestamp +
                 ", validations=" + validations +
                 '}';
     }
-
 }
