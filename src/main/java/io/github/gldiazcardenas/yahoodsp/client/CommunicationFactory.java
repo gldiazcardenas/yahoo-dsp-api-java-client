@@ -160,8 +160,13 @@ final class CommunicationFactory {
                     catch (Throwable e) {
                         communication.getHttpLogger().log(e.getLocalizedMessage());
                         if (e instanceof DspApiException) {
-                            throw  (DspApiException) e;
+                            throw (DspApiException) e;
                         }
+
+                        if (e instanceof RuntimeException) {
+                            throw (RuntimeException) e;
+                        }
+
                         throw new DspApiException(e);
                     }
                 }
@@ -236,8 +241,13 @@ final class CommunicationFactory {
                     catch (Throwable e) {
                         communication.getHttpLogger().log(e.getLocalizedMessage());
                         if (e instanceof DspApiException) {
-                            throw  (DspApiException) e;
+                            throw (DspApiException) e;
                         }
+
+                        if (e instanceof RuntimeException) {
+                            throw (RuntimeException) e;
+                        }
+
                         throw new DspApiException(e);
                     }
                 }
