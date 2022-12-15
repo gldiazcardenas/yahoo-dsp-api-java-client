@@ -16,6 +16,7 @@ public class Ad {
 
     public enum NativeStatus {
         ACTIVE,
+        PAUSED,
         ON_HOLD;
         public static NativeStatus fromValue(String value) {
             for (NativeStatus type : values()) {
