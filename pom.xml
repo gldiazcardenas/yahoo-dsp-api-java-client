@@ -7,7 +7,7 @@
 
     <groupId>io.github.gldiazcardenas</groupId>
     <artifactId>yahoo-dsp-api-java-client</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
