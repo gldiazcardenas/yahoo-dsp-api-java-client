@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
  */
 public enum AgeRange {
     R18_20("18-20"),
+    R18_24("18-24"),
     R21_24("21-24"),
     R25_34("25-34"),
     R35_44("35-44"),
