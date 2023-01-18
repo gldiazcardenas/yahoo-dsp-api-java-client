@@ -91,6 +91,10 @@ public class Segment {
             return AudienceType.YAHOO;
         }
 
+        if ("1st Party".equals(audienceTypeValue)) {
+            return AudienceType.ADVERTISER;
+        }
+
         if ("3rd Party".equals(audienceTypeValue)) {
             return AudienceType.DMP;
         }
