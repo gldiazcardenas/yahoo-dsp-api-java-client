@@ -24,6 +24,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -142,8 +143,16 @@ final class CommunicationFactory {
                                 authError.setError(response.message());
                                 authError.setDescription(response.toString());
                             }
-                            else {
+                            else if (Optional.ofNullable(errorResponse.contentType())
+                                    .filter(t -> "application".equalsIgnoreCase(t.type()))
+                                    .filter(t -> "json".equalsIgnoreCase(t.subtype()))
+                                    .isPresent()) {
                                 authError = objectMapper.readValue(errorResponse.bytes(), AuthenticationError.class);
+                            }
+                            else {
+                                authError = new AuthenticationError();
+                                authError.setError(Arrays.toString(errorResponse.bytes()));
+                                authError.setDescription("(Content-Type:" + errorResponse.contentType() + ")");
                             }
                         }
 
@@ -200,40 +209,51 @@ final class CommunicationFactory {
                             return response.body();
                         }
 
-                        DspErrorResponse dspError;
+                        DspErrorResponse dspErrorResponse;
 
                         try (ResponseBody errorResponse = response.errorBody()) {
                             if (errorResponse == null) {
-                                dspError = new DspErrorResponse();
-                                dspError.setError(new DspError());
-                                dspError.getError().setMessage(response.message());
-                                dspError.setTimestamp(Instant.now());
+                                dspErrorResponse = new DspErrorResponse();
+                                dspErrorResponse.setError(new DspError());
+                                dspErrorResponse.getError().setMessage(response.message());
+                                dspErrorResponse.setTimestamp(Instant.now());
+                            }
+                            else if (Optional.ofNullable(errorResponse.contentType())
+                                    .filter(t -> "application".equalsIgnoreCase(t.type()))
+                                    .filter(t -> "json".equalsIgnoreCase(t.subtype()))
+                                    .isPresent()) {
+                                dspErrorResponse = objectMapper.readValue(errorResponse.bytes(), DspErrorResponse.class);
                             }
                             else {
-                                dspError = objectMapper.readValue(errorResponse.bytes(), DspErrorResponse.class);
+                                dspErrorResponse = new DspErrorResponse();
+                                dspErrorResponse.setError(new DspError());
+                                dspErrorResponse.getError().setMessage("(Content-Type:" + errorResponse.contentType() + ") " +
+                                        Arrays.toString(errorResponse.bytes()));
+                                dspErrorResponse.setTimestamp(Instant.now());
                             }
                         }
 
                         List<DspErrorValidation> validations = null;
 
-                        if (dspError.getValidations() != null && !dspError.getValidations().isEmpty()) {
-                            validations = new ArrayList<>(dspError.getValidations());
+                        if (dspErrorResponse.getValidations() != null && !dspErrorResponse.getValidations().isEmpty()) {
+                            validations = new ArrayList<>(dspErrorResponse.getValidations());
                         }
 
-                        if (dspError.getError() != null && dspError.getError().getValidations() != null &&
-                                !dspError.getError().getValidations().isEmpty()) {
+                        if (dspErrorResponse.getError() != null &&
+                                dspErrorResponse.getError().getValidations() != null &&
+                                !dspErrorResponse.getError().getValidations().isEmpty()) {
                             if (validations == null) {
                                 validations = new ArrayList<>();
                             }
-                            validations.addAll(dspError.getError().getValidations());
+                            validations.addAll(dspErrorResponse.getError().getValidations());
                         }
 
                         DspApiError apiError = new DspApiError();
                         apiError.setStatusCode(response.code());
                         apiError.setPath(call.request().url().toString());
                         apiError.setMethod(call.request().method());
-                        apiError.setMessage(Optional.ofNullable(dspError.getError()).map(DspError::getMessage).orElse(null));
-                        apiError.setTimestamp(Optional.ofNullable(dspError.getTimestamp()).orElse(Instant.now()));
+                        apiError.setMessage(Optional.ofNullable(dspErrorResponse.getError()).map(DspError::getMessage).orElse(null));
+                        apiError.setTimestamp(Optional.ofNullable(dspErrorResponse.getTimestamp()).orElse(Instant.now()));
                         apiError.setValidations(validations);
 
                         throw new DspApiException(apiError);

@@ -7,6 +7,7 @@ import io.github.gldiazcardenas.yahoodsp.client.model.AuthenticationError;
 import io.github.gldiazcardenas.yahoodsp.client.service.AuthenticationService;
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiError;
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
+import okhttp3.Headers;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -25,7 +26,10 @@ public class AuthenticationFailedWrongCredentialsTest implements DspApiMockedSer
         // Given
         int statusCode = 401;
         AuthenticationError authError = Payloads.authenticationError();
-        server.enqueue(new MockResponse().setResponseCode(statusCode).setBody(Payloads.toJson(authError)));
+        server.enqueue(new MockResponse()
+                .setResponseCode(statusCode)
+                .setHeaders(Headers.of("Content-Type", "application/json"))
+                .setBody(Payloads.toJson(authError)));
         AuthenticationCredentials credentials = Payloads.authenticationCredentials();
 
         // When
