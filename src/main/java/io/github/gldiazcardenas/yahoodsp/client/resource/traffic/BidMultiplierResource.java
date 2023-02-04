@@ -15,32 +15,33 @@ import retrofit2.http.Path;
 /**
  * @author Gabriel Diaz, Sep 25th 2022.
  */
+@Deprecated
 public interface BidMultiplierResource extends SecuredResource {
 
-    @GET("lines/{lineId}/bidmultipliers")
+    @GET(LineResource.NAME + "/{lineId}/bidmultipliers")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     BidMultipliersResponse getBidMultipliers(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                              @Path("lineId") long lineId);
 
-    @POST("lines/{lineId}/bidmultipliers")
+    @POST(LineResource.NAME + "/{lineId}/bidmultipliers")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     BidMultipliersResponse updateBidMultipliers(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                                 @Path("lineId") long lineId,
                                                 @Body BidMultipliersRequest bidMultipliers);
 
 
-    @GET("lines/{lineId}/bidmultipliercap")
+    @GET(LineResource.NAME + "/{lineId}/bidmultipliercap")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     BidMultiplierCapResponse getBidMultiplierCap(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                                  @Path("lineId") long lineId);
 
-    @POST("lines/{lineId}/bidmultipliercap")
+    @POST(LineResource.NAME + "/{lineId}/bidmultipliercap")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     Object createBidMultiplierCap(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                   @Path("lineId") long lineId,
                                   @Body BidMultiplierCap bidMultiplierCap);
 
-    @POST("lines/{lineId}/bidmultipliercap")
+    @POST(LineResource.NAME + "/{lineId}/bidmultipliercap")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     Object updateBidMultiplierCap(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                   @Path("lineId") long lineId,

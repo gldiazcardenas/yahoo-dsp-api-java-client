@@ -13,7 +13,9 @@ import retrofit2.http.Query;
  */
 public interface ExchangeResource extends SecuredResource {
 
-    @GET("exchanges")
+    String NAME = "exchanges";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ExchangesResponse getExchanges(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                    @Query("query") String query,

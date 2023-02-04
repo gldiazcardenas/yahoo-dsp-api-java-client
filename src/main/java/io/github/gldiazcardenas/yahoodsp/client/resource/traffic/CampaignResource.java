@@ -16,7 +16,9 @@ import retrofit2.http.Query;
 
 public interface CampaignResource extends SecuredResource {
 
-    @GET("campaigns")
+    String NAME = "campaigns";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CampaignsResponse getCampaigns(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                    @Query("accountId") long accountId,
@@ -26,17 +28,17 @@ public interface CampaignResource extends SecuredResource {
                                    @Query("sort") String sort,
                                    @Query("dir") Dir dir);
 
-    @GET("campaigns/{campaignId}")
+    @GET(NAME + "/{campaignId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CampaignResponse getCampaign(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                  @Path("campaignId") long campaignId);
 
-    @POST("campaigns")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CampaignResponse createCampaign(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                     @Body Campaign campaign);
 
-    @PUT("campaigns/{campaignId}")
+    @PUT(NAME + "/{campaignId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CampaignResponse updateCampaign(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                     @Path("campaignId") long campaignId,

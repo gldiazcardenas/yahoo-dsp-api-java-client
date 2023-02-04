@@ -19,7 +19,9 @@ import retrofit2.http.Query;
  */
 public interface DealResource extends SecuredResource {
 
-    @GET("deals")
+    String NAME = "deals";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     DealsResponse getDeals(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                            @Query("query") String query,
@@ -28,17 +30,17 @@ public interface DealResource extends SecuredResource {
                            @Query("sort") String sort,
                            @Query("dir") Dir dir);
 
-    @GET("deals/{dealId}")
+    @GET(NAME + "/{dealId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     DealResponse getDeal(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                          @Path("dealId") long dealId);
 
-    @POST("deals")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     DealResponse createDeal(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                             @Body Deal deal);
 
-    @PUT("deals/{dealId}")
+    @PUT(NAME + "/{dealId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     DealResponse updateDeal(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                             @Path("dealId") long dealId,

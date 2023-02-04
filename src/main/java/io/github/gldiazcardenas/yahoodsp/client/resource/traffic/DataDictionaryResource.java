@@ -18,47 +18,49 @@ import retrofit2.http.Headers;
 
 public interface DataDictionaryResource extends SecuredResource {
 
-    @GET("dictionary")
+    String NAME = "dictionary";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     DictionaryTypesResponse getTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/layouts")
+    @GET(NAME + "/layouts")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     LayoutsResponse getLayouts(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/mimeTypes")
+    @GET(NAME + "/mimeTypes")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CreativeMimeTypesResponse getCreativeMimeTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/currencyTypes")
+    @GET(NAME + "/currencyTypes")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CurrencyTypesResponse getCurrencyTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/languages")
+    @GET(NAME + "/languages")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     LanguagesResponse getLanguages(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/targetingTypes")
+    @GET(NAME + "/targetingTypes")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     TargetingTypesResponse getTargetingTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/timezones")
+    @GET(NAME + "/timezones")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     TimezonesResponse getTimezones(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/adBehaviorTypes")
+    @GET(NAME + "/adBehaviorTypes")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdBehaviorTypesResponse getAdBehaviorTypes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/premiumnative/languages")
+    @GET(NAME + "/premiumnative/languages")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     PremiumNativeLanguagesResponse getPremiumNativeLanguages(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/premiumnative/predefinedctalabels")
+    @GET(NAME + "/premiumnative/predefinedctalabels")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     PremiumNativePredefinedCtaLabelsResponse getPremiumNativePredefinedCtaLabels(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
-    @GET("dictionary/premiumnative/countdownprefixes")
+    @GET(NAME + "/premiumnative/countdownprefixes")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     PremiumNativeCountdownPrefixesResponse getPremiumNativeCountdownPrefixes(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 

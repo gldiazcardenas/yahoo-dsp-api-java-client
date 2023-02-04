@@ -20,7 +20,9 @@ import retrofit2.http.Query;
  */
 public interface BeaconResource extends SecuredResource {
 
-    @GET("beacons")
+    String NAME = "beacons";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     BeaconsResponse getBeacons(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                @Query("accountId") long accountId,
@@ -30,23 +32,23 @@ public interface BeaconResource extends SecuredResource {
                                @Query("sort") String sort,
                                @Query("dir") Dir dir);
 
-    @GET("beacons/{beaconId}")
+    @GET(NAME + "/{beaconId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     BeaconResponse getBeacon(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                              @Path("beaconId") long beaconId);
 
-    @POST("beacons")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     BeaconResponse createBeacon(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                 @Body Beacon beacon);
 
-    @PUT("beacons/{beaconId}")
+    @PUT(NAME + "/{beaconId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     BeaconResponse updateBeacon(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                 @Path("beaconId") long beaconId,
                                 @Body Beacon beacon);
 
-    @GET("beacons/{beaconId}/i13n")
+    @GET(NAME + "/{beaconId}/i13n")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     Beaconi13nCodeResponse getInstrumentationCode(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                                   @Path("beaconId") long beaconId);

@@ -18,23 +18,25 @@ import retrofit2.http.Query;
  */
 public interface NativeListResource extends SecuredResource {
 
-    @GET("nativelists/{nativeListId}")
+    String NAME = "nativelists";
+
+    @GET(NAME + "/{nativeListId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     NativeListResponse getNativeList(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                      @Path("nativeListId") long nativeListId);
 
-    @POST("nativelists")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     NativeListResponse createNativeList(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                         @Body NativeList nativeList);
 
-    @PUT("nativelists/{nativeListId}")
+    @PUT(NAME + "/{nativeListId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     NativeListResponse updateNativeList(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                         @Path("nativeListId") long nativeListId,
                                         @Body NativeList nativeList);
 
-    @GET("nativelists")
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     NativeListsResponse queryNativeLists(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                         @Query("accountId") long accountId,

@@ -8,7 +8,9 @@ import retrofit2.http.Headers;
 
 public interface SeatResource extends SecuredResource {
 
-    @GET("seats")
+    String NAME = "seats";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     SeatsResponse getAll(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 

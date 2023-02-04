@@ -5,7 +5,7 @@ import io.github.gldiazcardenas.yahoodsp.client.model.BidMultiplierCap;
 import io.github.gldiazcardenas.yahoodsp.client.model.BidMultiplierCapResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.BidMultipliersRequest;
 import io.github.gldiazcardenas.yahoodsp.client.model.BidMultipliersResponse;
-import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.BidMultiplierResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.BidMultiplierService;
 
@@ -16,9 +16,9 @@ import java.util.Objects;
  */
 class BidMultiplierServiceImpl implements BidMultiplierService {
 
-    private final BidMultiplierResource resource;
+    private final LineResource resource;
 
-    BidMultiplierServiceImpl(BidMultiplierResource resource) {
+    BidMultiplierServiceImpl(LineResource resource) {
         this.resource = resource;
     }
 

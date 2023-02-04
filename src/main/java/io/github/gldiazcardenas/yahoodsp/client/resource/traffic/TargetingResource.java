@@ -11,7 +11,9 @@ import retrofit2.http.Query;
 
 public interface TargetingResource extends SecuredResource {
 
-    @GET("targeting/geos")
+    String NAME = "targeting";
+
+    @GET(NAME + "/geos")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     GeosResponse getGeos(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                          @Query("query") String query,
@@ -19,13 +21,13 @@ public interface TargetingResource extends SecuredResource {
                          @Query("sort") String sort,
                          @Query("dir") String dir);
 
-    @GET("targeting/countries")
+    @GET(NAME + "/countries")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     GeosResponse getCountries(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                               @Query("query") String query);
 
 
-    @GET("targeting/availablesegments/search")
+    @GET(NAME + "/availablesegments/search")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     SegmentsResponse getAvailableSegments(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                           @Query("accountId") long accountId,

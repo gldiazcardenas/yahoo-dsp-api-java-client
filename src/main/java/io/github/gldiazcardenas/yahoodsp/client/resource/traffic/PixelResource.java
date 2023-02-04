@@ -18,7 +18,9 @@ import retrofit2.http.Query;
  */
 public interface PixelResource extends SecuredResource {
 
-    @GET("pixels")
+    String NAME = "pixels";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     PixelsResponse getPixels(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                               @Query("accountId") long accountId,
@@ -28,13 +30,13 @@ public interface PixelResource extends SecuredResource {
                               @Query("sort") String sort,
                               @Query("dir") Dir dir);
 
-    @GET("pixels/{pixelId}")
+    @GET(NAME + "/{pixelId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     PixelResponse getPixel(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                            @Path("pixelId") long pixelId,
                            @Query("accountId") long accountId);
 
-    @POST("pixels")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     PixelResponse createPixel(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                               @Body Pixel pixel);

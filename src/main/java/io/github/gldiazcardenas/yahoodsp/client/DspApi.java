@@ -7,7 +7,6 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AdResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AdvertiserResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.AudienceResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.BeaconResource;
-import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.BidMultiplierResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.CampaignResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.ContextualResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.CreativeResource;
@@ -19,8 +18,8 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.NativeListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PackageResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PixelResource;
-import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SiteListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SeatResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SiteListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.TargetingResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.UserGroupResource;
 import io.github.gldiazcardenas.yahoodsp.client.service.AuthenticationService;
@@ -42,8 +41,8 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.LineService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.NativeListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PackageService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PixelService;
-import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SiteListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SeatService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SiteListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.TargetingService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.UserGroupService;
 
@@ -134,7 +133,7 @@ public final class DspApi {
         this.advertiserService = new AdvertiserServiceImpl(createTrafficEndpoint(AdvertiserResource.class));
         this.audienceService = new AudienceServiceImpl(createTrafficEndpoint(AudienceResource.class));
         this.beaconService = new BeaconServiceImpl(createTrafficEndpoint(BeaconResource.class));
-        this.bidMultiplierService = new BidMultiplierServiceImpl(createTrafficEndpoint(BidMultiplierResource.class));
+
         this.campaignService = new CampaignServiceImpl(createTrafficEndpoint(CampaignResource.class));
         this.contextualService = new ContextualServiceImpl(createTrafficEndpoint(ContextualResource.class));
         this.creativeService = new CreativeServiceImpl(createTrafficEndpoint(CreativeResource.class));
@@ -142,7 +141,9 @@ public final class DspApi {
         this.dealService = new DealServiceImpl(createTrafficEndpoint(DealResource.class));
         this.doohService = new DOOHServiceImpl(createTrafficEndpoint(DOOHResource.class));
         this.exchangeService = new ExchangeServiceImpl(createTrafficEndpoint(ExchangeResource.class));
-        this.lineService = new LineServiceImpl(createTrafficEndpoint(LineResource.class));
+        LineResource lineResource = createTrafficEndpoint(LineResource.class);
+        this.lineService = new LineServiceImpl(lineResource);
+        this.bidMultiplierService = new BidMultiplierServiceImpl(lineResource);
         this.packageService = new PackageServiceImpl(createTrafficEndpoint(PackageResource.class));
         this.pixelService = new PixelServiceImpl(createTrafficEndpoint(PixelResource.class));
         this.siteListService = new SiteListServiceImpl(createTrafficEndpoint(SiteListResource.class));

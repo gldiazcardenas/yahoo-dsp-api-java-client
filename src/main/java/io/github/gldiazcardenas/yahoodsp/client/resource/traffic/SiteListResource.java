@@ -16,17 +16,19 @@ import retrofit2.http.Path;
  */
 public interface SiteListResource extends SecuredResource {
 
-    @GET("sitelists/{siteListId}")
+    String NAME = "sitelists";
+
+    @GET(NAME + "/{siteListId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     SiteListResponse getSiteList(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                  @Path("siteListId") long siteListId);
 
-    @POST("sitelists")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     SiteListResponse createSiteList(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                     @Body SiteList siteList);
 
-    @PUT("sitelists/{siteListId}")
+    @PUT(NAME + "/{siteListId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     SiteListResponse updateSiteList(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                     @Path("siteListId") long siteListId,

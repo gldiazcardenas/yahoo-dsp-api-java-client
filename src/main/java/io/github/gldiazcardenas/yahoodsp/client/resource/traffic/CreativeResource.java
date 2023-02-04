@@ -19,7 +19,9 @@ import java.util.List;
 
 public interface CreativeResource extends SecuredResource {
 
-    @GET("creatives")
+    String NAME = "creatives";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CreativesResponse getCreatives(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                    @Query("accountId") long accountId,
@@ -32,23 +34,23 @@ public interface CreativeResource extends SecuredResource {
                                    @Query("sort") String sort,
                                    @Query("dir") Dir dir);
 
-    @GET("creatives/{creativeId}")
+    @GET(NAME + "/{creativeId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CreativeResponse getCreative(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                  @Path("creativeId") long creativeId);
 
-    @POST("creatives")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CreativeResponse createCreative(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                     @Body Creative creative);
 
-    @PUT("creatives/{creativeId}")
+    @PUT(NAME + "/{creativeId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CreativeResponse updateCreative(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                     @Path("creativeId") long creativeId,
                                     @Body Creative creative);
 
-    @POST("creatives/bulkupload")
+    @POST(NAME + "/bulkupload")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     CreativeBulkUploadResponse bulkUpload(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                           @Query("accountId") long accountId,

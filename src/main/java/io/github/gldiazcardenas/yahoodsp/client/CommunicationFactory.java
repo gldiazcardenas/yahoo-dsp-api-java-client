@@ -227,8 +227,8 @@ final class CommunicationFactory {
                             else {
                                 dspErrorResponse = new DspErrorResponse();
                                 dspErrorResponse.setError(new DspError());
-                                dspErrorResponse.getError().setMessage("(Content-Type:" + errorResponse.contentType() + ") " +
-                                        Arrays.toString(errorResponse.bytes()));
+                                dspErrorResponse.getError()
+                                        .setMessage("(Content-Type:" + errorResponse.contentType() + ") " + new String(errorResponse.bytes()));
                                 dspErrorResponse.setTimestamp(Instant.now());
                             }
                         }

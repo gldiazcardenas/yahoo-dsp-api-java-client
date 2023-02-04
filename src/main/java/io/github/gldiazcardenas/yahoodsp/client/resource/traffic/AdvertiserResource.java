@@ -17,7 +17,9 @@ import retrofit2.http.Query;
 
 public interface AdvertiserResource extends SecuredResource {
 
-    @GET("advertisers")
+    String NAME = "advertisers";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdvertisersResponse getAdvertisers(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                        @Query("query") String query,
@@ -26,23 +28,23 @@ public interface AdvertiserResource extends SecuredResource {
                                        @Query("sort") String sort,
                                        @Query("dir") Dir dir);
 
-    @GET("advertisers/{advertiserId}")
+    @GET(NAME + "/{advertiserId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdvertiserResponse getAdvertiser(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                      @Path("advertiserId") long advertiserId);
 
-    @POST("advertisers")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdvertiserResponse createAdvertiser(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                         @Body Advertiser advertiser);
 
-    @PUT("advertisers/{advertiserId}")
+    @PUT(NAME + "/{advertiserId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdvertiserResponse updateAdvertiser(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                         @Path("advertiserId") long advertiserId,
                                         @Body Advertiser advertiser);
 
-    @GET("advertisers/{advertiserId}/beaconlookups")
+    @GET(NAME + "/{advertiserId}/beaconlookups")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdvertiserBeaconLookupsResponse getBeaconLookups(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                                      @Path("advertiserId") long advertiserId);

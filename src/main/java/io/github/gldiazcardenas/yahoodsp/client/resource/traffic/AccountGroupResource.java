@@ -16,24 +16,26 @@ import retrofit2.http.Query;
 
 public interface AccountGroupResource extends SecuredResource {
 
-    @GET("accountgroups")
+    String NAME = "accountgroups";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AccountGroupsResponse getAccountGroups(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                            @Query("query") String query,
                                            @Query("sort") String sort,
                                            @Query("dir") Dir dir);
 
-    @GET("accountgroups/{accountGroupId}")
+    @GET(NAME + "/{accountGroupId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AccountGroupResponse getAccountGroup(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                          @Path("accountGroupId") long accountGroupId);
 
-    @POST("accountgroups")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AccountGroupResponse createAccountGroup(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                             @Body AccountGroup accountGroup);
 
-    @PUT("accountgroups/{accountGroupId}")
+    @PUT(NAME + "/{accountGroupId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AccountGroupResponse updateAccountGroup(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                             @Path("accountGroupId") long accountGroupId,

@@ -18,17 +18,19 @@ import retrofit2.http.Query;
 
 public interface ContextualResource extends SecuredResource {
 
-    @GET("contextuals/categories/{taxonomyType}")
+    String NAME = "contextuals";
+
+    @GET(NAME + "/categories/{taxonomyType}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ContextualCategoriesResponse getContextualCategories(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                                          @Path("taxonomyType") TaxonomyType taxonomyType);
 
-    @GET("contextuals/{contextualId}")
+    @GET(NAME + "/{contextualId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ContextualResponse getContextualById(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                          @Path("contextualId") long contextualId);
 
-    @GET("contextuals")
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ContextualsResponse getContextuals(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                        @Query("seatId") Long seatId,
@@ -39,13 +41,13 @@ public interface ContextualResource extends SecuredResource {
                                        @Query("sort") String sort,
                                        @Query("dir") Dir dir);
 
-    @POST("contextuals")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ContextualResponse createContextual(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                         @Body Contextual contextual);
 
 
-    @PUT("contextuals/{contextualId}")
+    @PUT(NAME + "/{contextualId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     ContextualResponse updateContextual(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                                         @Path("contextualId") long contextualId,

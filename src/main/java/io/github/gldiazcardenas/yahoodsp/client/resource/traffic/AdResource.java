@@ -16,7 +16,9 @@ import retrofit2.http.Query;
 
 public interface AdResource extends SecuredResource {
 
-    @GET("ads")
+    String NAME = "ads";
+
+    @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdsResponse getAds(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                        @Query("lineId") long lineId,
@@ -26,17 +28,17 @@ public interface AdResource extends SecuredResource {
                        @Query("sort") String sort,
                        @Query("dir") Dir dir);
 
-    @GET("ads/{adId}")
+    @GET(NAME + "/{adId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdResponse getAd(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                      @Path("adId") long adId);
 
-    @POST("ads")
+    @POST(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdResponse createAd(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                         @Body Ad ad);
 
-    @PUT("ads/{adId}")
+    @PUT(NAME + "/{adId}")
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
     AdResponse updateAd(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken,
                         @Path("adId") long adId,
