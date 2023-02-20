@@ -1,12 +1,14 @@
 package io.github.gldiazcardenas.yahoodsp.client.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Gabriel Diaz, Oct 06th 2022.
@@ -14,6 +16,11 @@ import java.time.ZonedDateTime;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReportRequest {
+
+    private static final DateTimeFormatter OFFSET_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+    private static final DateTimeFormatter NO_OFFSET_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
+
 
     private ReportOption reportOption;
     @JsonProperty("limit")
@@ -24,11 +31,9 @@ public class ReportRequest {
     @JsonProperty("intervalTypeId")
     private Integer intervalTypeIdValue;
     @JsonProperty("startDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private ZonedDateTime startDate;
+    private String startDateValue;
     @JsonProperty("endDate")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
-    private ZonedDateTime endDate;
+    private String endDateValue;
 
     public ReportOption getReportOption() {
         return reportOption;
@@ -90,20 +95,40 @@ public class ReportRequest {
         this.intervalTypeIdValue = intervalTypeIdValue;
     }
 
-    public ZonedDateTime getStartDate() {
-        return startDate;
+    public String getStartDateValue() {
+        return startDateValue;
     }
 
+    public void setStartDateValue(String startDateValue) {
+        this.startDateValue = startDateValue;
+    }
+
+    public String getEndDateValue() {
+        return endDateValue;
+    }
+
+    public void setEndDateValue(String endDateValue) {
+        this.endDateValue = endDateValue;
+    }
+
+    @JsonIgnore
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDateValue = NO_OFFSET_FORMATTER.format(startDate.atZone(ZoneId.systemDefault()));
+    }
+
+    @JsonIgnore
     public void setStartDate(ZonedDateTime startDate) {
-        this.startDate = startDate;
+        this.startDateValue = OFFSET_FORMATTER.format(startDate);
     }
 
-    public ZonedDateTime getEndDate() {
-        return endDate;
+    @JsonIgnore
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDateValue = NO_OFFSET_FORMATTER.format(endDate);
     }
 
+    @JsonIgnore
     public void setEndDate(ZonedDateTime endDate) {
-        this.endDate = endDate;
+        this.endDateValue = OFFSET_FORMATTER.format(endDate);
     }
 
     @Override
@@ -114,8 +139,8 @@ public class ReportRequest {
                 ", dateTypeId=" + dateTypeIdValue +
                 ", dataSource=" + dataSource +
                 ", intervalTypeId=" + intervalTypeIdValue +
-                ", startDate='" + startDate + "'" +
-                ", endDate='" + endDate + "'" +
+                ", startDate='" + startDateValue + "'" +
+                ", endDate='" + endDateValue + "'" +
                 '}';
     }
 }
