@@ -12,7 +12,7 @@ import io.github.gldiazcardenas.yahoodsp.client.model.ReportStatusResponse;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 /**
@@ -40,8 +40,10 @@ public class ExecuteCampaignPerformanceReportExample implements Example {
         filterOption.setIncludeValues(new ArrayList<>());
         filterOption.getIncludeValues().add(filterValue);
 
+        ZoneId zoneId = ZoneId.of("America/New_York");
+
         ReportOption options = new ReportOption();
-        options.setTimezone("America/Los_Angeles");
+        options.setTimezone(zoneId.getId());
         options.setCurrency(4);
         options.setDimensionTypeIdValues(new ArrayList<>());
         options.getDimensionTypeIdValues().add(ReportDimensionType.ADVERTISER.getId());
@@ -55,8 +57,8 @@ public class ExecuteCampaignPerformanceReportExample implements Example {
         options.getFilterOptions().add(filterOption);
 
         ReportRequest request = new ReportRequest();
-        request.setStartDate(LocalDate.now().atStartOfDay());
-        request.setEndDate(LocalDate.now().atTime(LocalTime.of(23, 59)));
+        request.setStartDate(LocalDate.now().atStartOfDay().atZone(zoneId));
+        request.setEndDate(LocalDate.now().atTime(23, 59, 59).atZone(zoneId));
         request.setDateTypeId(ReportDateType.CUSTOM);
         request.setIntervalTypeId(ReportIntervalType.DAY);
         request.setReportOption(options);

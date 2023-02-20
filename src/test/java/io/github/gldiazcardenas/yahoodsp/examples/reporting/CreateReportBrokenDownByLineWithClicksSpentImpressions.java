@@ -11,7 +11,8 @@ import io.github.gldiazcardenas.yahoodsp.client.model.ReportRequest;
 import io.github.gldiazcardenas.yahoodsp.examples.Example;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 /**
@@ -44,8 +45,8 @@ public class CreateReportBrokenDownByLineWithClicksSpentImpressions implements E
         options.getFilterOptions().add(filterOption);
 
         ReportRequest request = new ReportRequest();
-        request.setStartDate(LocalDate.now().atStartOfDay());
-        request.setEndDate(LocalDateTime.now());
+        request.setStartDate(LocalDate.now().atStartOfDay().atZone(ZoneId.systemDefault()));
+        request.setEndDate(ZonedDateTime.now());
         request.setDateTypeId(ReportDateType.CUSTOM);
         request.setIntervalTypeId(ReportIntervalType.DAY);
         request.setReportOption(options);

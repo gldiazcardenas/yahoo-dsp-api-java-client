@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * @author Gabriel Diaz, Oct 06th 2022.
@@ -23,10 +23,12 @@ public class ReportRequest {
     private Integer dataSource;
     @JsonProperty("intervalTypeId")
     private Integer intervalTypeIdValue;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private LocalDateTime startDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private LocalDateTime endDate;
+    @JsonProperty("startDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private ZonedDateTime startDate;
+    @JsonProperty("endDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private ZonedDateTime endDate;
 
     public ReportOption getReportOption() {
         return reportOption;
@@ -88,19 +90,19 @@ public class ReportRequest {
         this.intervalTypeIdValue = intervalTypeIdValue;
     }
 
-    public LocalDateTime getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public ZonedDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(ZonedDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -112,8 +114,8 @@ public class ReportRequest {
                 ", dateTypeId=" + dateTypeIdValue +
                 ", dataSource=" + dataSource +
                 ", intervalTypeId=" + intervalTypeIdValue +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                ", startDate='" + startDate + "'" +
+                ", endDate='" + endDate + "'" +
                 '}';
     }
 }
