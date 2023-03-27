@@ -18,7 +18,10 @@ public class Ad {
         ACTIVE,
         PAUSED,
         ON_HOLD,
-        ON_LIMITED;
+        ON_LIMITED,
+        RESTRICTED,
+        DELETED,
+        REJECTED;
         public static NativeStatus fromValue(String value) {
             for (NativeStatus type : values()) {
                 if (type.name().equals(value)) {
