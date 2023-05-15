@@ -1,6 +1,10 @@
 package io.github.gldiazcardenas.yahoodsp.client;
 
 import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
+import io.github.gldiazcardenas.yahoodsp.client.model.BidMultiplierCap;
+import io.github.gldiazcardenas.yahoodsp.client.model.BidMultiplierCapResponse;
+import io.github.gldiazcardenas.yahoodsp.client.model.BidMultipliersRequest;
+import io.github.gldiazcardenas.yahoodsp.client.model.BidMultipliersResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.Line;
 import io.github.gldiazcardenas.yahoodsp.client.model.LineResponse;
 import io.github.gldiazcardenas.yahoodsp.client.model.LineTargetingRequest;
@@ -10,6 +14,8 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.LineService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.LinesFilter;
+
+import java.util.Objects;
 
 class LineServiceImpl implements LineService {
 
@@ -60,6 +66,38 @@ class LineServiceImpl implements LineService {
     public LineTargetingResponse updateTargeting(Authentication auth, long lineId,
                                                  LineTargetingRequest targeting) throws DspApiException {
         return resource.updateTargeting(auth.getAccessToken(), lineId, targeting);
+    }
+
+    @Override
+    public BidMultipliersResponse getBidMultipliers(Authentication auth, long lineId) throws DspApiException {
+        return resource.getBidMultipliers(auth.getAccessToken(), lineId);
+    }
+
+    @Override
+    public BidMultipliersResponse updateBidMultipliers(Authentication auth,
+                                                       long lineId,
+                                                       BidMultipliersRequest bidMultipliers) throws DspApiException {
+        Objects.requireNonNull(bidMultipliers);
+        return resource.updateBidMultipliers(auth.getAccessToken(), lineId, bidMultipliers);
+    }
+
+    @Override
+    public BidMultiplierCapResponse getBidMultiplierCap(Authentication auth, long lineId) throws DspApiException {
+        return resource.getBidMultiplierCap(auth.getAccessToken(), lineId);
+    }
+
+    @Override
+    public void createBidMultiplierCap(Authentication auth, long lineId, BidMultiplierCap bidMultiplierCap) throws DspApiException {
+        Preconditions.requireNonNull(bidMultiplierCap);
+        Preconditions.requireNonNull(bidMultiplierCap.getMultiplierCap());
+        resource.createBidMultiplierCap(auth.getAccessToken(), lineId, bidMultiplierCap);
+    }
+
+    @Override
+    public void updateBidMultiplierCap(Authentication auth, long lineId, BidMultiplierCap bidMultiplierCap) throws DspApiException {
+        Preconditions.requireNonNull(bidMultiplierCap);
+        Preconditions.requireNonNull(bidMultiplierCap.getMultiplierCap());
+        resource.updateBidMultiplierCap(auth.getAccessToken(), lineId, bidMultiplierCap);
     }
 
 }

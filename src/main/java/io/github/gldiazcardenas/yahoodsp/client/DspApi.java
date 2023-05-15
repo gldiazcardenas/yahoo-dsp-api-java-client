@@ -29,7 +29,6 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertiserService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AudienceService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.BeaconService;
-import io.github.gldiazcardenas.yahoodsp.client.service.traffic.BidMultiplierService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.CampaignService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.ContextualService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.CreativeService;
@@ -107,7 +106,6 @@ public final class DspApi {
     private final AdvertiserService advertiserService;
     private final AudienceService audienceService;
     private final BeaconService beaconService;
-    private final BidMultiplierService bidMultiplierService;
     private final CampaignService campaignService;
     private final ContextualService contextualService;
     private final CreativeService creativeService;
@@ -143,7 +141,6 @@ public final class DspApi {
         this.exchangeService = new ExchangeServiceImpl(createTrafficEndpoint(ExchangeResource.class));
         LineResource lineResource = createTrafficEndpoint(LineResource.class);
         this.lineService = new LineServiceImpl(lineResource);
-        this.bidMultiplierService = new BidMultiplierServiceImpl(lineResource);
         this.packageService = new PackageServiceImpl(createTrafficEndpoint(PackageResource.class));
         this.pixelService = new PixelServiceImpl(createTrafficEndpoint(PixelResource.class));
         this.siteListService = new SiteListServiceImpl(createTrafficEndpoint(SiteListResource.class));
@@ -232,10 +229,6 @@ public final class DspApi {
 
     public ExchangeService getExchangeService() {
         return exchangeService;
-    }
-
-    public BidMultiplierService getBidMultiplierService() {
-        return bidMultiplierService;
     }
 
     public DOOHService getDoohService() {
