@@ -23,6 +23,19 @@ public class DspErrorResponse {
     @JsonProperty("timeStamp")
     private Instant timestamp;
 
+    public DspErrorResponse() {
+        super();
+    }
+
+    public DspErrorResponse(DspError error) {
+        this.error = error;
+    }
+
+    public DspErrorResponse(DspError error, Instant timestamp) {
+        this.error = error;
+        this.timestamp = timestamp;
+    }
+
     public DspError getError() {
         return error;
     }

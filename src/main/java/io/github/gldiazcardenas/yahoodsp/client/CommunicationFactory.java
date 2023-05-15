@@ -24,7 +24,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -139,9 +138,7 @@ final class CommunicationFactory {
 
                         try (ResponseBody errorResponse = response.errorBody()) {
                             if (errorResponse == null) {
-                                authError = new AuthenticationError();
-                                authError.setError(response.message());
-                                authError.setDescription(response.toString());
+                                authError = new AuthenticationError(response.message(), response.toString());
                             }
                             else if (Optional.ofNullable(errorResponse.contentType())
                                     .filter(t -> "application".equalsIgnoreCase(t.type()))
@@ -150,9 +147,7 @@ final class CommunicationFactory {
                                 authError = objectMapper.readValue(errorResponse.bytes(), AuthenticationError.class);
                             }
                             else {
-                                authError = new AuthenticationError();
-                                authError.setError(Arrays.toString(errorResponse.bytes()));
-                                authError.setDescription("(Content-Type:" + errorResponse.contentType() + ")");
+                                authError = new AuthenticationError(new String(errorResponse.bytes()),  "(Content-Type:" + errorResponse.contentType() + ")");
                             }
                         }
 
@@ -168,6 +163,7 @@ final class CommunicationFactory {
                     }
                     catch (Throwable e) {
                         communication.getHttpLogger().log(e.getLocalizedMessage());
+
                         if (e instanceof DspApiException) {
                             throw (DspApiException) e;
                         }
@@ -213,10 +209,7 @@ final class CommunicationFactory {
 
                         try (ResponseBody errorResponse = response.errorBody()) {
                             if (errorResponse == null) {
-                                dspErrorResponse = new DspErrorResponse();
-                                dspErrorResponse.setError(new DspError());
-                                dspErrorResponse.getError().setMessage(response.message());
-                                dspErrorResponse.setTimestamp(Instant.now());
+                                dspErrorResponse = new DspErrorResponse(new DspError(response.message()), Instant.now());
                             }
                             else if (Optional.ofNullable(errorResponse.contentType())
                                     .filter(t -> "application".equalsIgnoreCase(t.type()))
@@ -225,11 +218,10 @@ final class CommunicationFactory {
                                 dspErrorResponse = objectMapper.readValue(errorResponse.bytes(), DspErrorResponse.class);
                             }
                             else {
-                                dspErrorResponse = new DspErrorResponse();
-                                dspErrorResponse.setError(new DspError());
-                                dspErrorResponse.getError()
-                                        .setMessage("(Content-Type:" + errorResponse.contentType() + ") " + new String(errorResponse.bytes()));
-                                dspErrorResponse.setTimestamp(Instant.now());
+                                dspErrorResponse = new DspErrorResponse(
+                                        new DspError("(Content-Type:" + errorResponse.contentType() + ") " + new String(errorResponse.bytes())),
+                                        Instant.now()
+                                );
                             }
                         }
 
@@ -260,6 +252,7 @@ final class CommunicationFactory {
                     }
                     catch (Throwable e) {
                         communication.getHttpLogger().log(e.getLocalizedMessage());
+
                         if (e instanceof DspApiException) {
                             throw (DspApiException) e;
                         }

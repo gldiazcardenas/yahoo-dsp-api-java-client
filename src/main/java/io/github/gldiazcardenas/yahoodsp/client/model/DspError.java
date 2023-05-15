@@ -15,20 +15,17 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DspError {
 
-    @JsonProperty("httpStatusCode")
-    private int statusCode;
     @JsonProperty("message")
     private String message;
     @JsonProperty("validationErrors")
     private List<DspErrorValidation> validations;
 
-    public int getStatusCode() {
-        return statusCode;
+    public DspError() {
+        super();
     }
 
-    public DspError setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-        return this;
+    public DspError(String message) {
+        this.message = message;
     }
 
     public String getMessage() {
@@ -52,7 +49,6 @@ public class DspError {
     @Override
     public String toString() {
         return "YahooDspError{" +
-                "statusCode=" + statusCode +
                 ", message='" + message + '\'' +
                 ", validations=" + validations +
                 '}';

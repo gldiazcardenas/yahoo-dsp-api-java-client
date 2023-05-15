@@ -19,6 +19,15 @@ public class AuthenticationError {
     @JsonProperty("error_description")
     private String description;
 
+    public AuthenticationError() {
+        super();
+    }
+
+    public AuthenticationError(String error, String description) {
+        this.error = error;
+        this.description = description;
+    }
+
     public String getError() {
         return error;
     }
