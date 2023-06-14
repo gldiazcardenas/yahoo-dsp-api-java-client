@@ -131,7 +131,6 @@ public final class DspApi {
         this.advertiserService = new AdvertiserServiceImpl(createTrafficEndpoint(AdvertiserResource.class));
         this.audienceService = new AudienceServiceImpl(createTrafficEndpoint(AudienceResource.class));
         this.beaconService = new BeaconServiceImpl(createTrafficEndpoint(BeaconResource.class));
-
         this.campaignService = new CampaignServiceImpl(createTrafficEndpoint(CampaignResource.class));
         this.contextualService = new ContextualServiceImpl(createTrafficEndpoint(ContextualResource.class));
         this.creativeService = new CreativeServiceImpl(createTrafficEndpoint(CreativeResource.class));
@@ -139,8 +138,7 @@ public final class DspApi {
         this.dealService = new DealServiceImpl(createTrafficEndpoint(DealResource.class));
         this.doohService = new DOOHServiceImpl(createTrafficEndpoint(DOOHResource.class));
         this.exchangeService = new ExchangeServiceImpl(createTrafficEndpoint(ExchangeResource.class));
-        LineResource lineResource = createTrafficEndpoint(LineResource.class);
-        this.lineService = new LineServiceImpl(lineResource);
+        this.lineService = new LineServiceImpl(createTrafficEndpoint(LineResource.class));
         this.packageService = new PackageServiceImpl(createTrafficEndpoint(PackageResource.class));
         this.pixelService = new PixelServiceImpl(createTrafficEndpoint(PixelResource.class));
         this.siteListService = new SiteListServiceImpl(createTrafficEndpoint(SiteListResource.class));
