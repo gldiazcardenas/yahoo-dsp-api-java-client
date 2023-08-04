@@ -17,7 +17,6 @@ public class DspApiError {
     private String message;
     private String method;
     private String path;
-    private Object payload;
     private Instant timestamp;
     private List<DspErrorValidation> validations;
 
@@ -61,14 +60,6 @@ public class DspApiError {
         this.path = path;
     }
 
-    public Object getPayload() {
-        return payload;
-    }
-
-    public void setPayload(Object payload) {
-        this.payload = payload;
-    }
-
     public Instant getTimestamp() {
         return timestamp;
     }
@@ -105,7 +96,6 @@ public class DspApiError {
                 ", message='" + message + '\'' +
                 ", method='" + method + '\'' +
                 ", path='" + path + '\'' +
-                ", payload=" + payload +
                 ", timestamp=" + timestamp +
                 ", validations=" + validations +
                 '}';
