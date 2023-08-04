@@ -18,6 +18,7 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.LineResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.NativeListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PackageResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.PixelResource;
+import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.RateLimitResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SeatResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SiteListResource;
 import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.TargetingResource;
@@ -40,6 +41,7 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.LineService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.NativeListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PackageService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PixelService;
+import io.github.gldiazcardenas.yahoodsp.client.service.traffic.RateLimitService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SeatService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SiteListService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.TargetingService;
@@ -122,6 +124,7 @@ public final class DspApi {
     private final TargetingService targetingService;
     private final UserGroupService userGroupService;
     private final ExtReportingService reportService;
+    private final RateLimitService rateLimitService;
 
     private DspApi(CommunicationFactory factory) {
         this.factory = factory;
@@ -146,6 +149,7 @@ public final class DspApi {
         this.seatService = new SeatServiceImpl(createTrafficEndpoint(SeatResource.class));
         this.targetingService = new TargetingServiceImpl(createTrafficEndpoint(TargetingResource.class));
         this.userGroupService = new UserGroupServiceImpl(createTrafficEndpoint(UserGroupResource.class));
+        this.rateLimitService = new RateLimitServiceImpl(createTrafficEndpoint(RateLimitResource.class));
         this.reportService = new ExtReportingServiceImpl(createReportingEndpoint(ExtReportingResource.class));
     }
 
@@ -235,6 +239,10 @@ public final class DspApi {
 
     public UserGroupService getUserGroupService() {
         return userGroupService;
+    }
+
+    public RateLimitService getRateLimitService() {
+        return rateLimitService;
     }
 
     public <T> T createAuthEndpoint(Class<T> clazz) {
