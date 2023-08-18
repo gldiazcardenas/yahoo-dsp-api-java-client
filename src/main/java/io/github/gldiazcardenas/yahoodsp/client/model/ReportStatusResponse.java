@@ -21,6 +21,7 @@ public class ReportStatusResponse {
     private String jobStartDate;
     private String jobEndDate;
     private Long numRows;
+    private String errorMsg;
 
     public String getCustomerReportId() {
         return customerReportId;
@@ -96,6 +97,14 @@ public class ReportStatusResponse {
         this.numRows = numRows;
     }
 
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
     @Override
     public String toString() {
         return "ReportStatusResponse{" +
@@ -107,6 +116,7 @@ public class ReportStatusResponse {
                 ", jobStartDate='" + jobStartDate + '\'' +
                 ", jobEndDate='" + jobEndDate + '\'' +
                 ", numRows=" + numRows +
+                ", errorMsg=" + errorMsg +
                 '}';
     }
 }
