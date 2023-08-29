@@ -6,6 +6,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 
 public interface RateLimitService {
 
+    @Deprecated
     RateLimitResponse get(Authentication auth) throws DspApiException;
+
+    RateLimitResponse getTrafficLimit(Authentication auth) throws DspApiException;
 
 }

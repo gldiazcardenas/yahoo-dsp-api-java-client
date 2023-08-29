@@ -12,6 +12,6 @@ public interface RateLimitResource extends SecuredResource {
 
     @GET(NAME)
     @Headers(AUTH_METHOD_HEADER_WITH_VALUE)
-    RateLimitResponse get(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
+    RateLimitResponse getTrafficLimit(@Header(AUTH_TOKEN_HEADER_NAME) String xAuthToken);
 
 }

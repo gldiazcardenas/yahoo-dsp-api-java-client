@@ -16,6 +16,12 @@ public class RateLimitServiceImpl implements RateLimitService {
 
     @Override
     public RateLimitResponse get(Authentication auth) throws DspApiException {
-        return resource.get(auth.getAccessToken());
+        return getTrafficLimit(auth);
     }
+
+    @Override
+    public RateLimitResponse getTrafficLimit(Authentication auth) throws DspApiException {
+        return resource.getTrafficLimit(auth.getAccessToken());
+    }
+
 }
