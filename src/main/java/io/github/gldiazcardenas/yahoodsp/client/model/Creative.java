@@ -70,12 +70,16 @@ public class Creative {
     private Boolean isThirdPartyCodeSecure;
     private String thirdPartyCode;
     private AdType adType;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<UserInteraction> userInteractions;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<ExpandDirection> expandDirections;
     private String creativeTagUrl;
     private CreativeContent content;
     private CreativeDetails details;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<CreativeImpressionTracking> creativeImpressionTracking;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<CreativeCustomIdentifier> customIdentifiers;
     private CreativeCompanionBanner companionBanners;
     private List<AdxCategory> adxCategories;
