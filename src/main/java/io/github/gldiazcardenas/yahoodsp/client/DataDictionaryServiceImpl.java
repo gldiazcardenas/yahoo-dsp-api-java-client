@@ -16,6 +16,8 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.DataDictionaryR
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.DataDictionaryService;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+
 class DataDictionaryServiceImpl implements DataDictionaryService {
 
     private final DataDictionaryResource resource;
@@ -26,57 +28,57 @@ class DataDictionaryServiceImpl implements DataDictionaryService {
 
     @Override
     public DictionaryTypesResponse getTypes(Authentication auth) throws DspApiException {
-        return resource.getTypes(auth.getAccessToken());
+        return resource.getTypes(accessToken(auth));
     }
 
     @Override
     public LayoutsResponse getLayouts(Authentication auth) throws DspApiException {
-        return resource.getLayouts(auth.getAccessToken());
+        return resource.getLayouts(accessToken(auth));
     }
 
     @Override
     public CreativeMimeTypesResponse getCreativeMimeTypes(Authentication auth) throws DspApiException {
-        return resource.getCreativeMimeTypes(auth.getAccessToken());
+        return resource.getCreativeMimeTypes(accessToken(auth));
     }
 
     @Override
     public CurrencyTypesResponse getCurrencyTypes(Authentication auth) throws DspApiException {
-        return resource.getCurrencyTypes(auth.getAccessToken());
+        return resource.getCurrencyTypes(accessToken(auth));
     }
 
     @Override
     public LanguagesResponse getLanguages(Authentication auth) throws DspApiException {
-        return resource.getLanguages(auth.getAccessToken());
+        return resource.getLanguages(accessToken(auth));
     }
 
     @Override
     public TargetingTypesResponse getTargetingTypes(Authentication auth) throws DspApiException {
-        return resource.getTargetingTypes(auth.getAccessToken());
+        return resource.getTargetingTypes(accessToken(auth));
     }
 
     @Override
     public TimezonesResponse getTimezones(Authentication auth) throws DspApiException {
-        return resource.getTimezones(auth.getAccessToken());
+        return resource.getTimezones(accessToken(auth));
     }
 
     @Override
     public AdBehaviorTypesResponse getAdBehaviorTypes(Authentication auth) throws DspApiException {
-        return resource.getAdBehaviorTypes(auth.getAccessToken());
+        return resource.getAdBehaviorTypes(accessToken(auth));
     }
 
     @Override
     public PremiumNativeLanguagesResponse getPremiumNativeLanguages(Authentication auth) throws DspApiException {
-        return resource.getPremiumNativeLanguages(auth.getAccessToken());
+        return resource.getPremiumNativeLanguages(accessToken(auth));
     }
 
     @Override
     public PremiumNativePredefinedCtaLabelsResponse getPremiumNativePredefinedCtaLabels(Authentication auth) throws DspApiException {
-        return resource.getPremiumNativePredefinedCtaLabels(auth.getAccessToken());
+        return resource.getPremiumNativePredefinedCtaLabels(accessToken(auth));
     }
 
     @Override
     public PremiumNativeCountdownPrefixesResponse getPremiumNativeCountdownPrefixes(Authentication auth) throws DspApiException {
-        return resource.getPremiumNativeCountdownPrefixes(auth.getAccessToken());
+        return resource.getPremiumNativeCountdownPrefixes(accessToken(auth));
     }
 
 

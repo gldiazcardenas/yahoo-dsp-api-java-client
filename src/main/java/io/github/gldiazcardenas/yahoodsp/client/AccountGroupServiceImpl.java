@@ -9,6 +9,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AccountGroupService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AccountGroupsFilter;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 class AccountGroupServiceImpl implements AccountGroupService {
 
     private final AccountGroupResource resource;
@@ -19,7 +22,8 @@ class AccountGroupServiceImpl implements AccountGroupService {
 
     @Override
     public AccountGroupsResponse getAccountGroups(Authentication auth, AccountGroupsFilter filter) throws DspApiException {
-        return resource.getAccountGroups(auth.getAccessToken(),
+        requireNonNull(filter);
+        return resource.getAccountGroups(accessToken(auth),
                 filter.getQuery(),
                 filter.getSort(),
                 filter.getDir());
@@ -27,19 +31,19 @@ class AccountGroupServiceImpl implements AccountGroupService {
 
     @Override
     public AccountGroupResponse getAccountGroup(Authentication auth, long accountGroupId) throws DspApiException {
-        return resource.getAccountGroup(auth.getAccessToken(), accountGroupId);
+        return resource.getAccountGroup(accessToken(auth), accountGroupId);
     }
 
     @Override
     public AccountGroupResponse createAccountGroup(Authentication auth, AccountGroup accountGroup) throws DspApiException {
-        Preconditions.requireNonNull(accountGroup);
-        return resource.createAccountGroup(auth.getAccessToken(), accountGroup);
+        requireNonNull(accountGroup);
+        return resource.createAccountGroup(accessToken(auth), accountGroup);
     }
 
     @Override
     public AccountGroupResponse updateAccountGroup(Authentication auth, AccountGroup accountGroup) throws DspApiException {
-        Preconditions.requireNonNull(accountGroup);
-        Preconditions.requireNonNull(accountGroup.getId());
-        return resource.updateAccountGroup(auth.getAccessToken(), accountGroup.getId(), accountGroup);
+        requireNonNull(accountGroup);
+        requireNonNull(accountGroup.getId());
+        return resource.updateAccountGroup(accessToken(auth), accountGroup.getId(), accountGroup);
     }
 }

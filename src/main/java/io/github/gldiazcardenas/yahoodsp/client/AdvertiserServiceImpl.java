@@ -10,6 +10,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertiserService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdvertisersFilter;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 class AdvertiserServiceImpl implements AdvertiserService {
 
     private final AdvertiserResource resource;
@@ -18,11 +21,10 @@ class AdvertiserServiceImpl implements AdvertiserService {
         this.resource = resource;
     }
 
-
     @Override
     public AdvertisersResponse getAdvertisers(Authentication auth, AdvertisersFilter filter) throws DspApiException {
-        Preconditions.requireNonNull(filter);
-        return resource.getAdvertisers(auth.getAccessToken(),
+        requireNonNull(filter);
+        return resource.getAdvertisers(accessToken(auth),
                 filter.getQuery(),
                 filter.getPage(),
                 filter.getLimit(),
@@ -32,25 +34,25 @@ class AdvertiserServiceImpl implements AdvertiserService {
 
     @Override
     public AdvertiserResponse getAdvertiser(Authentication auth, long advertiserId) throws DspApiException {
-        return resource.getAdvertiser(auth.getAccessToken(), advertiserId);
+        return resource.getAdvertiser(accessToken(auth), advertiserId);
     }
 
     @Override
     public AdvertiserResponse createAdvertiser(Authentication auth, Advertiser advertiser) throws DspApiException {
-        Preconditions.requireNonNull(advertiser);
-        Preconditions.requireNonNull(advertiser.getName());
-        return resource.createAdvertiser(auth.getAccessToken(), advertiser);
+        requireNonNull(advertiser);
+        requireNonNull(advertiser.getName());
+        return resource.createAdvertiser(accessToken(auth), advertiser);
     }
 
     @Override
     public AdvertiserResponse updateAdvertiser(Authentication auth, Advertiser advertiser) throws DspApiException {
-        Preconditions.requireNonNull(advertiser);
-        Preconditions.requireNonNull(advertiser.getId());
-        return resource.updateAdvertiser(auth.getAccessToken(), advertiser.getId(), advertiser);
+        requireNonNull(advertiser);
+        requireNonNull(advertiser.getId());
+        return resource.updateAdvertiser(accessToken(auth), advertiser.getId(), advertiser);
     }
 
     @Override
     public AdvertiserBeaconLookupsResponse getBeaconLookups(Authentication auth, long advertiserId) throws DspApiException {
-        return resource.getBeaconLookups(auth.getAccessToken(), advertiserId);
+        return resource.getBeaconLookups(accessToken(auth), advertiserId);
     }
 }

@@ -9,6 +9,10 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 
 public interface AdvertiserService {
 
+    default AdvertisersResponse getAdvertisers(Authentication auth) throws DspApiException {
+        return getAdvertisers(auth, new AdvertisersFilter());
+    }
+
     AdvertisersResponse getAdvertisers(Authentication auth, AdvertisersFilter filter) throws DspApiException;
 
     AdvertiserResponse getAdvertiser(Authentication auth, long advertiserId) throws DspApiException;

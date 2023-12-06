@@ -6,6 +6,8 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.SeatResource;
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.SeatService;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+
 class SeatServiceImpl implements SeatService {
 
     private final SeatResource resource;
@@ -16,7 +18,7 @@ class SeatServiceImpl implements SeatService {
 
     @Override
     public SeatsResponse getAll(Authentication auth) throws DspApiException {
-        return resource.getAll(auth.getAccessToken());
+        return resource.getAll(accessToken(auth));
     }
 
 }

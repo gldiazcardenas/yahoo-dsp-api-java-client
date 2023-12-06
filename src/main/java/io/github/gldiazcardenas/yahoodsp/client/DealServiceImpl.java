@@ -9,6 +9,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.DealService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.DealsFilter;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 /**
  * @author Gabriel Diaz, Sep 22th 2022.
  */
@@ -22,7 +25,8 @@ class DealServiceImpl implements DealService {
 
     @Override
     public DealsResponse getDeals(Authentication auth, DealsFilter filter) throws DspApiException {
-        return resource.getDeals(auth.getAccessToken(),
+        requireNonNull(filter);
+        return resource.getDeals(accessToken(auth),
                 filter.getQuery(),
                 filter.getPage(),
                 filter.getLimit(),
@@ -32,19 +36,19 @@ class DealServiceImpl implements DealService {
 
     @Override
     public DealResponse getDeal(Authentication auth, long dealId) throws DspApiException {
-        return resource.getDeal(auth.getAccessToken(), dealId);
+        return resource.getDeal(accessToken(auth), dealId);
     }
 
     @Override
     public DealResponse createDeal(Authentication auth, Deal deal) throws DspApiException {
-        Preconditions.requireNonNull(deal);
-        return resource.createDeal(auth.getAccessToken(), deal);
+        requireNonNull(deal);
+        return resource.createDeal(accessToken(auth), deal);
     }
 
     @Override
     public DealResponse updateDeal(Authentication auth, Deal deal) throws DspApiException {
-        Preconditions.requireNonNull(deal);
-        Preconditions.requireNonNull(deal.getId());
-        return resource.updateDeal(auth.getAccessToken(), deal.getId(), deal);
+        requireNonNull(deal);
+        requireNonNull(deal.getId());
+        return resource.updateDeal(accessToken(auth), deal.getId(), deal);
     }
 }

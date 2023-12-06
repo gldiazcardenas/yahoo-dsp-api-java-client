@@ -10,6 +10,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.BeaconService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.BeaconsFilter;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 /**
  * @author Gabriel Diaz, Sep 22th 2022.
  */
@@ -23,9 +26,9 @@ class BeaconServiceImpl implements BeaconService {
 
     @Override
     public BeaconsResponse getBeacons(Authentication auth, BeaconsFilter filter) throws DspApiException {
-        Preconditions.requireNonNull(filter);
-        Preconditions.requireNonNull(filter.getAccountId());
-        return resource.getBeacons(auth.getAccessToken(),
+        requireNonNull(filter);
+        requireNonNull(filter.getAccountId());
+        return resource.getBeacons(accessToken(auth),
                 filter.getAccountId(),
                 filter.getQuery(),
                 filter.getPage(),
@@ -36,23 +39,24 @@ class BeaconServiceImpl implements BeaconService {
 
     @Override
     public BeaconResponse getBeacon(Authentication auth, long beaconId) throws DspApiException {
-        return resource.getBeacon(auth.getAccessToken(), beaconId);
+        return resource.getBeacon(accessToken(auth), beaconId);
     }
 
     @Override
     public BeaconResponse createBeacon(Authentication auth, Beacon beacon) throws DspApiException {
-        return resource.createBeacon(auth.getAccessToken(), beacon);
+        requireNonNull(beacon);
+        return resource.createBeacon(accessToken(auth), beacon);
     }
 
     @Override
     public BeaconResponse updateBeacon(Authentication auth, Beacon beacon) throws DspApiException {
-        Preconditions.requireNonNull(beacon);
-        Preconditions.requireNonNull(beacon.getId());
-        return resource.updateBeacon(auth.getAccessToken(), beacon.getId(), beacon);
+        requireNonNull(beacon);
+        requireNonNull(beacon.getId());
+        return resource.updateBeacon(accessToken(auth), beacon.getId(), beacon);
     }
 
     @Override
     public Beaconi13nCodeResponse getInstrumentationCode(Authentication auth, long beaconId) throws DspApiException {
-        return resource.getInstrumentationCode(auth.getAccessToken(), beaconId);
+        return resource.getInstrumentationCode(accessToken(auth), beaconId);
     }
 }

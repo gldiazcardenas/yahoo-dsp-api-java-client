@@ -8,6 +8,9 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.NativeListResou
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.NativeListService;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 /**
  * @author Gabriel Diaz, Sep 22th 2022.
  */
@@ -21,25 +24,25 @@ class NativeListServiceImpl implements NativeListService {
 
     @Override
     public NativeListResponse getNativeList(Authentication auth, long nativeListId) throws DspApiException {
-        return resource.getNativeList(auth.getAccessToken(), nativeListId);
+        return resource.getNativeList(accessToken(auth), nativeListId);
     }
 
     @Override
     public NativeListResponse createNativeList(Authentication auth, NativeList nativeList) throws DspApiException {
-        Preconditions.requireNonNull(nativeList);
-        return resource.createNativeList(auth.getAccessToken(), nativeList);
+        requireNonNull(nativeList);
+        return resource.createNativeList(accessToken(auth), nativeList);
     }
 
     @Override
     public NativeListResponse updateNativeList(Authentication auth, NativeList nativeList) throws DspApiException {
-        Preconditions.requireNonNull(nativeList);
-        Preconditions.requireNonNull(nativeList.getId());
-        return resource.updateNativeList(auth.getAccessToken(), nativeList.getId(), nativeList);
+        requireNonNull(nativeList);
+        requireNonNull(nativeList.getId());
+        return resource.updateNativeList(accessToken(auth), nativeList.getId(), nativeList);
     }
 
     @Override
     public NativeListsResponse queryNativeLists(Authentication auth, long accountId, String query) throws DspApiException {
-        return resource.queryNativeLists(auth.getAccessToken(), accountId, query);
+        return resource.queryNativeLists(accessToken(auth), accountId, query);
     }
 
 }

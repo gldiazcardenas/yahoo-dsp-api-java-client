@@ -11,6 +11,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.traffic.TargetingService
 
 import java.util.Optional;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 class TargetingServiceImpl implements TargetingService {
 
     private final TargetingResource resource;
@@ -21,9 +24,9 @@ class TargetingServiceImpl implements TargetingService {
 
     @Override
     public GeosResponse getGeos(Authentication auth, GeosFilter filter) throws DspApiException {
-        Preconditions.requireNonNull(filter);
-        Preconditions.requireNonNull(filter.getQuery());
-        return resource.getGeos(auth.getAccessToken(),
+        requireNonNull(filter);
+        requireNonNull(filter.getQuery());
+        return resource.getGeos(accessToken(auth),
                 filter.getQuery(),
                 filter.getCountryCode(),
                 filter.getSort(),
@@ -32,25 +35,25 @@ class TargetingServiceImpl implements TargetingService {
 
     @Override
     public GeosResponse getCountries(Authentication auth, String query) throws DspApiException {
-        return resource.getCountries(auth.getAccessToken(), query);
+        return resource.getCountries(accessToken(auth), query);
     }
 
     @Override
     public SegmentsResponse getAvailableSegments(Authentication auth, SegmentsFilter filter) throws DspApiException {
-        Preconditions.requireNonNull(filter);
-        Preconditions.requireNonNull(filter.getAccountId());
-        Preconditions.requireNonNull(filter.getQuery());
+        requireNonNull(filter);
+        requireNonNull(filter.getAccountId());
+        requireNonNull(filter.getQuery());
         return resource.getAvailableSegments(
-                auth.getAccessToken(),
-                filter.getAccountId(),
-                filter.getQuery(),
-                Optional.ofNullable(filter.getCountryCodes()).map(c -> String.join(",", c)).orElse(null),
-                filter.getLineId(),
-                filter.getLimit(),
-                filter.getPage(),
-                filter.getType(),
-                filter.getMinAudienceSize(),
-                filter.getMaxAudienceSize());
+            accessToken(auth),
+            filter.getAccountId(),
+            filter.getQuery(),
+            Optional.ofNullable(filter.getCountryCodes()).map(c -> String.join(",", c)).orElse(null),
+            filter.getLineId(),
+            filter.getLimit(),
+            filter.getPage(),
+            filter.getType(),
+            filter.getMinAudienceSize(),
+            filter.getMaxAudienceSize());
     }
 
 }

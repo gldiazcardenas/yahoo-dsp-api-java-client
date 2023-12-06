@@ -9,6 +9,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.BeaconsFilter;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.PixelService;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 /**
  * @author Gabriel Diaz, Sep 22th 2022.
  */
@@ -22,9 +25,9 @@ class PixelServiceImpl implements PixelService {
 
     @Override
     public PixelsResponse getPixels(Authentication auth, BeaconsFilter filter) throws DspApiException {
-        Preconditions.requireNonNull(filter);
-        Preconditions.requireNonNull(filter.getAccountId());
-        return resource.getPixels(auth.getAccessToken(),
+        requireNonNull(filter);
+        requireNonNull(filter.getAccountId());
+        return resource.getPixels(accessToken(auth),
                 filter.getAccountId(),
                 filter.getQuery(),
                 filter.getPage(),
@@ -35,12 +38,12 @@ class PixelServiceImpl implements PixelService {
 
     @Override
     public PixelResponse getPixel(Authentication auth, long pixelId, long accountId) throws DspApiException {
-        return resource.getPixel(auth.getAccessToken(), pixelId, accountId);
+        return resource.getPixel(accessToken(auth), pixelId, accountId);
     }
 
     @Override
     public PixelResponse createPixel(Authentication auth, Pixel pixel) throws DspApiException {
-        Preconditions.requireNonNull(pixel);
-        return resource.createPixel(auth.getAccessToken(), pixel);
+        requireNonNull(pixel);
+        return resource.createPixel(accessToken(auth), pixel);
     }
 }

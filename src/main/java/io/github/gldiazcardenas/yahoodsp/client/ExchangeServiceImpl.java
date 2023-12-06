@@ -7,6 +7,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.ExchangeService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.ExchangesFilter;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 /**
  * @author Gabriel Diaz, Sep 25th 2022.
  */
@@ -20,7 +23,8 @@ class ExchangeServiceImpl implements ExchangeService {
 
     @Override
     public ExchangesResponse getExchanges(Authentication auth, ExchangesFilter filter) throws DspApiException {
-        return resource.getExchanges(auth.getAccessToken(),
+        requireNonNull(filter);
+        return resource.getExchanges(accessToken(auth),
                 filter.getQuery(),
                 filter.getPage(),
                 filter.getLimit(),

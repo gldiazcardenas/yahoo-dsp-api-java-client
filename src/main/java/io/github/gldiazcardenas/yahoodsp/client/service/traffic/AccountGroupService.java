@@ -8,6 +8,10 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 
 public interface AccountGroupService {
 
+    default AccountGroupsResponse getAccountGroups(Authentication auth) throws DspApiException {
+        return getAccountGroups(auth, new AccountGroupsFilter());
+    }
+
     AccountGroupsResponse getAccountGroups(Authentication auth, AccountGroupsFilter filter) throws DspApiException;
 
     AccountGroupResponse getAccountGroup(Authentication auth, long accountGroupId) throws DspApiException;

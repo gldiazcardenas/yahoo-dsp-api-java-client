@@ -6,6 +6,8 @@ import io.github.gldiazcardenas.yahoodsp.client.resource.traffic.RateLimitResour
 import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.RateLimitService;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+
 public class RateLimitServiceImpl implements RateLimitService {
 
     private final RateLimitResource resource;
@@ -21,7 +23,7 @@ public class RateLimitServiceImpl implements RateLimitService {
 
     @Override
     public RateLimitResponse getTrafficLimit(Authentication auth) throws DspApiException {
-        return resource.getTrafficLimit(auth.getAccessToken());
+        return resource.getTrafficLimit(accessToken(auth));
     }
 
 }

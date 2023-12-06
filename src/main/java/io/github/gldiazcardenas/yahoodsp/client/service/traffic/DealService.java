@@ -11,6 +11,10 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
  */
 public interface DealService {
 
+    default DealsResponse getDeals(Authentication auth) throws DspApiException {
+        return getDeals(auth, new DealsFilter());
+    }
+
     DealsResponse getDeals(Authentication auth, DealsFilter filter) throws DspApiException;
 
     DealResponse getDeal(Authentication auth, long dealId) throws DspApiException;

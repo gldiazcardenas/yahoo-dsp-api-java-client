@@ -1,5 +1,7 @@
 package io.github.gldiazcardenas.yahoodsp.client;
 
+import io.github.gldiazcardenas.yahoodsp.client.model.Authentication;
+
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Objects;
@@ -70,6 +72,10 @@ final class Preconditions {
             throw new IllegalArgumentException("collection must not be empty");
         }
         return collection;
+    }
+
+    static String accessToken(Authentication auth) {
+        return auth == null ? null : auth.getAccessToken();
     }
 
 }

@@ -9,6 +9,9 @@ import io.github.gldiazcardenas.yahoodsp.client.service.DspApiException;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdService;
 import io.github.gldiazcardenas.yahoodsp.client.service.traffic.AdsFilter;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+
 class AdServiceImpl implements AdService {
 
     private final AdResource resource;
@@ -19,9 +22,9 @@ class AdServiceImpl implements AdService {
 
     @Override
     public AdsResponse getAds(Authentication auth, AdsFilter filter) throws DspApiException {
-        Preconditions.requireNonNull(filter);
-        Preconditions.requireNonNull(filter.getLineId());
-        return resource.getAds(auth.getAccessToken(),
+        requireNonNull(filter);
+        requireNonNull(filter.getLineId());
+        return resource.getAds(accessToken(auth),
                 filter.getLineId(),
                 filter.getQuery(),
                 filter.getPage(),
@@ -32,20 +35,20 @@ class AdServiceImpl implements AdService {
 
     @Override
     public AdResponse getAd(Authentication auth, long adId) throws DspApiException {
-        return resource.getAd(auth.getAccessToken(), adId);
+        return resource.getAd(accessToken(auth), adId);
     }
 
     @Override
     public AdResponse createAd(Authentication auth, Ad ad) throws DspApiException {
-        Preconditions.requireNonNull(ad);
-        Preconditions.requireNonNull(ad.getLineId());
-        return resource.createAd(auth.getAccessToken(), ad);
+        requireNonNull(ad);
+        requireNonNull(ad.getLineId());
+        return resource.createAd(accessToken(auth), ad);
     }
 
     @Override
     public AdResponse updateAd(Authentication auth, Ad ad) throws DspApiException {
-        Preconditions.requireNonNull(ad);
-        Preconditions.requireNonNull(ad.getId());
-        return resource.updateAd(auth.getAccessToken(), ad.getId(), ad);
+        requireNonNull(ad);
+        requireNonNull(ad.getId());
+        return resource.updateAd(accessToken(auth), ad.getId(), ad);
     }
 }

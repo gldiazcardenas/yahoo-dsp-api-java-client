@@ -11,6 +11,10 @@ import io.github.gldiazcardenas.yahoodsp.client.service.reporting.ExtReportingSe
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.accessToken;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNonNull;
+import static io.github.gldiazcardenas.yahoodsp.client.Preconditions.requireNotEmpty;
+
 class ExtReportingServiceImpl implements ExtReportingService {
 
     private final ExtReportingResource resource;
@@ -21,17 +25,20 @@ class ExtReportingServiceImpl implements ExtReportingService {
 
     @Override
     public ReportStatusResponse create(Authentication auth, ReportRequest request) throws DspApiException {
-        return resource.create(auth.getAccessToken(), request);
+        requireNonNull(request);
+        return resource.create(accessToken(auth), request);
     }
 
     @Override
     public ReportStatusResponse getStatus(Authentication auth, String customerReportId) throws DspApiException {
-        return resource.getStatus(auth.getAccessToken(), customerReportId);
+        requireNotEmpty(customerReportId);
+        return resource.getStatus(accessToken(auth), customerReportId);
     }
 
     @Override
     public ReportCobStatusResponse getCobStatus(Authentication auth, long advertiserId, LocalDate day) throws DspApiException {
-        return resource.getCobStatus(auth.getAccessToken(), advertiserId, DateTimeFormatter.ofPattern("yyyyMMdd").format(day));
+        requireNonNull(day);
+        return resource.getCobStatus(accessToken(auth), advertiserId, DateTimeFormatter.ofPattern("yyyyMMdd").format(day));
     }
 
 }
